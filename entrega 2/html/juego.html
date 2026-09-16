@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Peg Solitarie Spiderman</title>
+    <link rel="stylesheet" href="../css/juego.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
 </head>
 <body>
-
     <header>
 
         <div class="menu">
-            ☰
+            <i class="fa-solid fa-bars"></i>
         </div>
-
-        <img src="img/logo.png" class="logo" alt="Game World">
-
+        <div class="logo">
+            <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
+            <h2>Game World</h2> 
+        </div>
+        
         <div class="buscador">
-            🔍
+            <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar juego...">
         </div>
 
         <div class="iconos">
             <div class="icono">$</div>
-            <div class="icono">?</div>
-            <div class="icono">⚙</div>
+            <div class="icono"><i class="fa-regular fa-circle-question"></i></div>
+            <div class="icono"><i class="fa-solid fa-gear"></i></div>
             <div class="icono perfil">A</div>
         </div>
 
@@ -33,30 +44,29 @@
 
         <div class="breadcrumb">
             <span>Juegos</span>
-            <span>›</span>
+            <i class="fa-solid fa-chevron-right"></i>
             <span>Mesa</span>
-            <span>›</span>
-            <span>Peg Solitaire: Spiderman</span>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="breadcrumb-active">Peg Solitaire: Spiderman</span>
         </div>
 
         <div class="contenido">
 
             <section class="principal">
 
-                <div class="volver">
-                    <button> ← Volver al inicio </button>
-                </div>
                 <div class="videojuego">
-                    <img src="" alt="Imagen del juego">
+                    <img src="../img/juego-ejecutando.png" alt="Imagen del juego">
                 </div>
-
-                <div class="video">
-
-                    <span class="video-placeholder">
-                        Video del juego
-                    </span>
-
+                <div class="barra-juego">
+                    <button><i class="fa-solid fa-clipboard-question"></i></button>
+                    <button><i class="fa-solid fa-book"></i></button>
+                    <button><i class="fa-solid fa-comments"></i></button>
+                    <h3>Peg Solitarie: Spiderman</h3>
+                    <button><i class="fa-regular fa-heart"></i></button>
+                    <button><i class="fa-solid fa-share-nodes"></i></button>
+                    <button><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
                 </div>
+                
 
                 <section class="descripcion">
 
@@ -68,14 +78,18 @@
                     <p>
                         En Spider-Man Peg Solitaire, tendrás que mover las piezas por el tablero siguiendo las reglas del clásico
                         Peg Solitaire, intentando eliminar todas las piezas hasta dejar solamente una.
-                    </p>
-                    <p>
                         Cada movimiento requiere pensar con anticipación y encontrar la mejor combinación para superar el nivel.
                     </p>
                     <p>
                         ¿Podrás resolver el tablero sin quedar atrapado? ¡Demostrá tus habilidades y completá el desafío!
                     </p>
+                    <div class="video">
 
+                        <span class="video-placeholder">
+                            Video del juego
+                        </span>
+
+                    </div>
                 </section>
 
                 <section class="comentarios">
@@ -176,31 +190,48 @@
 
 
             <aside class="sidebar">
-
+                <div class="volver">
+                    <button><i class="fa-solid fa-arrow-left-long"></i> Volver al inicio </button>
+                </div>
                 <div class="card-juego">
 
-                    <img src="img/uno.jpg" alt="UNO">
+                    <img src="" alt="UNO">
 
                 </div>            
                 <div class="card-juego">
 
-                    <img src="img/reversi.jpg" alt="Reversi" >
+                    <img src="" alt="Reversi" >
 
                 </div>
                 <div class="card-juego">
 
-                    <img src="img/domino.jpg" alt="Dominoes" >
+                    <img src="" alt="Dominoes" >
 
                 </div>
                 <div class="card-juego">
 
-                    <img src="img/pacman.jpg" alt="Pac-Man">
+                    <img src="" alt="Pac-Man">
+
+                </div>
+                <div class="card-juego">
+
+                    <img src="" alt="Pac-Man">
+
+                </div>
+                <div class="card-juego">
+
+                    <img src="" alt="Pac-Man">
+
+                </div>
+                <div class="card-juego">
+
+                    <img src="" alt="Pac-Man">
 
                 </div>
                 <div class="ver-mas">
 
                     <button>
-                        Ver más
+                        Ver más<i class="fa-solid fa-arrow-right-long"></i>
                     </button>
 
                 </div>

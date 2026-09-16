@@ -1,0 +1,265 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #040F1C;
+    color:#fff;
+    font-family: Asap Condensed;
+}
+header {
+    height: 72px;
+    border-bottom: 2px solid #f7bd25;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    justify-content: space-between;
+}
+
+.menu {
+    font-size: 32px;
+    color: #f7bd25;
+    cursor: pointer;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+.logo-img {
+    width: 65px;
+}
+
+.buscador {
+    width: 255px;
+    height: 40px;
+    border: 1px solid #f7bd25;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+}
+
+.buscador input {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+    margin-left: 8px;
+}
+
+.iconos {
+    display: flex;
+    gap: 10px;
+}
+
+.icono {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #f7bd25;
+    color: #020d19;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.perfil {
+    background-color: #1648c4;
+    color: white;
+}
+.contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 32px auto;
+}
+p{
+    
+}
+h1, h2, h3{
+    font-family: Orbitron;
+}
+.breadcrumb{
+    font-family: Orbitron;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.breadcrumb-active{
+    color: #E4A623;
+}
+.contenido{
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+}
+.contenido img{
+    width: 900px;
+    margin-top: 20px;
+}
+.barra-juego{
+    background-color: #FFC035;
+    height: 50px;
+    align-items: center;
+    display: flex;
+}
+.barra-juego button{
+    color: #2B5EEB;
+    background-color: #040F1C;
+    border-radius: 50%;
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+}
+
+.volver {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.volver button {
+    background-color: #FFC035;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.descripcion {
+    margin-bottom: 45px;
+}
+
+.titulo-seccion {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.descripcion p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.comentarios {
+    margin-bottom: 60px;
+}
+
+.caja-comentario {
+    border: 2px solid #f7bd25;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 25px;
+    background-color: #071421;
+}
+
+.caja-comentario textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.caja-comentario textarea::placeholder {
+    color: #aaa;
+}
+
+.comentar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.comentar button {
+    background-color: #f7bd25;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.comentario {
+    border-bottom: 1px solid #263441;
+    padding: 20px 5px;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1648c4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.usuario-info strong {
+    display: block;
+}
+
+.usuario-info small {
+    color: #888;
+}
+
+.comentario p {
+    line-height: 1.5;
+    color: #ddd;
+}
+
+.sidebar {
+    padding-top: 52px;
+}
+
+.card-juego {
+    width: 100%;
+    height: 140px;
+    border: 2px solid #f7bd25;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #071421;
+}
+
+.card-juego img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ver-mas {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.ver-mas button {
+    width: 100%;
+    background-color: #f7bd25;
+    color: #020d19;
+    border: none;
+    border-radius: 25px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
