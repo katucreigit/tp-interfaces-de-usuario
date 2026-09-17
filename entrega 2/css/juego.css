@@ -22,12 +22,9 @@ header {
     color: #f7bd25;
     cursor: pointer;
 }
-.logo{
-    display: flex;
-    align-items: center;
-}
+
 .logo-img {
-    width: 65px;
+    width: 90px;
 }
 
 .buscador {
@@ -53,11 +50,12 @@ header {
 .iconos {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .icono {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #f7bd25;
     color: #020d19;
@@ -70,6 +68,8 @@ header {
 .perfil {
     background-color: #1648c4;
     color: white;
+    width: 45px;
+    height: 45px;
 }
 .contenedor {
     width: 90%;
@@ -87,6 +87,7 @@ h1, h2, h3{
     display: flex;
     gap: 20px;
     align-items: center;
+    font-weight: bold;
 }
 .breadcrumb-active{
     color: #E4A623;
@@ -102,20 +103,23 @@ h1, h2, h3{
 }
 .barra-juego{
     background-color: #FFC035;
-    height: 50px;
+    height: 60px;
     align-items: center;
     display: flex;
+    justify-content: center;
 }
 .barra-juego button{
     color: #2B5EEB;
     background-color: #040F1C;
     border-radius: 50%;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     margin: 2px;
 }
-
+.barra-juego h3{
+   color:#040F1C;
+}
 .volver {
     display: flex;
     justify-content: flex-end;
@@ -133,7 +137,7 @@ h1, h2, h3{
 }
 
 .descripcion {
-    margin-bottom: 45px;
+    margin-top: 40px;
 }
 
 .titulo-seccion {
@@ -143,37 +147,47 @@ h1, h2, h3{
 
 .descripcion p {
     font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 8px;
+    line-height: 1.4;
+    margin-bottom: 5px;
 }
 
+.video{
+    margin-top: 40px;
+}
+
+hr{
+    border: none; 
+    height: 3px; 
+    background-color: #f7bd25; 
+    width: 50%;
+    margin: 35px;
+}
 .comentarios {
-    margin-bottom: 60px;
+    margin-top: 20px;
 }
 
-.caja-comentario {
+.caja-comentario, .comentario {
     border: 2px solid #f7bd25;
     border-radius: 12px;
     padding: 15px;
-    margin-bottom: 25px;
+    margin: 25px 0;
     background-color: #071421;
+    width: 800px;
+    height: 140px;
 }
 
 .caja-comentario textarea {
     width: 100%;
-    min-height: 80px;
+    min-height: 60px;
     resize: none;
     background: transparent;
     border: none;
     outline: none;
     color: white;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-family:  Asap Condensed;
 }
 
-.caja-comentario textarea::placeholder {
-    color: #aaa;
-}
 
 .comentar {
     display: flex;
@@ -182,7 +196,8 @@ h1, h2, h3{
 }
 
 .comentar button {
-    background-color: #f7bd25;
+    background-color: #2B5EEB;
+    color: #fff;
     border: none;
     border-radius: 20px;
     padding: 9px 25px;
@@ -190,15 +205,11 @@ h1, h2, h3{
     cursor: pointer;
 }
 
-.comentario {
-    border-bottom: 1px solid #263441;
-    padding: 20px 5px;
-}
 
 .usuario {
     display: flex;
     align-items: center;
-    gap: 12px;
+
     margin-bottom: 10px;
 }
 
@@ -213,26 +224,26 @@ h1, h2, h3{
     font-weight: bold;
 }
 
-.usuario-info strong {
-    display: block;
-}
+.usuario-info p {
+    font-family: Asap Condensed;
 
-.usuario-info small {
-    color: #888;
 }
 
 .comentario p {
     line-height: 1.5;
     color: #ddd;
+    margin-left: 25px;
 }
 
 .sidebar {
-    padding-top: 52px;
+
+    align-items: center;
+    justify-content: center;
 }
 
 .card-juego {
-    width: 100%;
-    height: 140px;
+    width: 280px;
+    height: 160px;
     border: 2px solid #f7bd25;
     border-radius: 15px;
     overflow: hidden;
