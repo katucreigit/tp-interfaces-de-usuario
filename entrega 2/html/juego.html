@@ -18,10 +18,13 @@
 <body>
     <header>
 
-        <div class="menu">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <div class="menu-logo">
+	    <div class="menu">
+	        <i class="fa-solid fa-bars"></i>
+    	    </div>
             <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
+        </div>
+            
         
         <div class="buscador">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -29,9 +32,9 @@
         </div>
 
         <div class="iconos">
-            <div class="icono">$</div>
-            <div class="icono"><i class="fa-regular fa-circle-question"></i></div>
-            <div class="icono"><i class="fa-solid fa-gear"></i></div>
+            <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
+            <div class="icono tooltip-sec" data-tooltip="Ajustes de pantalla"><i class="fa-solid fa-gear"></i></div>
             <div class="icono perfil">A</div>
         </div>
 
@@ -55,13 +58,19 @@
                     <img src="../img/juego-ejecutando.png" alt="Imagen del juego">
                 </div>
                 <div class="barra-juego">
-                    <button><i class="fa-solid fa-clipboard-question"></i></button>
-                    <button><i class="fa-solid fa-book"></i></button>
-                    <button><i class="fa-solid fa-comments"></i></button>
+                    <div class="btn-izquierdos">
+                    <button class="tooltip-acento" data-tooltip="Instrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
+                    <button class="tooltip-acento" data-tooltip="Descripción"><i class="fa-solid fa-book"></i></button>
+                    <button class="tooltip-acento" data-tooltip="Comentarios"><i class="fa-solid fa-comments"></i></button>
+                    </div>
                     <h3>Peg Solitarie: Spiderman</h3>
-                    <button><i class="fa-regular fa-heart"></i></button>
-                    <button><i class="fa-solid fa-share-nodes"></i></button>
-                    <button><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+                    <div class="btn-derechos">
+		    <button class="favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
+			    <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <button class="tooltip-acento" data-tooltip="Compartir"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="tooltip-acento" data-tooltip="Agrandar pantalla"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+                    </div>
                 </div>
 
                 <section class="descripcion">
@@ -82,9 +91,9 @@
                     <div class="video">
 
                         <span class="video-placeholder">
-                            Video del juego
+                            <img src="../img/juego-ejecutando.png" alt="Video del juego">
                         </span>
-
+			
                     </div>
                 </section>
                 <hr>
@@ -119,14 +128,18 @@
 				<p>Martina</p>	
 
                             </div>
+                            
 
                         </div>
 
-                        <p>
+                        <p class="comentario-texto">
                             Está buenísimo el juego, me costó bastante
                             encontrar la solución al principio.
                         </p>
-
+			<div class="likes">
+                            	<i class="fa-regular fa-thumbs-up"></i>
+                            	<i class="fa-regular fa-thumbs-down"></i>
+                            </div>
                     </div>
 
                     <div class="comentario">
@@ -144,11 +157,14 @@
 
                         </div>
 
-                        <p>
+                        <p class="comentario-texto">
                             Muy entretenido. La temática de Spider-Man
                             queda genial.
                         </p>
-
+<div class="likes">
+                            	<i class="fa-regular fa-thumbs-up"></i>
+                            	<i class="fa-regular fa-thumbs-down"></i>
+                            </div>
                     </div>
 
                     <div class="comentario">
@@ -167,11 +183,14 @@
 
                         </div>
 
-                        <p>
+                        <p class="comentario-texto">
                             Me gustó, aunque algunos niveles son bastante
                             difíciles.
                         </p>
-
+<div class="likes">
+                            	<i class="fa-regular fa-thumbs-up"></i>
+                            	<i class="fa-regular fa-thumbs-down"></i>
+                            </div>
                     </div>
 
                 </section>
@@ -230,5 +249,87 @@
 
         </div>
     </main>
+    <footer class="footer">
+
+    <div class="footer-banner">
+        <h2>¿LISTO PARA JUGAR?</h2>
+        <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
+
+        <button class="btn-crear">Crear cuenta</button>
+
+        <p class="iniciar-sesion">¿Ya tenés una? Iniciar sesión</p>
+    </div>
+
+    <div class="footer-contenido">
+
+        <div class="footer-logo">
+            <img src="../img/GameWorld-logo.png" alt="Game World">
+        </div>
+
+        <div class="footer-columna">
+            <h3>Categorías</h3>
+
+            <a href="#">Acción</a>
+            <a href="#">Autos</a>
+            <a href="#">Aventuras</a>
+            <a href="#">Deportes</a>
+            <a href="#">Disparos</a>
+            <a href="#">Mesa</a>
+            <a href="#">Terror</a>
+            <a href="#">Simulación</a>
+            <a href="#">Cocina</a>
+            <a href="#">Multijugador</a>
+        </div>
+
+        <div class="footer-columna">
+            <h3>Explorar</h3>
+
+            <a href="#">Home</a>
+            <a href="#">Juegos populares</a>
+            <a href="#">Juegos pagos</a>
+            <a href="#">Juegos gratuitos</a>
+            <a href="#">Mi perfil</a>
+            <a href="#">Mi biblioteca</a>
+            <a href="#">Mis logros</a>
+            <a href="#">Configuración</a>
+        </div>
+
+        <div class="footer-columna footer-social">
+
+            <h3>Seguinos</h3>
+
+            <a href="#"><i class="fa-brands fa-instagram"></i>@gameworld_</a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i> @gameworld</a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i> @gameworldok</a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i> @gameworld</a>
+            <a href="#"><i class="fa-brands fa-youtube"></i> Game World Gameplays</a>
+
+            <h3 class="titulo-ayuda">Ayuda</h3>
+
+            <a href="#">Soporte</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contacto</a>
+
+        </div>
+
+    </div>
+    <div class="footer-inferior">
+
+        <p>© 2026 Game World</p>
+
+        <div class="footer-legales">
+            <a href="#">Privacidad</a>
+            <span>·</span>
+            <a href="#">Términos y condiciones</a>
+            <span>·</span>
+            <a href="#">Política de cookies</a>
+            <span>·</span>
+            <a href="#">Accesibilidad</a>
+        </div>
+
+    </div>
+
+</footer>
+<script src="../js/juego.js"></script>
 </body>
 </html>

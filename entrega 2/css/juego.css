@@ -11,10 +11,17 @@ body{
 header {
     height: 72px;
     border-bottom: 2px solid #f7bd25;
+    background-color: #030912;
     display: flex;
     align-items: center;
     padding: 0 32px;
     justify-content: space-between;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .menu {
@@ -28,9 +35,10 @@ header {
 }
 
 .buscador {
-    width: 255px;
+    width: 270px;
     height: 40px;
-    border: 1px solid #f7bd25;
+    background-color: #020811;
+    border: 1px solid #F0B228;
     border-radius: 25px;
     display: flex;
     align-items: center;
@@ -42,9 +50,19 @@ header {
     background: none;
     border: none;
     outline: none;
-    color: white;
+    color: #fff;
     width: 100%;
     margin-left: 8px;
+}
+
+.buscador input::placeholder {
+    color: white;
+}
+.buscador:focus-within{
+   border: 2px solid #F0B228;
+}
+.buscador i{
+   font-size: 12px;
 }
 
 .iconos {
@@ -58,15 +76,20 @@ header {
     height: 40px;
     border-radius: 50%;
     background-color: #f7bd25;
-    color: #020d19;
+    color: #040F1C;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
 }
 
+.iconos i{
+    font-size: 20px;
+}
+
 .perfil {
-    background-color: #1648c4;
+    font-family: Orbitron;
+    background-color: #0A3CC8;
     color: white;
     width: 45px;
     height: 45px;
@@ -76,13 +99,14 @@ header {
     max-width: 1200px;
     margin: 32px auto;
 }
-p{
-    
+button{
+    font-family: Asap Condensed;
 }
 h1, h2, h3{
     font-family: Orbitron;
 }
 .breadcrumb{
+    margin-top: 50px;
     font-family: Orbitron;
     display: flex;
     gap: 20px;
@@ -100,40 +124,40 @@ h1, h2, h3{
 .contenido img{
     width: 900px;
     margin-top: 20px;
+    display: block;
 }
-.barra-juego{
+.barra-juego {
     background-color: #FFC035;
     height: 60px;
-    align-items: center;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin: 0;
 }
-.barra-juego button{
+
+.btn-izquierdos,
+.btn-derechos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-juego button {
     color: #2B5EEB;
     background-color: #040F1C;
     border-radius: 50%;
     border: none;
     width: 45px;
     height: 45px;
-    margin: 2px;
 }
-.barra-juego h3{
-   color:#040F1C;
+.barra-juego i{
+   font-size: 20px;
 }
-.volver {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-.volver button {
-    background-color: #FFC035;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 35px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+  
+.barra-juego h3 {
+    color: #040F1C;
+    margin: 0;
 }
 
 .descripcion {
@@ -151,27 +175,33 @@ h1, h2, h3{
     margin-bottom: 5px;
 }
 
-.video{
-    margin-top: 40px;
+.video {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 
-hr{
-    border: none; 
-    height: 3px; 
-    background-color: #f7bd25; 
-    width: 50%;
-    margin: 35px;
+.video img {
+    width: 700px;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background-color: #FFDB8D;
+    width: 70%;
+    margin: 35px auto;
 }
 .comentarios {
     margin-top: 20px;
 }
 
 .caja-comentario, .comentario {
-    border: 2px solid #f7bd25;
-    border-radius: 12px;
+    border: 2px solid #FFC035;
+    border-radius: 20px;
     padding: 15px;
     margin: 25px 0;
-    background-color: #071421;
+    background-color: #020811;
     width: 800px;
     height: 140px;
 }
@@ -183,9 +213,10 @@ hr{
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: #fff;
     font-size: 16px;
     font-family:  Asap Condensed;
+    margin-left: 10px; 
 }
 
 
@@ -202,14 +233,23 @@ hr{
     border-radius: 20px;
     padding: 9px 25px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
+}
+
+.comentar button:hover{
+    background-color: #668DF9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.comentar button:active{
+    background-color: #1B4A81;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 
 .usuario {
     display: flex;
     align-items: center;
-
     margin-bottom: 10px;
 }
 
@@ -217,34 +257,109 @@ hr{
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #1648c4;
+    background-color: #0A3CC8;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    font-size: 14px;
+    font-family: Orbitron;
+    font-size: 16px;
+    margin-left: 10px;
 }
 
 .usuario-info p {
-    font-family: Asap Condensed;
-
+    font-family: Orbitron;
+    font-size: 16px;
+    font-weight: bold;   
+    margin-left: 10px; 
 }
 
-.comentario p {
+.comentario-texto {
     line-height: 1.5;
     color: #ddd;
-    margin-left: 25px;
+    font-size: 16px;
+    margin-left: 60px;
+}
+.likes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.likes i {
+    font-size: 20px;
+    color: #FFC035;
+}
+
+.tooltip-acento, .tooltip-sec {
+    position: relative;
+}
+
+.tooltip-acento::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2B5EEB;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.tooltip-acento:hover::after, .tooltip-sec:hover::after{
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-sec{
+
 }
 
 .sidebar {
-
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
+.volver {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    margin-top: -30px;
 }
 
+.volver button, .ver-mas button {
+    background-color: #FFC035;
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    width: 220px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.volver button:hover, .ver-mas button:hover{
+    background-color: #FFDB8D;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.volver button:active, .ver-mas button:active{
+    background-color: #E4A623;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
 .card-juego {
     width: 280px;
     height: 160px;
-    border: 2px solid #f7bd25;
+    border: 2px solid #E4A623;
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 12px;
@@ -260,17 +375,148 @@ hr{
 .ver-mas {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-.ver-mas button {
+.footer {
     width: 100%;
-    background-color: #f7bd25;
-    color: #020d19;
+    background-color: #020810;
+    color: white;
+    border-top: 1px solid #FFEDC4;
+}
+
+.footer-banner {
+    width: 80%;
+    height: 140px;
+    margin: 27px auto 16px;
+    padding: 8px 20px;
+    background-color: #f7b51f;
+    border: 3px solid #FFCA55;
+    border-radius: 16px;
+    color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-banner h2 {
+    margin: 2px;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.footer-banner p {
+    margin: 4px;
+    font-size: 14px;
+}
+
+.btn-crear {
+    padding: 7px 16px;
+    margin: 4px 0;
+    background-color: #1648c4;
+    color: #fff;
     border: none;
     border-radius: 25px;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
 }
+.btn-crear:hover{
+    background-color: #668DF9;
+}
+.btn-crear:focus{
+    background-color: #2B5EEB;
+
+    outline: 1px solid #91AEFF;
+}
+.btn-crear:active{
+    background-color: #0A3CC8;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+.iniciar-sesion {
+    color: #111111;
+    font-size: 10px;
+}
+
+.footer-contenido {
+    width: 80%;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: 1.25fr 1.25fr 1.25fr 1.35fr;
+    column-gap: 35px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo img {
+    width: 250px;
+    height: auto;
+}
+
+.footer-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-columna h3 {
+    margin: 20px 0px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.footer-columna a {
+    margin-bottom: 7px;
+    color: #eeeeee;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-social a i {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #FFC035;
+    margin-right: 5px;
+}
+
+
+.footer-inferior {
+    width: 100%;
+    height: 50px;
+    padding: 0 27px;
+    box-sizing: border-box;
+    border-top: 1px solid #FFEDC4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-inferior p {
+    margin: 0;
+    font-size: 12px;
+    color: #eeeeee;
+}
+
+.footer-legales {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.footer-legales a,
+.footer-legales span {
+    font-size: 12px;
+    color: #eeeeee;
+    text-decoration: none;
+}
+
