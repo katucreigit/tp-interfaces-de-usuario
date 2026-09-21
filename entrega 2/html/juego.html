@@ -53,10 +53,26 @@
         <div class="contenido">
 
             <section class="principal">
+		
+		<div class="pantalla-carga" id="pantallaCarga">
 
-                <div class="videojuego">
-                    <img src="../img/juego-ejecutando.png" alt="Imagen del juego">
-                </div>
+		    <img src="../img/peg-solitarie.png" alt="Imagen del juego">
+
+		    <div class="loading">
+			    <div class="contenedor-carga">
+				<span id="porcentaje">0%</span>
+
+				<div class="barra">
+				    <div class="progreso"></div>
+				</div>
+			    </div>
+		    </div>
+
+		</div>
+		<div class="pantalla-final" id="pantallaFinal">
+		    <img src="../img/juego-ejecutando.png" alt="Juego">
+		</div>
+
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
                     <button class="tooltip-acento" data-tooltip="Instrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
@@ -203,10 +219,19 @@
                     <button><i class="fa-solid fa-arrow-left-long"></i> Volver al inicio </button>
                 </div>
                 <div class="card-juego">
+		    <img src="img/spiderman.jpg" alt="Spider-Man">
 
-                    <img src="" alt="UNO">
+		    <div class="overlay">
+			<h3>Spider-Man</h3>
 
-                </div>            
+			<button class="btn-jugar">Jugar</button>
+
+			<button class="favorito">
+			    <span>Añadir a favoritos</span>
+ 			    <i class="fa-regular fa-heart"></i>
+			</button>
+		    </div>
+		</div>           
                 <div class="card-juego">
 
                     <img src="" alt="Reversi" >

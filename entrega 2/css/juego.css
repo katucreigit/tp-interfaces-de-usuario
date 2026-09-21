@@ -126,6 +126,78 @@ h1, h2, h3{
     margin-top: 20px;
     display: block;
 }
+.pantalla-carga,
+.pantalla-final {
+    width: 100%;
+
+}
+
+.pantalla-carga {
+    position: relative;
+}
+
+.pantalla-carga img,
+.pantalla-final img {
+    width: 900px;
+    margin-top: 20px;
+    display: block;
+}
+.pantalla-carga img {
+    filter: blur(3px) brightness(0.45);
+
+}
+
+.pantalla-final {
+    display: none;
+}
+
+
+.loading {
+    width: 800px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contenedor-carga {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contenedor-carga span {
+    width: 45px;
+    text-align: right;
+    font-family: Orbitron;
+}
+
+.barra {
+    flex: 1;
+    width: 800px;
+    height: 15px;
+    background-color: #FFEDC4;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progreso {
+    width: 0%;
+    height: 100%;
+    background-color: #FFC035;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.pantalla-carga {
+    position: relative;
+}
+
+.loading {
+    position: absolute;
+}
 .barra-juego {
     background-color: #FFC035;
     height: 60px;
@@ -300,7 +372,7 @@ hr {
 .tooltip-acento::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 120%;
+    bottom: calc(120% + 7px);
     left: 50%;
     transform: translateX(-50%);
     background-color: #2B5EEB;
@@ -315,13 +387,54 @@ hr {
     white-space: nowrap;
 }
 
-.tooltip-acento:hover::after, .tooltip-sec:hover::after{
-    opacity: 1;
-    visibility: visible;
+.tooltip-acento::before {
+    content: "";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #2B5EEB;
+    opacity: 0;
+    visibility: hidden;
 }
 
-.tooltip-sec{
+.tooltip-sec::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(120% + 7px);
+    left: 50%;
+    transform: translateX(-50%);   
+    background-color: #F0B228;
+    color: #020811;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;   
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
 
+.tooltip-sec::before {
+    content: "";
+    position: absolute;
+    top: calc(120% + 1px);
+    left: 50%;
+    transform: translateX(-50%);    
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #F0B228;   
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tooltip-sec:hover::before, .tooltip-sec:hover::after,
+.tooltip-acento:hover::before, .tooltip-acento:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
 .sidebar {
@@ -357,6 +470,7 @@ hr {
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 .card-juego {
+    position: relative;
     width: 280px;
     height: 160px;
     border: 2px solid #E4A623;
@@ -370,8 +484,77 @@ hr {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: filter 0.3s ease, transform 0.3s ease;
 }
 
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-juego:hover img {
+    filter: blur(3px) brightness(0.5);
+    transform: scale(1.03);
+}
+
+.card-juego:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h3 {
+    color: white;
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.btn-jugar {
+    background-color: #F0B228;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.btn-crear:hover{
+    background-color: #668DF9;
+}
+.btn-crear:focus{
+    background-color: #2B5EEB;
+
+    outline: 1px solid #91AEFF;
+}
+.btn-crear:active{
+    background-color: #0A3CC8;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.favorito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.favorito i {
+    font-size: 14px;
+}
 .ver-mas {
     display: flex;
     justify-content: center;
