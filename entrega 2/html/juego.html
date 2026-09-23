@@ -34,8 +34,68 @@
         <div class="iconos">
             <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
             <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
-            <div class="icono tooltip-sec" data-tooltip="Ajustes de pantalla"><i class="fa-solid fa-gear"></i></div>
-            <div class="icono perfil">A</div>
+
+            <div class="icono ajustes tooltip-sec" data-tooltip="Ajustes de pantalla" id="boton-ajustes">
+			<i class="fa-solid fa-gear"></i>
+		    <div class="menu-ajustes">
+
+			<div class="opcion-ajuste">
+			    <i class="fa-solid fa-globe"></i>
+
+			    <div class="texto-ajuste">
+				<span>Idioma</span>
+			    </div>
+			</div>
+
+			<div class="opcion-ajuste">
+			    <i class="fa-solid fa-palette"></i>
+
+			    <div class="texto-ajuste">
+				<span>Tema</span>
+			    </div>
+
+			   <label class="switch">
+			    <input type="checkbox">
+			    <span class="slider">
+				<i class="fa-regular fa-moon icono-luna"></i>
+				<i class="fa-regular fa-sun icono-sol"></i>
+			    </span>
+			</label>
+			</div>
+
+		    </div>
+		</div>
+            <div class="icono perfil">A
+		    <div class="menu-perfil">
+
+		<a href="#">
+		    <i class="fa-regular fa-user"></i>
+		    <span>Mi perfil</span>
+		</a>
+		<a href="#">
+		    <i class="fa-regular fa-bookmark"></i>
+		    <span>Mi biblioteca</span>
+		</a>
+		<a href="#">
+		    <i class="fa-solid fa-trophy"></i>
+		    <span>Mis logros</span>
+		</a>
+
+		<a href="#">
+		    <i class="fa-solid fa-screwdriver-wrench"></i>
+		    <span>Configuración</span>
+		</a>
+
+		<div class="separador-perfil"></div>
+
+		<a href="#" class="cerrar-sesion">
+		    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+		    <span>Cerrar sesión</span>
+		</a>
+
+	    </div>
+            </div>
+         
         </div>
 
     </header>
@@ -75,21 +135,21 @@
 
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
-                    <button class="tooltip-acento" data-tooltip="Instrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
-                    <button class="tooltip-acento" data-tooltip="Descripción"><i class="fa-solid fa-book"></i></button>
-                    <button class="tooltip-acento" data-tooltip="Comentarios"><i class="fa-solid fa-comments"></i></button>
+                    <button class="btn-barra tooltip-acento" data-tooltip="Instrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
+                    <a href="#descripcion" class="btn-barra tooltip-acento" data-tooltip="Descripción"><i class="fa-solid fa-book"></i></a>
+                    <a href="#comentarios" class="btn-barra tooltip-acento" data-tooltip="Comentarios"><i class="fa-solid fa-comments"></i></a>
                     </div>
                     <h3>Peg Solitarie: Spiderman</h3>
                     <div class="btn-derechos">
-		    <button class="favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
+		    <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
 			    <i class="fa-regular fa-heart"></i>
                     </button>
-                    <button class="tooltip-acento" data-tooltip="Compartir"><i class="fa-solid fa-share-nodes"></i></button>
-                    <button class="tooltip-acento" data-tooltip="Agrandar pantalla"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+                    <button class="btn-barra tooltip-acento" data-tooltip="Compartir"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-barra tooltip-acento" data-tooltip="Agrandar pantalla"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
                     </div>
                 </div>
 
-                <section class="descripcion">
+                <section class="descripcion" id="descripcion">
 
                     <h2 class="titulo-seccion">
                         Descripción
@@ -113,7 +173,7 @@
                     </div>
                 </section>
                 <hr>
-                <section class="comentarios">
+                <section class="comentarios" id="comentarios">
 
                     <h2 class="titulo-seccion"> Comentarios </h2>
 
@@ -218,50 +278,8 @@
                 <div class="volver">
                     <button><i class="fa-solid fa-arrow-left-long"></i> Volver al inicio </button>
                 </div>
-                <div class="card-juego">
-		    <img src="img/spiderman.jpg" alt="Spider-Man">
-
-		    <div class="overlay">
-			<h3>Spider-Man</h3>
-
-			<button class="btn-jugar">Jugar</button>
-
-			<button class="favorito">
-			    <span>Añadir a favoritos</span>
- 			    <i class="fa-regular fa-heart"></i>
-			</button>
-		    </div>
-		</div>           
-                <div class="card-juego">
-
-                    <img src="" alt="Reversi" >
-
-                </div>
-                <div class="card-juego">
-
-                    <img src="" alt="Dominoes" >
-
-                </div>
-                <div class="card-juego">
-
-                    <img src="" alt="Pac-Man">
-
-                </div>
-                <div class="card-juego">
-
-                    <img src="" alt="Pac-Man">
-
-                </div>
-                <div class="card-juego">
-
-                    <img src="" alt="Pac-Man">
-
-                </div>
-                <div class="card-juego">
-
-                    <img src="" alt="Pac-Man">
-
-                </div>
+                      
+                <div id="contenedor-juegos"></div>
                 <div class="ver-mas">
 
                     <button>

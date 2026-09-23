@@ -93,7 +93,221 @@ header {
     color: white;
     width: 45px;
     height: 45px;
+    position: relative;
+    cursor: pointer;
 }
+
+
+.menu-perfil {
+    font-family: Asap Condensed;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 200px;
+    background-color: #020811;
+    border: 1px solid #18212b;
+    border-radius: 10px;
+    padding: 4px 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.menu-perfil::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+
+.perfil:hover .menu-perfil {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-perfil a {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    padding: 0 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+.menu-perfil a i {
+    width: 25px;
+    margin-right: 10px;
+    color: #FFC035;
+    text-align: center;
+    font-size: 16px;
+}
+
+.menu-perfil a:hover {
+    background-color: #071421;
+}
+
+.separador-perfil {
+    height: 1px;
+    background-color: #F0B228;
+    margin: 6px 12px;
+}
+
+.ajustes {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-ajustes {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 200px;
+    background-color: #020811;
+    border: 1px solid #18212b;
+    border-radius: 10px;
+    padding: 6px 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.menu-ajustes.abierto {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-ajustes::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+
+.opcion-ajuste {
+    display: flex;
+    align-items: center;
+    min-height: 55px;
+    padding: 8px 15px;
+    box-sizing: border-box;
+}
+
+
+.opcion-ajuste > i {
+    width: 25px;
+    margin-right: 10px;
+    color: #FFC035;
+    font-size: 16px;
+    text-align: center;
+}
+
+.texto-ajuste {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.texto-ajuste span {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.opcion-ajuste:hover {
+    background-color: #071421;
+}
+
+.switch {
+    position: relative;
+    width: 45px;
+    height: 22px;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background-color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background-color: #040F1C;
+    border-radius: 50%;
+    transition: 0.2s;
+    z-index: 2;
+}
+
+.icono-luna {
+    position: absolute;
+    left: 22px;
+    top: 2px;
+    font-size: 6px;
+    color: #040F1C;
+    z-index: 3;
+    transition: 0.2s;
+}
+
+.icono-sol {
+    position: absolute;
+    right: 22px;
+    top: 2px;
+    font-size: 6px;
+    color: #fff;
+    z-index: 3;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+    background-color: #020811;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(20px);
+        background-color: #fff;
+}
+
+
+.switch input:checked + .slider .icono-luna {
+    opacity: 0;
+}
+
+
+.switch input:checked + .slider .icono-sol {
+    opacity: 1;
+}
+
+
 .contenedor {
     width: 90%;
     max-width: 1200px;
@@ -215,16 +429,22 @@ h1, h2, h3{
     gap: 10px;
 }
 
-.barra-juego button {
+.btn-barra {
     color: #2B5EEB;
     background-color: #040F1C;
     border-radius: 50%;
     border: none;
     width: 45px;
     height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
 }
-.barra-juego i{
+.btn-barra i{
    font-size: 20px;
+   align-items: center;
 }
   
 .barra-juego h3 {
@@ -540,7 +760,7 @@ hr {
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-.favorito {
+.fav {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -552,7 +772,7 @@ hr {
     font-size: 14px;
 }
 
-.favorito i {
+.fav i {
     font-size: 14px;
 }
 .ver-mas {
