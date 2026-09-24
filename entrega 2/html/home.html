@@ -4,15 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="home.css">
     <title>Game World - Inicio</title>
 </head>
 <body>
 
     <!-- HEADER -->
     <header>
-        
+
+    <div class="menu-logo">
+    <div class="menu">
+    <i class="fa-solid fa-bars"></i>
+    </div>
+    <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
+    </div>
+
+
+    <div class="buscador">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Buscar juego...">
+    </div>
+
+    <div class="iconos">
+    <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
+    <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
+    <div class="icono tooltip-sec" data-tooltip="Ajustes de pantalla"><i class="fa-solid fa-gear"></i></div>
+    <div class="icono perfil">A</div>
+    </div>
+
     </header>
 
+    <!-- MENÚ LATERAL -->
+<nav class="menu-lateral" id="menuLateral">
+    <div class="menu-seccion">
+        <a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="#"><i class="fa-solid fa-crown"></i><span>Juegos populares</span></a>
+        <a href="#"><i class="fa-solid fa-dollar-sign"></i><span>Juegos pagos</span></a>
+        <a href="#"><i class="fa-solid fa-star"></i><span>Juegos gratuitos</span></a>
+    </div>
+
+    <div class="menu-separador"></div>
+
+    <div class="menu-categorias">
+        <h2>Categorías</h2>
+        <a href="#"><i class="fa-solid fa-khanda"></i><span>Acción</span></a>
+        <a href="#"><i class="fa-solid fa-car"></i><span>Autos</span></a>
+        <a href="#"><i class="fa-solid fa-compass"></i><span>Aventuras</span></a>
+        <a href="#"><i class="fa-solid fa-basketball"></i><span>Deportes</span></a>
+        <a href="#"><i class="fa-solid fa-crosshairs"></i><span>Disparos</span></a>
+        <a href="#"><i class="fa-solid fa-brain"></i><span>Estrategia</span></a>
+        <a href="#"><i class="fa-solid fa-dice"></i><span>Mesa</span></a>
+        <a href="#"><i class="fa-solid fa-ghost"></i><span>Terror</span></a>
+        <a href="#"><i class="fa-solid fa-gamepad"></i><span>Simulación</span></a>
+    </div>
+</nav>
 
     <main>
 
@@ -25,21 +77,18 @@
 
                 <div class="game-list">
 
-                    <article class="game-card">
-                        <img src="img/peg-solitaire-spiderman.jpg"
-                             alt="Peg Solitaire Spiderman">
+                    <article class="card-juego card-recomendado">
+                        <img src="img/peg-solitaire-spiderman.jpg" alt="Peg Solitaire Spiderman">
                         <h2>Peg Solitaire Spiderman</h2>
                     </article>
 
-                    <article class="game-card">
-                        <img src="img/pac-man.jpg"
-                             alt="Pac-Man">
+                    <article class="card-juego card-recomendado">
+                        <img src="img/pac-man.jpg" alt="Pac-Man">
                         <h2>Pac-Man</h2>
                     </article>
 
-                    <article class="game-card">
-                        <img src="img/redball-4.jpg"
-                             alt="Red Ball 4">
+                    <article class="card-juego card-recomendado">
+                        <img src="img/redball-4.jpg" alt="Red Ball 4">
                         <h2>Red Ball 4</h2>
                     </article>
 
@@ -49,80 +98,118 @@
             </div>
         </section>
 
-
         <!-- COMENZÁ A JUGAR -->
         <section class="start-playing">
-            <h2>Comenzá a jugar</h2>
+                <h2>COMENZÁ A JUGAR</h2>
         </section>
 
 
         <!-- JUEGOS DE ACCIÓN -->
-        <section class="game-category">
-            <h2>Juegos de acción <span>›</span></h2>
+            <section class="game-category">
+                <h2>Juegos de acción <span>›</span></h2>
 
-            <div class="carousel">
-                <button class="carousel-arrow" aria-label="Anterior">‹</button>
+                <div class="carousel">
+                    <button class="carousel-arrow" aria-label="Anterior">‹</button>
 
-                <div class="game-list">
+                    <div class="game-list">
 
-                    <article class="game-card">
-                        <img src="img/shell-shockers.jpg"
-                             alt="Shell Shockers">
-                        <h3>Shell Shockers</h3>
-                    </article>
+                        <article class="card-juego card-grande">
+                            <img src="img/shell-shockers.jpg" alt="Shell Shockers">
+                            <h3>Shell Shockers</h3>
+                        </article>
 
-                    <article class="game-card">
-                        <img src="img/juego-accion-2.jpg"
-                             alt="Juego de acción">
-                        <h3>Juego de acción</h3>
-                    </article>
+                        <article class="card-juego card-grande">
+                            <img src="img/juego-accion-2.jpg" alt="Juego de acción">
+                            <h3>Juego de acción</h3>
+                        </article>
 
+                    </div>
+
+                    <button class="carousel-arrow" aria-label="Siguiente">›</button>
                 </div>
-
-                <button class="carousel-arrow" aria-label="Siguiente">›</button>
-            </div>
-        </section>
+            </section>
 
 
         <!-- JUEGOS DE MESA -->
-        <section class="game-category">
-            <h2>Juegos de mesa <span>›</span></h2>
+            <section class="game-category">
+                <h2>Juegos de mesa <span>›</span></h2>
 
-            <div class="carousel">
-                <button class="carousel-arrow" aria-label="Anterior">‹</button>
+                <div class="carousel">
+                    <button class="carousel-arrow" aria-label="Anterior">‹</button>
 
-                <div class="game-list">
+                    <div class="game-list chicas">
 
-                    <article class="game-card">
-                        <img src="img/peg-solitaire-spiderman.jpg"
-                             alt="Peg Solitaire Spiderman">
-                        <h3>Peg Solitaire Spiderman</h3>
-                    </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/peg-solitaire-spiderman.jpg" alt="Peg Solitaire Spiderman">
+                            <h3>Peg Solitaire Spiderman</h3>
+                        </article>
 
-                    <article class="game-card">
-                        <img src="img/ludo-king.jpg"
-                             alt="Ludo King">
-                        <h3>Ludo King</h3>
-                    </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/ludo-king.jpg" alt="Ludo King">
+                            <h3>Ludo King</h3>
+                        </article>
 
-                    <article class="game-card">
-                        <img src="img/spider-solitaire.jpg"
-                             alt="Spider Solitaire">
-                        <h3>Spider Solitaire</h3>
-                    </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/spider-solitaire.jpg" alt="Spider Solitaire">
+                            <h3>Spider Solitaire</h3>
+                        </article>
 
-                    <article class="game-card">
-                        <img src="img/reversi.jpg"
-                             alt="Reversi">
-                        <h3>Reversi</h3>
-                    </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/reversi.jpg" alt="Reversi">
+                            <h3>Reversi</h3>
+                        </article>
 
+                    </div>
+
+                    <button class="carousel-arrow" aria-label="Siguiente">›</button>
                 </div>
+            </section>
 
-                <button class="carousel-arrow" aria-label="Siguiente">›</button>
-            </div>
-        </section>
 
+            <section class="game-category">
+                <h2>Juegos de autos <span>›</span></h2>
+                <div class="carousel">
+                    <button class="carousel-arrow" aria-label="Anterior">‹</button>
+                    <div class="game-list">
+                        <article class="card-juego card-grande">
+                            <img src="img/juego-autos-1.jpg" alt="Juego de autos">
+                            <h3>Juego de autos</h3>
+                        </article>
+                        <article class="card-juego card-grande">
+                            <img src="img/juego-autos-2.jpg" alt="Juego de autos">
+                            <h3>Juego de autos</h3>
+                        </article>
+                        <article class="card-juego card-grande">
+                            <img src="img/juego-autos-3.jpg" alt="Juego de autos">
+                            <h3>Juego de autos</h3>
+                        </article>
+                    </div>
+                    <button class="carousel-arrow" aria-label="Siguiente">›</button>
+                </div>
+            </section>
+
+
+            <section class="game-category">
+                <h2>Juegos pagos <span>›</span></h2>
+                <div class="carousel">
+                    <button class="carousel-arrow" aria-label="Anterior">‹</button>
+                    <div class="game-list chicas">
+                        <article class="card-juego card-chica">
+                            <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                            <h3>Juego pago</h3>
+                        </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                            <h3>Juego pago</h3>
+                        </article>
+                        <article class="card-juego card-chica">
+                            <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                            <h3>Juego pago</h3>
+                        </article>
+                    </div>
+                    <button class="carousel-arrow" aria-label="Siguiente">›</button>
+                </div>
+            </section>
 
         <!-- JUEGOS DE DEPORTES -->
         <section class="game-category">
@@ -133,27 +220,23 @@
 
                 <div class="game-list">
 
-                    <article class="game-card">
-                        <img src="img/mario-tennis.jpg"
-                             alt="Mario Tennis">
+                    <article class="card-juego card-grande">
+                        <img src="img/mario-tennis.jpg" alt="Mario Tennis">
                         <h3>Mario Tennis</h3>
                     </article>
 
-                    <article class="game-card">
-                        <img src="img/air-hockey-cup.jpg"
-                             alt="Air Hockey Cup">
+                    <article class="card-juego card-grande">
+                        <img src="img/air-hockey-cup.jpg" alt="Air Hockey Cup">
                         <h3>Air Hockey Cup</h3>
                     </article>
 
-                    <article class="game-card">
-                        <img src="img/mini-golf.jpg"
-                             alt="Mini Golf">
+                    <article class="card-juego card-grande">
+                        <img src="img/mini-golf.jpg" alt="Mini Golf">
                         <h3>Mini Golf</h3>
                     </article>
 
-                    <article class="game-card">
-                        <img src="img/mage-castle.jpg"
-                             alt="Mage Castle">
+                    <article class="card-juego card-grande">
+                        <img src="img/mage-castle.jpg" alt="Mage Castle">
                         <h3>Mage Castle</h3>
                     </article>
 
@@ -163,21 +246,107 @@
             </div>
         </section>
 
+        <!-- VOLVER ARRIBA -->
+        <div class="volver-arriba">
+            <a href="#top" aria-label="Volver arriba">
+                <i class="fa-solid fa-angles-up"></i>
+            </a>
+        </div>
+
 
         <!-- BOTÓN CATEGORÍAS -->
         <section class="all-categories">
             <a href="categorias.html">Ver todas las categorías</a>
         </section>
 
+        
+
     </main>
 
 
     <!-- FOOTER -->
-    <footer>
+    <footer class="footer">
 
-       
+    <div class="footer-banner">
+    <h2>¿LISTO PARA JUGAR?</h2>
+    <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
+
+    <button class="btn-crear">Crear cuenta</button>
+
+    <p class="iniciar-sesion">¿Ya tenés una? Iniciar sesión</p>
+    </div>
+
+    <div class="footer-contenido">
+
+    <div class="footer-logo">
+    <img src="../img/GameWorld-logo.png" alt="Game World">
+    </div>
+
+    <div class="footer-columna">
+    <h3>Categorías</h3>
+
+    <a href="#">Acción</a>
+    <a href="#">Autos</a>
+    <a href="#">Aventuras</a>
+    <a href="#">Deportes</a>
+    <a href="#">Disparos</a>
+    <a href="#">Mesa</a>
+    <a href="#">Terror</a>
+    <a href="#">Simulación</a>
+    <a href="#">Cocina</a>
+    <a href="#">Multijugador</a>
+    </div>
+
+    <div class="footer-columna">
+    <h3>Explorar</h3>
+
+    <a href="#">Home</a>
+    <a href="#">Juegos populares</a>
+    <a href="#">Juegos pagos</a>
+    <a href="#">Juegos gratuitos</a>
+    <a href="#">Mi perfil</a>
+    <a href="#">Mi biblioteca</a>
+    <a href="#">Mis logros</a>
+    <a href="#">Configuración</a>
+    </div>
+
+    <div class="footer-columna footer-social">
+
+    <h3>Seguinos</h3>
+
+    <a href="#"><i class="fa-brands fa-instagram"></i>@gameworld_</a>
+    <a href="#"><i class="fa-brands fa-tiktok"></i> @gameworld</a>
+    <a href="#"><i class="fa-brands fa-x-twitter"></i> @gameworldok</a>
+    <a href="#"><i class="fa-brands fa-facebook-f"></i> @gameworld</a>
+    <a href="#"><i class="fa-brands fa-youtube"></i> Game World Gameplays</a>
+
+    <h3 class="titulo-ayuda">Ayuda</h3>
+
+    <a href="#">Soporte</a>
+    <a href="#">FAQ</a>
+    <a href="#">Contacto</a>
+
+    </div>
+
+    </div>
+    <div class="footer-inferior">
+
+    <p>© 2026 Game World</p>
+
+    <div class="footer-legales">
+    <a href="#">Privacidad</a>
+    <span>·</span>
+    <a href="#">Términos y condiciones</a>
+    <span>·</span>
+    <a href="#">Política de cookies</a>
+    <span>·</span>
+    <a href="#">Accesibilidad</a>
+    </div>
+
+    </div>
 
     </footer>
 
+    <script src="menu.js"></script>
 </body>
 </html>

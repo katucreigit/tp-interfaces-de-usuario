@@ -1,0 +1,507 @@
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #040F1C;
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    width: 100%;
+    padding-top:72px;
+    padding-bottom: 50px;
+}
+
+section {
+    padding: 25px 30px;
+}
+
+
+/* =========================
+   RECOMENDADOS
+========================= */
+
+.recommended {
+    padding-top: 35px;
+    padding-bottom: 50px;
+}
+
+.recommended h1 {
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+
+
+/* =========================
+   CARRUSEL
+========================= */
+
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.game-list {
+    display: flex;
+    gap: 12px;
+    overflow: hidden;
+    flex: 1;
+}
+
+
+/* Flechas */
+
+.carousel-arrow {
+    width: 30px;
+    height: 45px;
+
+    background: none;
+    border: none;
+
+    color: #FFC035;
+
+    font-size: 40px;
+    line-height: 1;
+}
+
+
+/* =========================
+   COMENZÁ A JUGAR
+========================= */
+
+.start-playing {
+    border-top: 2px solid #E4A623;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.start-playing h2 {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card-juego {
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #071421;
+    border: 2px solid #E4A623;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.card-juego img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+/* =========================
+   CARD RECOMENDADA
+========================= */
+
+.card-recomendado {
+    width: 205px;
+    height: 175px;
+}
+
+
+/* =========================
+   CARD GRANDE
+========================= */
+
+.card-grande {
+    width: 300px;
+    height: 215px;
+}
+
+
+/* =========================
+   CARD CHICA
+========================= */
+.game-list.chicas {
+    display:grid;
+    grid-template-rows:repeat(2, 180px);
+    grid-auto-flow:column;
+    grid-auto-columns:280px;
+    gap:4px 25px;
+    overflow:hidden;
+}
+
+
+.card-chica {
+    width: 280px;
+    height: 160px;
+}
+
+
+/* =========================
+   VER TODAS LAS CATEGORÍAS
+========================= */
+
+.all-categories {
+    padding: 10px 65px 40px;
+}
+
+.all-categories a {
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: 2px solid #FFC035;
+    border-radius: 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Asap Condensed', sans-serif;
+}
+
+/* =========================
+   VOLVER ARRIBA
+========================= */
+
+.volver-arriba {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 30px 30px;
+}
+
+.volver-arriba a {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #2B5EEB;
+    border: 2px solid #0A3CC8;
+    border-radius: 50%;
+
+    color: #000000;
+    text-decoration: none;
+
+    font-size: 18px;
+}
+
+header {
+    height:72px;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    border-bottom:2px solid #FFC035;
+    background-color:#030912;
+    display:flex;
+    align-items:center;
+    padding:0 32px;
+    justify-content:space-between;
+}
+
+.menu-logo {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.menu {
+font-size: 32px;
+color: #f7bd25;
+cursor: pointer;
+}
+
+.logo-img {
+width: 90px;
+}
+
+.buscador {
+width: 270px;
+height: 40px;
+background-color: #020811;
+border: 1px solid #F0B228;
+border-radius: 25px;
+display: flex;
+align-items: center;
+padding: 0 15px;
+color: white;
+}
+
+.buscador input {
+background: none;
+border: none;
+outline: none;
+color: #fff;
+width: 100%;
+margin-left: 8px;
+}
+
+.buscador input::placeholder {
+color: white;
+}
+.buscador:focus-within{
+border: 2px solid #F0B228;
+}
+.buscador i{
+font-size: 12px;
+}
+
+.iconos {
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.icono {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: #f7bd25;
+color: #040F1C;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+}
+
+.iconos i{
+font-size: 20px;
+}
+
+.perfil {
+font-family: Orbitron;
+background-color: #0A3CC8;
+color: white;
+width: 45px;
+height: 45px;
+}
+
+.footer {
+    width: 100%;
+    background-color: #020810;
+    color: white;
+    border-top: 1px solid #FFEDC4;
+}
+
+.footer-banner {
+    width: 80%;
+    height: 140px;
+    margin: 27px auto 16px;
+    padding: 8px 20px;
+    background-color: #f7b51f;
+    border: 3px solid #FFCA55;
+    border-radius: 16px;
+    color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-banner h2 {
+    margin: 2px;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.footer-banner p {
+    margin: 4px;
+    font-size: 14px;
+}
+
+.btn-crear {
+    padding: 7px 16px;
+    margin: 4px 0;
+    background-color: #1648c4;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-crear:hover{
+    background-color: #668DF9;
+}
+.btn-crear:focus{
+    background-color: #2B5EEB;
+
+    outline: 1px solid #91AEFF;
+}
+.btn-crear:active{
+    background-color: #0A3CC8;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+.iniciar-sesion {
+    color: #111111;
+    font-size: 10px;
+}
+
+.footer-contenido {
+    width: 80%;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: 1.25fr 1.25fr 1.25fr 1.35fr;
+    column-gap: 35px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo img {
+    width: 250px;
+    height: auto;
+}
+
+.footer-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-columna h3 {
+    margin: 20px 0px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.footer-columna a {
+    margin-bottom: 7px;
+    color: #eeeeee;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-social a i {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #FFC035;
+    margin-right: 5px;
+}
+
+
+.footer-inferior {
+    width: 100%;
+    height: 50px;
+    padding: 0 27px;
+    box-sizing: border-box;
+    border-top: 1px solid #FFEDC4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-inferior p {
+    margin: 0;
+    font-size: 12px;
+    color: #eeeeee;
+}
+
+.footer-legales {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.footer-legales a,
+.footer-legales span {
+    font-size: 12px;
+    color: #eeeeee;
+    text-decoration: none;
+}
+
+/* =========================
+   MENÚ LATERAL
+========================= */
+
+.menu-lateral {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 210px;
+    height: calc(100vh - 72px);
+    background-color: #030912;
+    padding: 15px 10px;
+    border-right: 2px solid #FFC035;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.menu-seccion, .menu-categorias {
+    width: 100%;
+}
+
+.menu-lateral a {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 12px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.menu-lateral a i {
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.menu-separador {
+    height: 1px;
+    background-color: #E4A623;
+    margin: 10px 0 18px;
+}
+
+.menu-categorias h2 {
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 12px;
+    margin-bottom: 10px;
+}
+
+.menu-lateral a.categoria-activa {
+    background-color: #FFC035;
+    color: #000000;
+    font-weight: 600;
+}
+
+.menu-lateral.abierto {
+    display: block;
+}
