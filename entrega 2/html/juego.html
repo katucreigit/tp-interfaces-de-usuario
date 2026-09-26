@@ -16,6 +16,17 @@
 
 </head>
 <body>
+<div id="pantallaCarga" class="loader-container">
+    <img src="../img/joystick-carga.png" alt="Cargando" class="loader-joystick" id="loaderImg">
+
+    <div class="loader-bar">
+        <div class="progreso"></div>
+    </div>
+    
+    <div class="loader-text">CARGANDO <span id="porcentaje">0%</span></div>
+</div>
+
+<div id="pantallaFinal">
     <header>
 
         <div class="menu-logo">
@@ -65,7 +76,10 @@
 
 		    </div>
 		</div>
-            <div class="icono perfil">A
+		     <button class="btn-ingresar" id="btnIngresar">
+    Ingresar
+</button>
+            <div class="icono perfil"  id="perfilUsuario">A
 		    <div class="menu-perfil">
 
 		<a href="#">
@@ -88,7 +102,7 @@
 
 		<div class="separador-perfil"></div>
 
-		<a href="#" class="cerrar-sesion">
+		<a href="#"  class="cerrar-sesion" id="cerrarSesion">
 		    <i class="fa-solid fa-arrow-right-from-bracket"></i>
 		    <span>Cerrar sesión</span>
 		</a>
@@ -99,6 +113,158 @@
         </div>
 
     </header>
+
+<div class="modal" id="modalIngreso">
+   <div class="modal-contenido" id="modal-contenido">
+
+        <button class="cerrar-modal" onclick="cerrarModal()">&times;</button>
+
+        <div class="tabs">
+            <button class="tab activo" onclick="mostrarFormulario('login', this)">
+                Iniciar sesión
+            </button>
+
+            <button class="tab" onclick="mostrarFormulario('registro', this)">
+                Registrarse
+            </button>
+        </div>
+
+
+        <form id="login" class="formulario activo">
+
+  <label for="email-login">Email o nombre de usuario</label>
+
+  <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+      <input  type="email"  id="email-login"  placeholder="tuemail@gmail.com" required>
+  </div>
+
+  <label for="password-login">Contraseña</label>
+
+  <div class="input-icono">
+      <i class="fa-solid fa-lock"></i>
+      <input  type="password"  id="password-login"  placeholder="••••••••" required>
+  </div>
+
+            <button type="submit" class="btn-form">
+                Iniciar sesión
+            </button>
+	<div class="cambiar-formulario">
+		<span>¿Todavía no tenés una cuenta?</span>
+		<button type="button" onclick="mostrarFormulario('registro')">
+	    Crear cuenta
+	</button>
+	</div>
+            <div class="separador">
+        <span></span>
+        <p>O</p>
+        <span></span>
+    </div>
+    <div class="login-social">
+
+        <button class="btn-social google">
+      <img src="../img/google-icon.png" >
+      Continuar con Google
+        </button>
+
+        <button class="btn-social facebook">
+                       <img src="../img/fb-icon.webp" >
+      Continuar con Facebook
+        </button>
+
+  </div>
+
+        </form>
+  <form id="registro" class="formulario">
+
+      <div class="campo">
+    <label for="name-register">Nombre y Apellido</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="name-register" placeholder="Ingresa tu nombre completo" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="nickname-register">Nickname (Opcional)</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="nickname-register" placeholder="Elige un nombre de usuario">
+    </div>
+      </div>
+
+
+      <div class="campo">
+    <label for="email-register">Email</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email-register" placeholder="tuemail@gmail.com" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="edad-register">Edad</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-calendar"></i>
+        <input type="number" id="edad-register" placeholder="Escribe tu edad" required min="1">
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="password-register">Contraseña</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password-register" placeholder="••••••••" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="repassword-register">Repetir contraseña</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-lock"></i>
+        <input  type="password" id="repassword-register" placeholder="••••••••" required>
+    </div>
+      </div>
+
+      <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
+    Crear cuenta
+      </button>
+      <div class="cambiar-formulario">
+	<span>¿Ya tenés una cuenta?</span>
+	<button type="button" onclick="mostrarFormulario('login')">
+	    Iniciar sesión
+	</button>
+	</div>
+      <div class="separador">
+    <span></span>
+    <p>O</p>
+    <span></span>
+      </div>
+
+      <div class="login-social">
+
+    <button class="btn-social google">
+      <img src="../img/google-icon.png" >
+      Continuar con Google
+        </button>
+
+        <button class="btn-social facebook">
+                       <img src="../img/fb-icon.webp" >
+      Continuar con Facebook
+        </button>
+
+      </div>
+
+  </form>
+
+      </div>
+  </div>
 
     <main class="contenedor">
 
@@ -114,28 +280,28 @@
 
             <section class="principal">
 		
-		<div class="pantalla-carga" id="pantallaCarga">
+		<div class="pantalla-carga" id="pantallaCargaJuego">
 
 		    <img src="../img/peg-solitarie.png" alt="Imagen del juego">
 
 		    <div class="loading">
 			    <div class="contenedor-carga">
-				<span id="porcentaje">0%</span>
+				<span id="gamePorcentaje">0%</span>
 
 				<div class="barra">
-				    <div class="progreso"></div>
+				    <div class="game-progreso"></div>
 				</div>
 			    </div>
 		    </div>
 
 		</div>
-		<div class="pantalla-final" id="pantallaFinal">
+		<div class="pantallaJuego" id="pantallaJuego">
 		    <img src="../img/juego-ejecutando.png" alt="Juego">
 		</div>
 
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
-                    <button class="btn-barra tooltip-acento" data-tooltip="Instrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
+                    <button class="btn-barra tooltip-acento" data-tooltip="Instrucciones"  id="abrirInstrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
                     <a href="#descripcion" class="btn-barra tooltip-acento" data-tooltip="Descripción"><i class="fa-solid fa-book"></i></a>
                     <a href="#comentarios" class="btn-barra tooltip-acento" data-tooltip="Comentarios"><i class="fa-solid fa-comments"></i></a>
                     </div>
@@ -144,11 +310,93 @@
 		    <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
 			    <i class="fa-regular fa-heart"></i>
                     </button>
-                    <button class="btn-barra tooltip-acento" data-tooltip="Compartir"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-barra tooltip-acento" data-tooltip="Compartir" id="abrirModalCompartir"><i class="fa-solid fa-share-nodes"></i></button>
                     <button class="btn-barra tooltip-acento" data-tooltip="Agrandar pantalla"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
                     </div>
                 </div>
+                <div class="modal" id="modalCompartir">
 
+	    <div class="modal-compartir">
+
+		<button class="cerrar-modal" id="cerrarModal">
+		    <i class="fa-solid fa-xmark"></i>
+		</button>
+
+		<h3>Compartir en</h3>
+
+		<div class="redes-modal">
+
+		    <a href="#" class="red-social instagram">
+			<i class="fa-brands fa-instagram"></i>
+		    </a>
+
+		    <a href="#" class="red-social twitter">
+			<i class="fa-brands fa-x-twitter"></i>
+		    </a>   
+		    
+		    <a href="#" class="red-social telegram">
+			<i class="fa-regular fa-paper-plane"></i>
+		    </a>
+
+		    <a href="#" class="red-social email">
+			<i class="fa-regular fa-envelope"></i>
+		    </a>
+
+		    <a href="#" class="red-social mensajes">
+			<i class="fa-regular fa-message"></i>
+		    </a>
+
+		</div>
+
+	    </div>
+
+	</div>
+	<div class="modal" id="modalInstrucciones">
+    <div class="modal-instrucciones">
+
+        <button class="cerrar-modal" id="cerrarInstrucciones">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h2>¿Cómo jugar?</h2>
+
+        <div class="instruccion">
+            <i class="fa-solid fa-bullseye"></i>
+            <div>
+                <h3>Objetivo</h3>
+                <p>
+                    Eliminar todas las fichas del tablero y dejar solo una.
+                </p>
+            </div>
+        </div>
+
+		<div class="instruccion">
+		    <i class="fa-solid fa-layer-group"></i>
+		    <div>
+		        <h3>Reglas</h3>
+		        <ul>
+		            <li>Selecciona una ficha para moverla.</li>
+		            <li>Una ficha puede saltar sobre otra ficha hacia un espacio vacío.</li>
+		            <li>La ficha sobre la que saltas desaparece.</li>
+		            <li>Solo podés mover en linea recta: arriba, abajo, izquierda o derecha.</li>
+		            <li>No se permiten movimientos en diagonal</li>		            		            		            		            
+		        </ul>
+		    </div>
+		</div>
+
+		<div class="instruccion">
+		    <i class="fa-solid fa-trophy"></i>
+		    <div>
+		        <h3>¡Ganás!</h3>
+		        <p>
+		            Ganás cuando queda una sola ficha en el tablero.
+		        </p>
+		    </div>
+		</div>
+		 <h2>¡Buena suerte!</h2>
+	    </div>
+	</div>
+	
                 <section class="descripcion" id="descripcion">
 
                     <h2 class="titulo-seccion">
@@ -166,11 +414,16 @@
                     </p>
                     <div class="video">
 
-                        <span class="video-placeholder">
-                            <img src="../img/juego-ejecutando.png" alt="Video del juego">
-                        </span>
-			
-                    </div>
+		    <div class="video-imagen">
+			<img src="../img/juego-ejecutando.png" alt="Spider-Man Peg Solitaire">
+
+			<div class="video-overlay">
+			    <i class="fa-solid fa-play"></i>
+			    <span>Ver tutorial</span>
+			</div>
+		    </div>
+
+		</div>
                 </section>
                 <hr>
                 <section class="comentarios" id="comentarios">
@@ -373,6 +626,7 @@
     </div>
 
 </footer>
+</div>
 <script src="../js/juego.js"></script>
 </body>
 </html>
