@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ==========================================
-    // 1. PANTALLA DE CARGA PRINCIPAL
-    // ==========================================
+    // 1. PANTALLA DE CARGA PRINCIPAL   
 
     const loaderImg = document.querySelector("#loaderImg");
     const barra = document.querySelector(".progreso");
@@ -27,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const intervaloCarga = setInterval(() => {
 
             progresoMain += 20;
-
             barra.style.width = progresoMain + "%";
 
             if (porcentaje) {
@@ -37,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (progresoMain >= 100) {
 
                 clearInterval(intervaloCarga);
-
                 setTimeout(() => {
 
                     if (pantallaCarga) {
@@ -49,29 +45,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                 }, 500);
-
             }
-
         }, 500);
-
     }
+//menu burger
+const botonMenu = document.querySelector(".menu");
+const menuLateral = document.querySelector("#menuLateral");
 
+botonMenu.addEventListener("click", function() {
+    menuLateral.classList.toggle("abierto");
+});
 
-    // ==========================================
     // 2. PANTALLA DE CARGA DEL JUEGO
-    // ==========================================
 
-    const pantallaCargaJuego =
-        document.querySelector("#pantallaCargaJuego");
-
-    const pantallaGame =
-        document.querySelector("#pantallaJuego");
-
-    const gameBarra =
-        document.querySelector(".game-progreso");
-
-    const gamePorcentaje =
-        document.querySelector("#gamePorcentaje");
+    const pantallaCargaJuego = document.querySelector("#pantallaCargaJuego");
+    const pantallaGame = document.querySelector("#pantallaJuego");
+    const gameBarra = document.querySelector(".game-progreso");
+    const gamePorcentaje = document.querySelector("#gamePorcentaje");
 
 
     if (gameBarra) {
@@ -101,23 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (pantallaGame) {
                         pantallaGame.style.display = "block";
                     }
-
                 }, 500);
-
             }
-
         }, 1000);
-
     }
 
 
-    // ==========================================
     // 3. FAVORITOS
-    // ==========================================
 
-    const botonesFavorito =
-        document.querySelectorAll(".fav");
-
+    const botonesFavorito = document.querySelectorAll(".favorito");
 
     botonesFavorito.forEach(function (boton) {
 
@@ -131,18 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 icono.classList.toggle("fa-solid");
 
             }
-
         });
-
     });
 
 
-    // ==========================================
     // 4. CARGAR JUEGOS DESDE LA API
-    // ==========================================
 
-    const contenedorJuegos =
-        document.getElementById("contenedor-juegos");
+    const contenedorJuegos = document.getElementById("contenedor-juegos");
 
 
     if (contenedorJuegos) {
@@ -150,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("https://vj.interfaces.jima.com.ar/api/v2")
 
             .then(response => response.json())
-
             .then(juegos => {
 
                 juegos.slice(0, 7).forEach(juego => {
@@ -162,10 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     card.innerHTML = `
-                        <img
-                            src="${juego.background_image}"
-                            alt="${juego.name}"
-                        >
+                        <img src="${juego.background_image}" alt="${juego.name}" >
 
                         <div class="overlay">
 
@@ -183,73 +156,45 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     `;
 
-
                     contenedorJuegos.appendChild(card);
 
-
                     // Favorito de la card
-                    const botonFavorito =
-                        card.querySelector(".fav");
-
+                    const botonFavorito = card.querySelector(".fav");
 
                     if (botonFavorito) {
 
-                        botonFavorito.addEventListener(
-                            "click",
-                            function () {
+                        botonFavorito.addEventListener("click", function () {
 
-                                const corazon =
-                                    this.querySelector("i");
+                                const corazon = this.querySelector("i");
 
                                 if (corazon) {
 
-                                    corazon.classList.toggle(
-                                        "fa-regular"
-                                    );
-
-                                    corazon.classList.toggle(
-                                        "fa-solid"
-                                    );
+                                    corazon.classList.toggle( "fa-regular");
+                                    corazon.classList.toggle("fa-solid");
 
                                 }
-
                             }
                         );
-
                     }
-
                 });
-
             })
 
             .catch(error => {
 
-                console.error(
-                    "Error al obtener los juegos:",
-                    error
-                );
+                console.error( "Error al obtener los juegos:",error);
 
             });
-
     }
 
-
-    // ==========================================
     // 5. MENÚ DE AJUSTES
-    // ==========================================
 
-    const botonAjustes =
-        document.getElementById("boton-ajustes");
-
-    const menuAjustes =
-        document.querySelector(".menu-ajustes");
+    const botonAjustes = document.getElementById("boton-ajustes");
+    const menuAjustes = document.querySelector(".menu-ajustes");
 
 
     if (botonAjustes && menuAjustes) {
 
-        botonAjustes.addEventListener(
-            "click",
-            function (event) {
+        botonAjustes.addEventListener( "click",function (event) {
 
                 event.stopPropagation();
 
@@ -259,9 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        menuAjustes.addEventListener(
-            "click",
-            function (event) {
+        menuAjustes.addEventListener( "click", function (event) {
 
                 event.stopPropagation();
 
@@ -269,51 +212,35 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        document.addEventListener(
-            "click",
-            function () {
+        document.addEventListener( "click", function () {
 
                 menuAjustes.classList.remove("abierto");
 
             }
         );
-
     }
 
-
-    // ==========================================
     // 6. MODAL COMPARTIR
-    // ==========================================
 
-    const botonAbrirCompartir =
-        document.getElementById("abrirModalCompartir");
-
-    const botonCerrarCompartir =
-        document.getElementById("cerrarModal");
-
-    const modalCompartir =
-        document.getElementById("modalCompartir");
+    const botonAbrirCompartir = document.getElementById("abrirModalCompartir");
+    const botonCerrarCompartir = document.getElementById("cerrarModal");
+    const modalCompartir = document.getElementById("modalCompartir");
 
 
     if (botonAbrirCompartir && modalCompartir) {
 
-        botonAbrirCompartir.addEventListener(
-            "click",
-            function () {
+        botonAbrirCompartir.addEventListener( "click", function () {
 
                 modalCompartir.style.display = "flex";
 
             }
         );
-
     }
 
 
     if (botonCerrarCompartir && modalCompartir) {
 
-        botonCerrarCompartir.addEventListener(
-            "click",
-            function () {
+        botonCerrarCompartir.addEventListener("click", function () {
 
                 modalCompartir.style.display = "none";
 
@@ -322,73 +249,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     // Cerrar haciendo click afuera
     if (modalCompartir) {
 
-        modalCompartir.addEventListener(
-            "click",
-            function (event) {
+        modalCompartir.addEventListener("click", function (event) {
 
                 if (event.target === modalCompartir) {
 
                     modalCompartir.style.display = "none";
 
                 }
-
             }
         );
-
     }
 
-
-    // ==========================================
     // 7. MODAL INSTRUCCIONES
-    // ==========================================
 
-    const botonAbrirInstrucciones =
-        document.getElementById("abrirInstrucciones");
-
-    const botonCerrarInstrucciones =
-        document.getElementById("cerrarInstrucciones");
-
-    const modalInstrucciones =
-        document.getElementById("modalInstrucciones");
+    const botonAbrirInstrucciones = document.getElementById("abrirInstrucciones");
+    const botonCerrarInstrucciones = document.getElementById("cerrarInstrucciones");
+    const modalInstrucciones = document.getElementById("modalInstrucciones");
 
 
     if (botonAbrirInstrucciones && modalInstrucciones) {
 
-        botonAbrirInstrucciones.addEventListener(
-            "click",
-            function () {
+        botonAbrirInstrucciones.addEventListener( "click", function () {
 
                 modalInstrucciones.style.display = "flex";
 
             }
         );
-
     }
 
 
     if (botonCerrarInstrucciones && modalInstrucciones) {
 
-        botonCerrarInstrucciones.addEventListener(
-            "click",
-            function () {
+        botonCerrarInstrucciones.addEventListener("click", function () {
 
                 modalInstrucciones.style.display = "none";
 
             }
         );
-
     }
 
 
     if (modalInstrucciones) {
 
-        modalInstrucciones.addEventListener(
-            "click",
-            function (event) {
+        modalInstrucciones.addEventListener("click", function (event) {
 
                 if (event.target === modalInstrucciones) {
 
@@ -401,29 +307,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
-    // ==========================================
     // 8. LIKES DE LOS COMENTARIOS
-    // ==========================================
 
-    const comentarios =
-        document.querySelectorAll(".likes");
-
+    const comentarios = document.querySelectorAll(".likes");
 
     comentarios.forEach(function (contenedorLikes) {
 
-        const likes =
-            contenedorLikes.querySelectorAll("i");
+        const likes = contenedorLikes.querySelectorAll("i");
 
 
         likes.forEach(function (like) {
 
-            like.addEventListener(
-                "click",
-                function () {
+            like.addEventListener("click", function () {
 
-                    // Si ya estaba seleccionado,
-                    // se deselecciona
+                    // Si ya estaba seleccionado se deselecciona
                     if (this.classList.contains("activo")) {
 
                         this.classList.remove("activo");
@@ -449,16 +346,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
-    // ==========================================
     // 9. MODAL DE INGRESO
-    // ==========================================
 
-    const modalIngreso =
-        document.getElementById("modalIngreso");
+    const modalIngreso = document.getElementById("modalIngreso");
 
-    const modalContenido =
-        document.getElementById("modal-contenido");
+    const modalContenido = document.getElementById("modal-contenido");
 
 
     // Abrir modal
@@ -660,68 +552,38 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("login");
 
 
-    if (formularioLogin) {
+if (formularioLogin) {
 
-        formularioLogin.addEventListener(
-            "submit",
-            function (event) {
+    formularioLogin.addEventListener(
+        "submit",
+        function (event) {
 
-                event.preventDefault();
+            event.preventDefault();
 
-                // Guardar sesión
-                localStorage.setItem(
-                    "logueado",
-                    "true"
-                );
+            // Mostrar animación
+            mostrarAnimacionExito();
 
+            // Guardar sesión
+            localStorage.setItem(
+                "logueado",
+                "true"
+            );
 
-                // Actualizar header
-                actualizarHeader();
+            // Actualizar header
+            actualizarHeader();
 
+            // Cerrar modal después de la animación
+            setTimeout(function () {
 
-                // Cerrar modal
                 cerrarModalIngreso();
 
-            }
-        );
+            }, 1800);
 
-    }
+        }
+    );
 
-
-    // ==========================================
-    // FORMULARIO REGISTRO
-    // ==========================================
-
-    const formularioRegistro =
-        document.getElementById("registro");
-
-
-    if (formularioRegistro) {
-
-        formularioRegistro.addEventListener(
-            "submit",
-            function (event) {
-
-                event.preventDefault();
-
-                // Guardar sesión
-                localStorage.setItem(
-                    "logueado",
-                    "true"
-                );
-
-
-                // Actualizar header
-                actualizarHeader();
-
-
-                // Cerrar modal
-                cerrarModalIngreso();
-
-            }
-        );
-
-    }
+}
+  
 
 
     // ==========================================
@@ -754,46 +616,104 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
 
     actualizarHeader();
+// ==========================================
+// ANIMACIÓN DE ÉXITO
+// ==========================================
 
-});
+function mostrarAnimacionExito() {
+
+    const transicion =
+        document.getElementById("transicionExito");
+
+    if (!transicion) return;
+
+    transicion.classList.add("activa");
+
+    setTimeout(function () {
+
+        transicion.classList.remove("activa");
+
+    }, 1800);
+}
+
+const formularioRegistro = document.getElementById("registro");
 const btnCrearRegistro = document.getElementById("btnCrearRegistro");
+
+const password = document.getElementById("password-register");
+const repassword = document.getElementById("repassword-register");
+const errorPassword = document.getElementById("error-password");
 
 let giro;
 let grados = 0;
 
-btnCrearRegistro.addEventListener("click", function (event) {
+if (formularioRegistro && password && repassword && errorPassword) {
 
-    event.preventDefault();
+    formularioRegistro.addEventListener("submit", function (event) {
 
-    // Empieza la carga
-    btnCrearRegistro.classList.add("cargando");
+        event.preventDefault();
 
-    // Empieza a girar
-    giro = setInterval(function () {
-        grados += 10;
-        btnCrearRegistro.style.transform = `rotate(${grados}deg)`;
-    }, 30);
+        if (password.value !== repassword.value) {
 
-    setTimeout(function () {
+            password.classList.add("input-error");
+            repassword.classList.add("input-error");
 
-        // Detener giro
-        clearInterval(giro);
+            errorPassword.textContent =
+                "Las contraseñas no coinciden.";
 
-        // Mostrar check
-        btnCrearRegistro.classList.remove("cargando");
-        btnCrearRegistro.classList.add("exito");
+            return;
+        }
 
-        btnCrearRegistro.style.transform = "rotate(0deg)";
-        btnCrearRegistro.textContent = "✓";
+        password.classList.remove("input-error");
+        repassword.classList.remove("input-error");
+
+        errorPassword.textContent = "";
+
+        // Animación
+        btnCrearRegistro.classList.add("cargando");
+
+        grados = 0;
+
+        giro = setInterval(function () {
+
+            grados += 10;
+
+            btnCrearRegistro.style.transform =
+                `rotate(${grados}deg)`;
+
+        }, 30);
 
         setTimeout(function () {
 
-            // Volver al botón original
-            btnCrearRegistro.classList.remove("exito");
-            btnCrearRegistro.textContent = "Crear cuenta";
+            clearInterval(giro);
+
+            btnCrearRegistro.classList.remove("cargando");
+            btnCrearRegistro.classList.add("exito");
+
             btnCrearRegistro.style.transform = "rotate(0deg)";
+            btnCrearRegistro.textContent = "✓";
 
-        }, 1200);
+            setTimeout(function () {
 
-    }, 2000);
-});
+    // Mostrar portal
+    mostrarAnimacionExito();
+
+    // Guardar sesión
+    localStorage.setItem("logueado", "true");
+
+    // Actualizar header
+    actualizarHeader();
+
+    // Cerrar modal después de la animación
+    setTimeout(function () {
+
+        cerrarModalIngreso();
+
+    }, 1800);
+
+}, 1200);
+
+        }, 2000);
+
+    });
+
+}});

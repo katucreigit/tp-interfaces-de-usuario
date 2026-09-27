@@ -3,14 +3,21 @@
     margin: 0;
     padding: 0;
 }
-#pantallaFinal{
-display: none;
-}
+
 body{
     background-color: #040F1C;
     color:#fff;
     font-family: Asap Condensed;
 }
+
+h1, h2, h3{
+    font-family: Orbitron;
+}
+
+#pantallaFinal{
+    display: none;
+}
+
 header {
     height: 72px;
     border-bottom: 2px solid #f7bd25;
@@ -311,6 +318,72 @@ header {
     opacity: 1;
 }
 
+/* =========================
+   MENÚ LATERAL
+========================= */
+
+.menu-lateral {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 210px;
+    height: calc(100vh - 72px);
+    background-color: #030912;
+    padding: 15px 10px;
+    border-right: 2px solid #FFC035;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.menu-seccion, .menu-categorias {
+    width: 100%;
+}
+
+.menu-lateral a {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 12px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.menu-lateral a i {
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.menu-separador {
+    height: 1px;
+    background-color: #E4A623;
+    margin: 10px 0 18px;
+}
+
+.menu-categorias h2 {
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 12px;
+    margin-bottom: 10px;
+}
+
+.menu-lateral a.categoria-activa {
+    background-color: #FFC035;
+    color: #000000;
+    font-weight: 600;
+}
+
+.menu-lateral.abierto {
+    display: block;
+}
 
 .contenedor {
     width: 90%;
@@ -320,9 +393,7 @@ header {
 button{
     font-family: Asap Condensed;
 }
-h1, h2, h3{
-    font-family: Orbitron;
-}
+
 .breadcrumb{
     margin-top: 50px;
     font-family: Orbitron;
@@ -344,18 +415,15 @@ h1, h2, h3{
     margin-top: 20px;
     display: block;
 }
-.pantalla-carga,
-.pantallaJuego {
+.pantalla-carga, .pantallaJuego {
     width: 100%;
-
 }
 
 .pantalla-carga {
     position: relative;
 }
 
-.pantalla-carga img,
-.pantallaJuego img {
+.pantalla-carga img, .pantallaJuego img {
     width: 900px;
     margin-top: 20px;
     display: block;
@@ -368,7 +436,6 @@ h1, h2, h3{
 .pantallaJuego {
     display: none;
 }
-
 
 .loading {
     width: 800px;
@@ -426,8 +493,7 @@ h1, h2, h3{
     margin: 0;
 }
 
-.btn-izquierdos,
-.btn-derechos {
+.btn-izquierdos, .btn-derechos {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -487,8 +553,8 @@ h1, h2, h3{
     width: 400px;
     height: 220px;
     padding: 55px 5px;
-    background-color: #071421;
-    border: 2px solid #E4A623;
+    background-color: #040F1C;
+    border: 2px solid #F0B228;
     border-radius: 15px;
     text-align: center;
     justify-content: center;
@@ -498,7 +564,6 @@ h1, h2, h3{
 .modal-compartir h3 {
     margin: 0 0 25px;
 }
-
 
 .cerrar-modal {
     position: absolute;
@@ -579,15 +644,14 @@ h1, h2, h3{
     background-color: #2B5EEB;
 }
 
-
 .modal-instrucciones {
     position: relative;
     width: 550px;
     max-height: 80vh;
     overflow-y: auto;
     padding: 30px 40px;
-    background-color: #071421;
-    border: 2px solid #E4A623;
+    background-color: #040F1C;
+    border: 2px solid #F0B228;
     border-radius: 15px;
     color: white;
 }
@@ -645,7 +709,7 @@ h1, h2, h3{
 }
 
 .cerrar-modal:hover {
-    color: #FFC035;
+    color: #F0B228;
 }
 
 .video {
@@ -747,8 +811,9 @@ hr {
     font-family:  Asap Condensed;
     margin-left: 10px; 
 }
-
-
+.caja-comentario placeholder{
+    color: #fff;   
+}
 .comentar {
     display: flex;
     justify-content: flex-end;
@@ -827,7 +892,7 @@ hr {
 
 .likes i:hover {
     transform: translateY(-3px) scale(1.15);
-    color: #668DF9;
+    color: #4573F3;
 }
 
 .likes i:active {
@@ -945,7 +1010,7 @@ hr {
 .card-juego {
     position: relative;
     width: 280px;
-    height: 160px;
+    height: 150px;
     border: 2px solid #E4A623;
     border-radius: 15px;
     overflow: hidden;
@@ -956,7 +1021,7 @@ hr {
 .card-juego img {
     width: 100%;
     height: 100%;
-    margin-top: -1px;
+    margin-top: -0.5px;
     transition: filter 0.3s ease, transform 0.3s ease;
 }
 
@@ -1005,15 +1070,14 @@ hr {
 
 }
 .btn-jugar:hover, .btn-ingresar:hover{
-    background-color: #668DF9;
+    background-color: #FFDB8D;
 }
 .btn-jugar:focus, .btn-ingresar:focus{
-    background-color: #2B5EEB;
-
+    background-color: #F8B82C;
     outline: 1px solid #91AEFF;
 }
 .btn-jugar:active, .btn-ingresar:active{
-    background-color: #0A3CC8;
+    background-color: #E4A623;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
@@ -1275,8 +1339,8 @@ hr {
 .modal-contenido {
     position: relative;
     width: 380px;
-    background-color: #071421;
-    border: 2px solid #e4a623;
+    background-color: #040F1C;
+    border: 2px solid #F0B228;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -1308,7 +1372,7 @@ hr {
 }
 
 .cerrar-modal:hover {
-    color: #f7bd25;
+    color: #F0B228;
 }
 
 
@@ -1317,7 +1381,7 @@ hr {
 .tabs {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid #253342;
+    border-bottom: 1px solid #F0B228;
 }
 
 .tab {
@@ -1339,8 +1403,8 @@ hr {
 }
 
 .tab.activo {
-    color: #f7bd25;
-    border-bottom: 3px solid #f7bd25;
+    color: #F0B228;
+    border-bottom: 3px solid #F0B228;
 }
 
 
@@ -1349,6 +1413,8 @@ hr {
 .formulario {
     display: none;
     padding: 30px 30px 35px;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .formulario.activo {
@@ -1371,6 +1437,12 @@ hr {
     font-size: 14px;
 }
 
+.formulario img{
+    width: 250px;
+    margin: 8px auto;
+    display: block;
+    object-fit: contain;
+}
 
 /* LABELS */
 
@@ -1404,7 +1476,15 @@ hr {
 .formulario input::placeholder {
     color: #687582;
 }
+.input-error {
+    border: 2px solid #e74c3c !important;
+}
 
+.mensaje-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin: 3px;
+}
 /* SOLO REGISTRO */
 
 #registro.formulario.activo {
@@ -1423,7 +1503,8 @@ hr {
 #registro .btn-crear-registro,
 #registro .separador,
 #registro .login-social,
-#registro .cambiar-formulario {
+#registro .cambiar-formulario,
+.formulario img {
     grid-column: 1 / 3;
 }
 .modal-contenido.registro-grande {
@@ -1612,4 +1693,246 @@ hr {
     background-color: #1ecd97;
     color: white;
     font-size: 20px;
+}
+/* ==========================================
+   ANIMACIÓN DE LOGIN / REGISTRO EXITOSO
+========================================== */
+
+.transicion-exito {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    background-color: #020810;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+}
+
+.transicion-exito.activa {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* PORTAL */
+
+.portal {
+    position: relative;
+
+    width: 120px;
+    height: 120px;
+
+    transform: scale(0);
+
+    transition:
+        transform 0.7s cubic-bezier(.17, .67, .3, 1.3);
+}
+
+.transicion-exito.activa .portal {
+    transform: scale(1);
+}
+
+
+/* CENTRO */
+.portal-centro {
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%) scale(0);
+
+    border-radius: 50%;
+
+    background-color: #f7bd25;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 15px #f7bd25,
+        0 0 35px #f7bd25,
+        0 0 70px rgba(247, 189, 37, 0.7);
+
+    transition:
+        transform 0.5s ease 0.25s;
+}
+
+.portal-centro img {
+    width: 45px;
+    height: 45px;
+
+    object-fit: contain;
+
+    margin: 0;
+}
+
+.transicion-exito.activa .portal-centro {
+    transform: translate(-50%, -50%) scale(1);
+}
+/* PRIMER ANILLO */
+
+.portal-anillo {
+    position: absolute;
+
+    inset: 0;
+
+    border: 2px solid #f7bd25;
+
+    border-radius: 50%;
+
+    transform: scale(0.4);
+
+    opacity: 0;
+
+    transition:
+        transform 0.8s ease,
+        opacity 0.4s ease;
+}
+
+.transicion-exito.activa .portal-anillo {
+    transform: scale(1.4);
+    opacity: 1;
+}
+
+
+/* SEGUNDO ANILLO */
+
+.portal-anillo-2 {
+    border-color: rgba(255, 255, 255, 0.6);
+
+    transition-delay: 0.15s;
+}
+
+.transicion-exito.activa .portal-anillo-2 {
+    transform: scale(2);
+    opacity: 0;
+}
+
+
+/* ==========================================
+   PARTÍCULAS
+========================================== */
+
+.particulas {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    pointer-events: none;
+}
+
+.particulas span {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background-color: #f7bd25;
+
+    opacity: 0;
+    transform: scale(0);
+
+    transition:
+        transform 0.7s ease,
+        opacity 0.3s ease;
+}
+
+
+/* Posiciones iniciales */
+
+.particulas span:nth-child(1) {
+    left: 20%;
+    top: 30%;
+}
+
+.particulas span:nth-child(2) {
+    left: 75%;
+    top: 25%;
+}
+
+.particulas span:nth-child(3) {
+    left: 15%;
+    top: 65%;
+}
+
+.particulas span:nth-child(4) {
+    left: 80%;
+    top: 70%;
+}
+
+.particulas span:nth-child(5) {
+    left: 50%;
+    top: 10%;
+}
+
+.particulas span:nth-child(6) {
+    left: 50%;
+    top: 90%;
+}
+
+.particulas span:nth-child(7) {
+    left: 10%;
+    top: 48%;
+}
+
+.particulas span:nth-child(8) {
+    left: 90%;
+    top: 48%;
+}
+
+
+/* Movimiento */
+
+.transicion-exito.activa .particulas span {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(1) {
+    transform: translate(-70px, -60px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(2) {
+    transform: translate(70px, -50px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(3) {
+    transform: translate(-80px, 60px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(4) {
+    transform: translate(80px, 65px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(5) {
+    transform: translate(0, -90px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(6) {
+    transform: translate(0, 90px) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(7) {
+    transform: translate(-100px, 0) scale(1);
+}
+
+.transicion-exito.activa .particulas span:nth-child(8) {
+    transform: translate(100px, 0) scale(1);
 }

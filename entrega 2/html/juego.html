@@ -113,6 +113,30 @@
         </div>
 
     </header>
+<!-- MENÚ LATERAL -->
+<nav class="menu-lateral" id="menuLateral">
+    <div class="menu-seccion">
+        <a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="#"><i class="fa-solid fa-crown"></i><span>Juegos populares</span></a>
+        <a href="#"><i class="fa-solid fa-dollar-sign"></i><span>Juegos pagos</span></a>
+        <a href="#"><i class="fa-solid fa-star"></i><span>Juegos gratuitos</span></a>
+    </div>
+
+    <div class="menu-separador"></div>
+
+    <div class="menu-categorias">
+        <h2>Categorías</h2>
+        <a href="#"><i class="fa-solid fa-khanda"></i><span>Acción</span></a>
+        <a href="#"><i class="fa-solid fa-car"></i><span>Autos</span></a>
+        <a href="#"><i class="fa-solid fa-compass"></i><span>Aventuras</span></a>
+        <a href="#"><i class="fa-solid fa-basketball"></i><span>Deportes</span></a>
+        <a href="#"><i class="fa-solid fa-crosshairs"></i><span>Disparos</span></a>
+        <a href="#"><i class="fa-solid fa-brain"></i><span>Estrategia</span></a>
+        <a href="#"><i class="fa-solid fa-dice"></i><span>Mesa</span></a>
+        <a href="#"><i class="fa-solid fa-ghost"></i><span>Terror</span></a>
+        <a href="#"><i class="fa-solid fa-gamepad"></i><span>Simulación</span></a>
+    </div>
+</nav>
 
 <div class="modal" id="modalIngreso">
    <div class="modal-contenido" id="modal-contenido">
@@ -230,8 +254,9 @@
         <i class="fa-solid fa-lock"></i>
         <input  type="password" id="repassword-register" placeholder="••••••••" required>
     </div>
+    <div id="error-password" class="mensaje-error"></div>
       </div>
-
+      <img src="../img/recaptcha.png" alt= "reCAPTCHA">
       <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
     Crear cuenta
       </button>
@@ -265,7 +290,34 @@
 
       </div>
   </div>
+<div id="transicionExito" class="transicion-exito">
 
+    <div class="portal">
+
+	<div class="portal-centro">
+	    <img src="../img/joystick-carga.png" alt="Game World">
+	</div>
+
+        <div class="portal-anillo"></div>
+
+        <div class="portal-anillo portal-anillo-2"></div>
+
+    </div>
+
+    <div class="particulas">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+</div>
     <main class="contenedor">
 
         <div class="breadcrumb">
@@ -462,8 +514,8 @@
                         </div>
 
                         <p class="comentario-texto">
-                            Está buenísimo el juego, me costó bastante
-                            encontrar la solución al principio.
+                            "Está buenísimo el juego, me costó bastante
+                            encontrar la solución al principio."
                         </p>
 			<div class="likes">
                             	<i class="fa-regular fa-thumbs-up"></i>
@@ -487,8 +539,8 @@
                         </div>
 
                         <p class="comentario-texto">
-                            Muy entretenido. La temática de Spider-Man
-                            queda genial.
+                            "Muy entretenido. La temática de Spider-Man
+                            queda genial."
                         </p>
 <div class="likes">
                             	<i class="fa-regular fa-thumbs-up"></i>
@@ -513,8 +565,8 @@
                         </div>
 
                         <p class="comentario-texto">
-                            Me gustó, aunque algunos niveles son bastante
-                            difíciles.
+                            "Me gustó, aunque algunos niveles son bastante
+                            difíciles."
                         </p>
 <div class="likes">
                             	<i class="fa-regular fa-thumbs-up"></i>
@@ -551,9 +603,13 @@
         <h2>¿LISTO PARA JUGAR?</h2>
         <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
 
-        <button class="btn-crear">Crear cuenta</button>
+        <button class="btn-crear" onclick="abrirModal(); mostrarFormulario('registro')">
+	    Crear cuenta
+	</button>
 
-        <p class="iniciar-sesion">¿Ya tenés una? Iniciar sesión</p>
+	<p class="iniciar-sesion" onclick="abrirModal(); mostrarFormulario('login')">
+	    ¿Ya tenés una? Iniciar sesión
+	</p>
     </div>
 
     <div class="footer-contenido">
