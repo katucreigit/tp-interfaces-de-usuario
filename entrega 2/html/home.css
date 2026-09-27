@@ -62,14 +62,27 @@ section {
     gap: 12px;
     overflow: hidden;
     flex: 1;
+    min-width: 0;
 }
 
+.game-list.animando .card-juego {
+    transform: scale(0.96);
+    opacity: 0.85;
+}
+
+.recommended .game-list {
+    position: relative;
+    justify-content: center;
+    height: 210px;
+    overflow: hidden;
+}
 
 /* Flechas */
 
 .carousel-arrow {
     width: 30px;
     height: 45px;
+    flex-shrink: 0;
 
     background: none;
     border: none;
@@ -78,6 +91,11 @@ section {
 
     font-size: 40px;
     line-height: 1;
+
+    position: relative;
+    z-index: 2;
+
+    cursor: pointer;
 }
 
 
@@ -107,6 +125,8 @@ section {
     border: 2px solid #E4A623;
     border-radius: 15px;
     margin-top: 15px;
+    position: relative;
+    text-align: center;
 }
 
 .card-juego img {
@@ -114,26 +134,151 @@ section {
     height: 100%;
     display: block;
     object-fit: cover;
+    transition: filter 0.3s ease, transform 0.3s ease;
 }
 
+.card-juego:hover img {
+    filter: blur(3px) brightness(0.5);
+    transform: scale(1.03);
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-juego:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h3 {
+    color: white;
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.btn-jugar {
+    background-color: #F0B228;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    
+    }
+    .btn-jugar:hover, .btn-ingresar:hover{
+    background-color: #FFDB8D;
+    }
+    .btn-jugar:focus, .btn-ingresar:focus{
+    background-color: #F8B82C;
+    outline: 1px solid #91AEFF;
+    }
+    .btn-jugar:active, .btn-ingresar:active{
+    background-color: #E4A623;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+.fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    }
+    
+    .fav i {
+    font-size: 14px;
+    }
+
+/* =========================
+   BADGES
+========================= */
+
+.badge-juego {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 0 0 10px 10px;
+    z-index: 2;
+    cursor: pointer;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.badge-juego span {
+    display: none;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge-juego:hover {
+    width: 105px;
+}
+
+.badge-juego:hover span {
+    display: block;
+}
+
+.popular {
+    background-color: #FFC035;
+    color: #000000;
+}
+
+.pago {
+    background-color: #2B5EEB;
+    color: #FFFFFF;
+}
 
 /* =========================
    CARD RECOMENDADA
 ========================= */
-
 .card-recomendado {
     width: 205px;
     height: 175px;
+    position: absolute;
+    top: 0;
+    transition: left 0.8s ease, transform 0.8s ease, opacity 0.8s ease, filter 0.8s ease;
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1);
 }
 
-
+.card-recomendado.fondo {
+    transform: scale(0.75);
+    opacity: 0.55;
+    filter: brightness(0.6);
+}
 /* =========================
    CARD GRANDE
 ========================= */
 
 .card-grande {
     width: 300px;
-    height: 215px;
+    height: 235px;
 }
 
 
@@ -141,18 +286,24 @@ section {
    CARD CHICA
 ========================= */
 .game-list.chicas {
-    display:grid;
-    grid-template-rows:repeat(2, 180px);
-    grid-auto-flow:column;
-    grid-auto-columns:280px;
-    gap:4px 25px;
-    overflow:hidden;
+    display: grid;
+    grid-template-rows: repeat(2, 170px);
+    grid-auto-flow: column;
+    grid-auto-columns: 250px;
+    gap: 4px 25px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.game-list.chicas.animando .card-juego {
+    transform: scale(0.96);
+    opacity: 0.85;
 }
 
 
 .card-chica {
-    width: 280px;
-    height: 160px;
+    width: 260px;
+    height: 150px;
 }
 
 
@@ -162,9 +313,10 @@ section {
 
 .all-categories {
     padding: 10px 65px 40px;
-}
-
-.all-categories a {
+    }
+    
+    .all-categories a {
+    position: relative;
     display: block;
     width: 100%;
     padding: 7px;
@@ -175,7 +327,41 @@ section {
     text-align: center;
     font-size: 14px;
     font-family: 'Asap Condensed', sans-serif;
-}
+    overflow: hidden;
+    transition: color 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+    }
+    
+    /* Fondo amarillo */
+    .all-categories a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #FFC035;
+    transition: width 0.35s ease;
+    z-index: -1;
+    }
+    
+    /* Hover */
+    .all-categories a:hover {
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 192, 53, 0.25);
+    }
+    
+    .all-categories a:hover::before {
+    width: 100%;
+    }
+    
+    /* Click */
+    .all-categories a:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
+    }
 
 /* =========================
    VOLVER ARRIBA
@@ -203,6 +389,14 @@ section {
     text-decoration: none;
 
     font-size: 18px;
+}
+
+.volver-arriba a:hover {
+    font-size: 20px;
+}
+
+.volver-arriba a:active {
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.7);
 }
 
 header {
@@ -504,4 +698,487 @@ height: 45px;
 
 .menu-lateral.abierto {
     display: block;
+}
+
+/* =========================
+   RESPONSIVE - MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+        height: 60px;
+        padding: 0 12px;
+    }
+
+    .menu-logo {
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .menu {
+        font-size: 25px;
+    }
+
+    .logo-img {
+        width: 70px;
+    }
+
+    .buscador {
+        width: 150px;
+        height: 34px;
+        padding: 0 10px;
+    }
+
+    .buscador input {
+        font-size: 12px;
+        margin-left: 5px;
+    }
+
+    .buscador i {
+        font-size: 11px;
+    }
+
+    .iconos {
+        gap: 4px;
+        flex-shrink: 0;
+    }
+
+    .icono {
+        width: 30px;
+        height: 30px;
+    }
+
+    .iconos i {
+        font-size: 14px;
+    }
+
+    .perfil {
+        width: 32px;
+        height: 32px;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+
+    section {
+        padding: 20px 15px;
+    }
+
+
+    /* =========================
+       RECOMENDADOS
+    ========================= */
+
+    .recommended {
+        padding-top: 25px;
+        padding-bottom: 35px;
+    }
+
+    .recommended h1 {
+        font-size: 20px;
+        margin-bottom: 14px;
+    }
+
+    .recommended .game-list {
+        height: 160px;
+    }
+
+    .card-recomendado {
+        width: 150px;
+        height: 130px;
+    }
+
+
+    /* =========================
+       CARRUSELES
+    ========================= */
+
+    .carousel {
+        gap: 6px;
+    }
+
+    .game-list {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .carousel-arrow {
+        width: 20px;
+        height: 40px;
+        font-size: 30px;
+        flex-shrink: 0;
+    }
+
+
+    /* =========================
+       COMENZÁ A JUGAR
+    ========================= */
+
+    .start-playing {
+        padding: 8px 0;
+    }
+
+    .start-playing h2 {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+
+    /* =========================
+       CATEGORÍAS
+    ========================= */
+
+    .game-category {
+        padding: 20px 15px;
+    }
+
+    .game-category h2 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .game-category h2 span {
+        font-size: 23px;
+    }
+
+
+    /* =========================
+       CARDS GRANDES
+    ========================= */
+
+    .card-grande {
+        width: 260px;
+        height: 185px;
+    }
+
+
+    /* =========================
+       CARDS CHICAS
+    ========================= */
+
+    .game-list.chicas {
+        grid-template-rows: repeat(2, 140px);
+        grid-auto-columns: 220px;
+        gap: 4px 10px;
+    }
+
+    .card-chica {
+        width: 220px;
+        height: 125px;
+    }
+
+
+    /* =========================
+       VOLVER ARRIBA
+    ========================= */
+
+    .volver-arriba {
+        padding: 0 15px 20px;
+    }
+
+    .volver-arriba a {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+
+    /* =========================
+       VER TODAS LAS CATEGORÍAS
+    ========================= */
+
+    .all-categories {
+        padding: 5px 25px 30px;
+    }
+
+    .all-categories a {
+        padding: 7px;
+        font-size: 13px;
+    }
+
+
+    /* =========================
+       MENÚ LATERAL
+    ========================= */
+
+    .menu-lateral {
+        top: 60px;
+        width: 75%;
+        height: calc(100vh - 60px);
+        padding: 12px 8px;
+    }
+
+    .menu-lateral a {
+        height: 45px;
+        gap: 12px;
+        padding: 0 10px;
+        font-size: 15px;
+    }
+
+    .menu-lateral a i {
+        font-size: 17px;
+    }
+
+    .menu-categorias h2 {
+        font-size: 17px;
+        padding: 0 10px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer-banner {
+        width: 90%;
+        height: auto;
+        min-height: 150px;
+        margin: 20px auto 15px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .footer-banner h2 {
+        font-size: 16px;
+    }
+
+    .footer-banner p {
+        font-size: 12px;
+    }
+
+    .btn-crear {
+        font-size: 13px;
+        padding: 7px 15px;
+    }
+
+    .iniciar-sesion {
+        font-size: 10px;
+    }
+
+    .footer-contenido {
+        width: 90%;
+        margin: 25px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .footer-logo {
+        width: 100%;
+    }
+
+    .footer-logo img {
+        width: 180px;
+    }
+
+    .footer-columna {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-columna h3 {
+        margin: 10px 0 15px;
+        font-size: 15px;
+    }
+
+    .footer-columna a {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .footer-social a {
+        display: block;
+    }
+
+    .titulo-ayuda {
+        margin-top: 25px !important;
+    }
+
+
+    /* =========================
+       FOOTER INFERIOR
+    ========================= */
+
+    .footer-inferior {
+        height: auto;
+        min-height: 80px;
+        padding: 15px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .footer-inferior p {
+        font-size: 11px;
+    }
+
+    .footer-legales {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .footer-legales a,
+    .footer-legales span {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================
+   CELULARES CHICOS
+========================= */
+
+@media (max-width: 500px) {
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+        padding: 0 8px;
+    }
+
+    .menu-logo {
+        gap: 5px;
+    }
+
+    .menu {
+        font-size: 22px;
+    }
+
+    .logo-img {
+        width: 60px;
+    }
+
+    .buscador {
+        width: 105px;
+        height: 32px;
+        padding: 0 8px;
+    }
+
+    .buscador input {
+        font-size: 10px;
+        margin-left: 4px;
+    }
+
+    .buscador i {
+        font-size: 10px;
+    }
+
+    .iconos {
+        gap: 2px;
+    }
+
+    .icono {
+        width: 27px;
+        height: 27px;
+    }
+
+    .iconos i {
+        font-size: 12px;
+    }
+
+    .perfil {
+        width: 29px;
+        height: 29px;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .recommended {
+        padding-top: 20px;
+    }
+
+    .recommended h1 {
+        font-size: 18px;
+    }
+
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .card-grande {
+        width: 230px;
+        height: 165px;
+    }
+
+    .game-list.chicas {
+        grid-template-rows: repeat(2, 120px);
+        grid-auto-columns: 190px;
+        gap: 4px 8px;
+    }
+
+    .card-chica {
+        width: 190px;
+        height: 105px;
+    }
+
+    .recommended .game-list {
+        height: 135px;
+    }
+
+    .card-recomendado {
+        width: 125px;
+        height: 105px;
+    }
+
+    /* =========================
+       CATEGORÍAS
+    ========================= */
+
+    .game-category h2 {
+        font-size: 16px;
+    }
+
+    .carousel-arrow {
+        width: 17px;
+        font-size: 26px;
+    }
+
+
+    /* =========================
+       MENÚ
+    ========================= */
+
+    .menu-lateral {
+        width: 82%;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer-banner {
+        width: 94%;
+    }
+
+    .footer-logo img {
+        width: 160px;
+    }
 }
