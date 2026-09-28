@@ -27,7 +27,7 @@ main {
 }
 
 section {
-    padding: 25px 30px;
+    padding: 25px 20px;
 }
 
 
@@ -66,8 +66,8 @@ section {
 }
 
 .game-list.animando .card-juego {
-    transform: scale(0.96);
-    opacity: 0.85;
+    transform: scale(0.92);
+    opacity: 0.65;
 }
 
 .recommended .game-list {
@@ -75,6 +75,17 @@ section {
     justify-content: center;
     height: 210px;
     overflow: hidden;
+}
+
+.game-category .card-grande,
+.game-category .card-chica {
+    transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.game-category .game-list.animando .card-grande,
+.game-category .game-list.animando .card-chica {
+    transform: scale(0.92);
+    opacity: 0.65;
 }
 
 /* Flechas */
@@ -244,13 +255,36 @@ section {
 }
 
 .popular {
+    color: #FFC035;
+    border: 3px solid #FFC035;
+    border-top: none;
+    background-color: #000000;
+}
+
+.pago {
     background-color: #FFC035;
     color: #000000;
 }
 
-.pago {
-    background-color: #2B5EEB;
-    color: #FFFFFF;
+.recommended .badge-juego {
+    width: 32px;
+    height: 32px;
+}
+
+.recommended .badge-juego:hover {
+    width: 90px;
+}
+
+
+/* Badges chicas */
+
+.game-list.chicas .badge-juego {
+    width: 30px;
+    height: 30px;
+}
+
+.game-list.chicas .badge-juego:hover {
+    width: 85px;
 }
 
 /* =========================
@@ -300,6 +334,10 @@ section {
     opacity: 0.85;
 }
 
+.game-list.chicas .overlay h3 {
+    margin-top: 15px;
+    font-size: 15px;
+}
 
 .card-chica {
     width: 260px;
@@ -362,6 +400,242 @@ section {
     transform: scale(0.95);
     box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
     }
+
+/* =========================
+   MODAL DE COMPRA
+========================= */
+
+.modal-fondo {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+}
+
+.modal-fondo.abierto {
+    display: flex;
+}
+
+.modal-compra {
+    width: 325px;
+    padding: 20px 14px 25px;
+    background-color: #040F1C;
+    border: 1px solid #FFC035;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-imagen {
+    width: 295px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 18px;
+}
+
+.modal-compra h2 {
+    color: #FFFFFF;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.modal-compra p {
+    color: #FFFFFF;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.modal-compra h3 {
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.modal-compra select {
+    width: 210px;
+    height: 34px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #222222;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+}
+.btn-cancelar {
+    width: 125px;
+    height: 38px;
+    border-radius: 20px;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    color: #1B4A81;
+    border: 2px solid #376FB1;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.btn-cancelar span {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    line-height: 34px;
+    transition: all 0.3s ease;
+}
+.btn-cancelar i {
+    position: absolute;
+    width: 100%;
+    right: -100%;
+    top: 0;
+    line-height: 34px;
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.btn-cancelar:hover span {
+    left: -100%;
+    opacity: 0;
+}
+.btn-cancelar:hover, .btn-cancelar:hover i {
+    right: 0;
+    opacity: 1;
+    background-color: #91AEFF;
+    font-size: 22px;
+}
+.btn-cancelar:active,.btn-cancelar:active i{
+    transform: translateY(2px);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.25);
+    background-color: #1B4A81;
+}
+
+.compra-exitosa {
+    position: absolute;
+    width: 325px;
+    padding: 30px 20px;
+    background-color: #040F1C;
+    border: 2px solid #FFC035;
+    border-radius: 20px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+    z-index: 1003;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.compra-exitosa.abierto {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.compra-exitosa i {
+    color: #FFC035;
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.compra-exitosa h2 {
+    color: #FFFFFF;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.compra-exitosa p {
+    color: #FFFFFF;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.selector-pago {
+    width: 210px;
+    height: 36px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    border: none;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #222222;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.metodos-pago {
+    position: absolute;
+    display: none;
+    width: 280px;
+    padding: 20px;
+    background-color: #040F1C;
+    border: 2px solid #FFC035;
+    border-radius: 15px;
+    z-index: 1002;
+}
+
+.metodos-pago.abierto {
+    display: block;
+}
+
+.metodos-pago h3 {
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.metodo-pago {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+    background-color: #071421;
+    border: 1px solid #376FB1;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Asap Condensed', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.metodo-pago:hover {
+    background-color: #1B4A81;
+    border-color: #FFC035;
+}
+
+.metodo-pago i {
+    width: 20px;
+    color: #FFC035;
+}
+
+.modal-fondo.metodo-abierto::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1001;
+}
 
 /* =========================
    VOLVER ARRIBA
@@ -636,6 +910,19 @@ height: 45px;
 /* =========================
    MENÚ LATERAL
 ========================= */
+
+.menu-lateral::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menu-lateral::-webkit-scrollbar-track {
+    background-color: #040F1C;
+}
+
+.menu-lateral::-webkit-scrollbar-thumb {
+    background-color: #FFC035;
+    border-radius: 10px;
+}
 
 .menu-lateral {
     position: fixed;

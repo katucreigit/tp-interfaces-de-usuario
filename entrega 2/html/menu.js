@@ -5,6 +5,72 @@ botonMenu.addEventListener("click", function() {
     menuLateral.classList.toggle("abierto");
 });
 
+const modalCompra = document.querySelector("#modalCompra");
+const modalImagen = document.querySelector("#modalImagen");
+const modalTitulo = document.querySelector("#modalTitulo");
+const modalDescripcion = document.querySelector("#modalDescripcion");
+const btnCancelar = document.querySelector("#btnCancelar");
+
+btnCancelar.addEventListener("click", function() {
+    modalCompra.classList.remove("abierto");
+});
+
+const selectorPago = document.querySelector("#selectorPago");
+const metodosPago = document.querySelector("#metodosPago");
+
+selectorPago.addEventListener("click", function() {
+    modalCompra.classList.add("metodo-abierto");
+    metodosPago.classList.add("abierto");
+});
+
+const metodos = document.querySelectorAll(".metodo-pago");
+
+const compraExitosa = document.querySelector("#compraExitosa");
+
+metodos.forEach(metodo => {
+
+    metodo.addEventListener("click", function() {
+
+        metodosPago.classList.remove("abierto");
+        modalCompra.classList.remove("metodo-abierto");
+
+        const contenidoCompra =
+            modalCompra.querySelector(".modal-compra");
+
+        contenidoCompra.style.opacity = "0";
+
+        setTimeout(() => {
+
+            contenidoCompra.style.display = "none";
+
+            compraExitosa.classList.add("abierto");
+
+        }, 500);
+
+        setTimeout(() => {
+
+            compraExitosa.classList.remove("abierto");
+
+        }, 2500);
+
+        setTimeout(() => {
+
+            modalCompra.classList.remove("abierto");
+
+            contenidoCompra.style.display = "block";
+            contenidoCompra.style.opacity = "1";
+
+            selectorPago.innerHTML = `
+                Elegir método de pago
+                <i class="fa-solid fa-chevron-down"></i>
+            `;
+
+        }, 3000);
+
+    });
+
+});
+
 /* API DE JUEGOS */
 
 fetch('https://vj.interfaces.jima.com.ar/api/v2')
@@ -54,6 +120,28 @@ fetch('https://vj.interfaces.jima.com.ar/api/v2')
             `;
 
             card.appendChild(overlay);
+
+            if (esPago) {
+
+                const botonComprar = overlay.querySelector(".btn-jugar");
+            
+                botonComprar.addEventListener("click", function() {
+            
+                    modalImagen.src = juego.background_image_low_res;
+                    modalImagen.alt = juego.name;
+            
+                    modalTitulo.textContent = juego.name;
+            
+                    const descripcion = juego.description || "Breve descripción del juego";
+                    modalDescripcion.textContent =
+                        descripcion.length > 120
+                            ? descripcion.substring(0, 120) + "..."
+                            : descripcion;
+            
+                    modalCompra.classList.add("abierto");
+            
+                });
+            }
 
             const botonFavorito = card.querySelector(".fav");
 
@@ -177,7 +265,7 @@ carruselesGrandes.forEach(carousel => {
 
         setTimeout(() => {
             lista.classList.remove("animando");
-        }, 500);
+        }, 700);
 
     });
 
@@ -192,7 +280,7 @@ carruselesGrandes.forEach(carousel => {
 
         setTimeout(() => {
             lista.classList.remove("animando");
-        }, 500);
+        }, 700);
 
     });
 

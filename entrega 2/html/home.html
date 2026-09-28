@@ -411,11 +411,72 @@
 
     <!-- BOTÓN CATEGORÍAS -->
     <section class="all-categories">
-        <a href="#menuLateral">Ver todas las categorías</a>
+        <a href="#" id="verCategorias">Ver todas las categorías</a>
     </section>
 
 </main>
 
+
+    <!-- MODAL DE COMPRA -->
+    <div class="modal-fondo" id="modalCompra">
+
+        <div class="modal-compra">
+    
+            <img src="" class="modal-imagen" id="modalImagen" alt="">
+    
+            <h2 id="modalTitulo">Título del juego</h2>
+    
+            <p id="modalDescripcion">
+                Breve descripción del juego
+            </p>
+    
+            <h3 id="modalPrecio">Precio: $0</h3>
+    
+            <button class="selector-pago" id="selectorPago">
+                Elegir método de pago
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+    
+            <div class="modal-botones">
+    
+                <button class="btn-cancelar" id="btnCancelar">
+                    <span>Cancelar</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+    
+            </div>
+    
+        </div>
+    
+        <!-- MENSAJE DE COMPRA EXITOSA -->
+        <div class="compra-exitosa" id="compraExitosa">
+            <i class="fa-solid fa-circle-check"></i>
+            <h2>¡Compra realizada!</h2>
+            <p>El juego fue agregado a tu biblioteca.</p>
+        </div>
+    
+        <div class="metodos-pago" id="metodosPago">
+    
+            <h3>Elegir método de pago</h3>
+    
+            <button class="metodo-pago" data-metodo="Mercado Pago">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Mercado Pago</span>
+            </button>
+    
+            <button class="metodo-pago" data-metodo="Tarjeta de débito">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Tarjeta de débito</span>
+            </button>
+    
+            <button class="metodo-pago" data-metodo="Transferencia bancaria">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Transferencia bancaria</span>
+            </button>
+    
+        </div>
+    
+    </div>
 
     <!-- FOOTER -->
     <footer class="footer">
