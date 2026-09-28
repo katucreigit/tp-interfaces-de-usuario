@@ -402,6 +402,12 @@ button{
     align-items: center;
     font-weight: bold;
 }
+
+.breadcrumb a{
+    color: inherit;
+    text-decoration: none;
+}
+
 .breadcrumb-active{
     color: #E4A623;
 }
@@ -903,7 +909,7 @@ hr {
     transform: scale(1.15);
 }
 
-.tooltip-acento, .tooltip-sec {
+.tooltip-acento, .tooltip-sec, .tooltip-izquierda {
     position: relative;
 }
 
@@ -970,9 +976,41 @@ hr {
 }
 
 .tooltip-sec:hover::before, .tooltip-sec:hover::after,
-.tooltip-acento:hover::before, .tooltip-acento:hover::after {
+.tooltip-acento:hover::before, .tooltip-acento:hover::after,
+.tooltip-izquierda:hover::before, .tooltip-izquierda:hover::after {
     opacity: 1;
     visibility: visible;
+}
+
+.tooltip-izquierda::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #2B5EEB;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.tooltip-izquierda::before {
+    content: "";
+    position: absolute;
+    right: calc(100% + 5px);
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid #2B5EEB;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .sidebar {
@@ -988,7 +1026,8 @@ hr {
     margin-top: -30px;
 }
 
-.volver button, .ver-mas button {
+.volver a, .ver-mas button {
+    display: inline-block;
     background-color: #FFC035;
     color: #000;
     border: none;
@@ -998,12 +1037,14 @@ hr {
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
 }
-.volver button:hover, .ver-mas button:hover{
+.volver a:hover, .ver-mas button:hover{
     background-color: #FFDB8D;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
-.volver button:active, .ver-mas button:active{
+.volver a:active, .ver-mas button:active{
     background-color: #E4A623;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
@@ -1101,6 +1142,35 @@ hr {
     justify-content: center;
     margin-top: 10px;
 }
+
+.volver-arriba {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 30px 30px;
+}
+
+.volver-arriba a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2B5EEB;
+    border: 2px solid #0A3CC8;
+    border-radius: 50%;
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.volver-arriba a:hover {
+    font-size: 20px;
+}
+
+.volver-arriba a:active {
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.7);
+}
+
 
 .footer {
     width: 100%;

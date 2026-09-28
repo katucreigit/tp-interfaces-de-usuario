@@ -51,9 +51,20 @@ document.addEventListener("DOMContentLoaded", () => {
 //menu burger
 const botonMenu = document.querySelector(".menu");
 const menuLateral = document.querySelector("#menuLateral");
+const iconoMenu = botonMenu.querySelector("i");
 
 botonMenu.addEventListener("click", function() {
+
     menuLateral.classList.toggle("abierto");
+
+    if (menuLateral.classList.contains("abierto")) {
+        iconoMenu.classList.remove("fa-bars");
+        iconoMenu.classList.add("fa-bars-staggered");
+    } else {
+        iconoMenu.classList.remove("fa-bars-staggered");
+        iconoMenu.classList.add("fa-bars");
+    }
+
 });
 
     // 2. PANTALLA DE CARGA DEL JUEGO
@@ -119,73 +130,122 @@ botonMenu.addEventListener("click", function() {
 
     // 4. CARGAR JUEGOS DESDE LA API
 
-    const contenedorJuegos = document.getElementById("contenedor-juegos");
+   const contenedorJuegos = document.getElementById("contenedor-juegos");
+
+if (contenedorJuegos) {
+
+    const juegosHardcodeados = [
+        {
+            name: "PacMan",
+            background_image: "../img/pacman.jpeg"
+        },
+        {
+            name: "Uno",
+            background_image: "../img/uno.jpg"
+        },
+        {
+            name: "Dominoes Classic",
+            background_image: "../img/domino.jpeg"
+        },
+        {
+            name: "Ludo King",
+            background_image: "../img/ludo.jpeg"
+        },
+        {
+            name: "Spider Solitarie",
+            background_image: "../img/spidersolitarie.jpeg"
+        },
+        {
+            name: "Monopoly",
+            background_image: "../img/monopoly.jpeg"
+        },
+        {
+            name: "Block Puzzle",
+            background_image: "../img/blockpuzzle.jpeg"
+        }
+    ];
 
 
-    if (contenedorJuegos) {
+    async function cargarJuegos() {
 
-        fetch("https://vj.interfaces.jima.com.ar/api/v2")
+        let juegos;
 
-            .then(response => response.json())
-            .then(juegos => {
+        try {
 
-                juegos.slice(0, 7).forEach(juego => {
+            const response = await fetch(
+                "https://vj.interfaces.jima.com.ar/api/v2"
+            );
 
-                    const card =
-                        document.createElement("div");
+            if (!response.ok) {
+                throw new Error("La API no respondió correctamente");
+            }
 
-                    card.classList.add("card-juego");
+            juegos = await response.json();
+
+        } catch (error) {
+
+            console.error("Error al obtener los juegos:", error);
+
+            // Si falla la API, usamos los juegos hardcodeados
+            juegos = juegosHardcodeados;
+        }
 
 
-                    card.innerHTML = `
-                        <img src="${juego.background_image}" alt="${juego.name}" >
+        juegos.slice(0, 7).forEach(juego => {
 
-                        <div class="overlay">
+            const card = document.createElement("div");
 
-                            <h3>${juego.name}</h3>
+            card.classList.add("card-juego");
 
-                            <button class="btn-jugar">
-                                Jugar
-                            </button>
+            card.innerHTML = `
+                <img src="${juego.background_image}" alt="${juego.name}">
 
-                            <button class="fav">
-                                <span>Añadir a favoritos</span>
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
+                <div class="overlay">
 
-                        </div>
-                    `;
+                    <h3>${juego.name}</h3>
 
-                    contenedorJuegos.appendChild(card);
+                    <button class="btn-jugar">
+                        Jugar
+                    </button>
 
-                    // Favorito de la card
-                    const botonFavorito = card.querySelector(".fav");
+                    <button class="fav">
+                        <span>Añadir a favoritos</span>
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
 
-                    if (botonFavorito) {
+                </div>
+            `;
 
-                        botonFavorito.addEventListener("click", function () {
+            contenedorJuegos.appendChild(card);
 
-                                const corazon = this.querySelector("i");
 
-                                if (corazon) {
+            // Favorito de la card
+            const botonFavorito = card.querySelector(".fav");
 
-                                    corazon.classList.toggle( "fa-regular");
-                                    corazon.classList.toggle("fa-solid");
+            if (botonFavorito) {
 
-                                }
-                            }
-                        );
+                botonFavorito.addEventListener("click", function () {
+
+                    const corazon = this.querySelector("i");
+
+                    if (corazon) {
+
+                        corazon.classList.toggle("fa-regular");
+                        corazon.classList.toggle("fa-solid");
+
                     }
+
                 });
-            })
 
-            .catch(error => {
+            }
 
-                console.error( "Error al obtener los juegos:",error);
+        });
 
-            });
     }
 
+
+    cargarJuegos();
+}
     // 5. MENÚ DE AJUSTES
 
     const botonAjustes = document.getElementById("boton-ajustes");
@@ -635,7 +695,6 @@ function mostrarAnimacionExito() {
 
     }, 1800);
 }
-
 const formularioRegistro = document.getElementById("registro");
 const btnCrearRegistro = document.getElementById("btnCrearRegistro");
 
@@ -668,7 +727,7 @@ if (formularioRegistro && password && repassword && errorPassword) {
 
         errorPassword.textContent = "";
 
-        // Animación
+        // Animación de carga
         btnCrearRegistro.classList.add("cargando");
 
         grados = 0;
@@ -682,6 +741,8 @@ if (formularioRegistro && password && repassword && errorPassword) {
 
         }, 30);
 
+
+        // Después de 2 segundos → mostrar ✓
         setTimeout(function () {
 
             clearInterval(giro);
@@ -692,28 +753,37 @@ if (formularioRegistro && password && repassword && errorPassword) {
             btnCrearRegistro.style.transform = "rotate(0deg)";
             btnCrearRegistro.textContent = "✓";
 
+
+            // Después de mostrar el ✓
             setTimeout(function () {
 
-    // Mostrar portal
-    mostrarAnimacionExito();
+                // Mostrar portal
+                mostrarAnimacionExito();
 
-    // Guardar sesión
-    localStorage.setItem("logueado", "true");
+                // Guardar sesión
+                localStorage.setItem("logueado", "true");
 
-    // Actualizar header
-    actualizarHeader();
+                // Actualizar header
+                actualizarHeader();
 
-    // Cerrar modal después de la animación
-    setTimeout(function () {
 
-        cerrarModalIngreso();
+                // Volver a dejar el botón normal
+                setTimeout(function () {
 
-    }, 1800);
+                    btnCrearRegistro.classList.remove("exito");
+                    btnCrearRegistro.textContent = "Crear cuenta";
+                    btnCrearRegistro.style.transform = "rotate(0deg)";
 
-}, 1200);
+                    // Cerrar modal
+                    cerrarModalIngreso();
+
+                }, 1800);
+
+            }, 1200);
 
         }, 2000);
 
     });
 
-}});
+}
+});
