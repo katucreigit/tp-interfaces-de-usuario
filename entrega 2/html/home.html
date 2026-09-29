@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -16,7 +19,17 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+	<div id="pantallaCarga" class="loader-container">
+		<img src="../img/joystick-carga.png" alt="Cargando" class="loader-joystick" id="loaderImg">
+
+		<div class="loader-bar">
+		    <div class="progreso"></div>
+		</div>
+		
+		<div class="loader-text">CARGANDO <span id="porcentaje">0%</span></div>
+	</div>
+
+	<div id="pantallaFinal">
     <header>
 
     <div class="menu-logo">
@@ -70,7 +83,7 @@
 
     <!-- RECOMENDADOS -->
     <section class="recommended game-category" id="top">
-        <h1>Recomendados</h1>
+        <h2>Recomendados</h2>
 
         <div class="carousel">
             <div class="game-list">
@@ -122,14 +135,13 @@
         </div>
     </section>
 
-    <!-- COMENZÁ A JUGAR -->
     <section class="start-playing">
         <h2>COMENZÁ A JUGAR</h2>
     </section>
 
-    <!-- JUEGOS DE ACCIÓN -->
+
     <section class="game-category" data-genero="Accion">
-        <h2>Juegos de acción <span>›</span></h2>
+        <h2>Juegos de acción <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
         <div class="carousel">
             <button class="carousel-arrow" aria-label="Anterior">‹</button>
@@ -160,7 +172,7 @@
 
     <!-- JUEGOS DE MESA -->
     <section class="game-category" data-genero=" Mesa">
-        <h2>Juegos de mesa <span>›</span></h2>
+        <h2>Juegos de mesa <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
         <div class="carousel">
             <button class="carousel-arrow" aria-label="Anterior">‹</button>
@@ -252,7 +264,7 @@
 
     <!-- JUEGOS DE AUTOS -->
     <section class="game-category" data-genero="Autos">
-        <h2>Juegos de autos <span>›</span></h2>
+        <h2>Juegos de autos <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
         <div class="carousel">
             <button class="carousel-arrow" aria-label="Anterior">‹</button>
@@ -294,7 +306,7 @@
 
     <!-- JUEGOS PAGOS -->
     <section class="game-category">
-        <h2>Juegos pagos <span>›</span></h2>
+        <h2>Juegos pagos <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
         <div class="carousel">
             <button class="carousel-arrow" aria-label="Anterior">‹</button>
@@ -342,7 +354,7 @@
 
     <!-- JUEGOS DE DEPORTES -->
     <section class="game-category" data-genero="Deportes">
-        <h2>Juegos de deportes <span>›</span></h2>
+        <h2>Juegos de deportes <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
         <div class="carousel">
             <button class="carousel-arrow" aria-label="Anterior">‹</button>
@@ -560,7 +572,7 @@
     </div>
 
     </footer>
-
+</div>
     <script src="menu.js"></script>
 </body>
 </html>

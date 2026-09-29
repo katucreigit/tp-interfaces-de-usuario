@@ -1,3 +1,52 @@
+document.addEventListener("DOMContentLoaded", () => {
+ // 1. PANTALLA DE CARGA PRINCIPAL   
+    const loaderImg = document.querySelector("#loaderImg");
+    const barra = document.querySelector(".progreso");
+    const porcentaje = document.querySelector("#porcentaje");
+    const pantallaCarga = document.querySelector("#pantallaCarga");
+    const pantallaFinal = document.querySelector("#pantallaFinal");
+
+    // Animación de latido
+    if (loaderImg) {
+
+        setInterval(() => {
+            loaderImg.classList.toggle("latido");
+        }, 400);
+
+    }
+
+    // Barra de carga
+    if (barra) {
+
+        let progresoMain = 0;
+
+        const intervaloCarga = setInterval(() => {
+
+            progresoMain += 20;
+            barra.style.width = progresoMain + "%";
+
+            if (porcentaje) {
+                porcentaje.textContent = progresoMain + "%";
+            }
+
+            if (progresoMain >= 100) {
+
+                clearInterval(intervaloCarga);
+                setTimeout(() => {
+
+                    if (pantallaCarga) {
+                        pantallaCarga.style.display = "none";
+                    }
+
+                    if (pantallaFinal) {
+                        pantallaFinal.style.display = "block";
+                    }
+
+                }, 500);
+            }
+        }, 500);
+    }
+
 const botonMenu = document.querySelector(".menu");
 const menuLateral = document.querySelector("#menuLateral");
 
@@ -1018,3 +1067,4 @@ function inicializarCarruseles() {
     );
 
 }
+});
