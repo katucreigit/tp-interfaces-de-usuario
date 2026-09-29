@@ -172,7 +172,7 @@ section {
 .overlay h3 {
     color: white;
     font-size: 18px;
-    margin: 0 0 12px;
+    margin: 0 8px 12px;
 }
 
 .btn-jugar {
@@ -291,8 +291,8 @@ section {
    CARD RECOMENDADA
 ========================= */
 .card-recomendado {
-    width: 205px;
-    height: 175px;
+    width: 210px;
+    height: 190px;
     position: absolute;
     top: 0;
     transition: left 0.8s ease, transform 0.8s ease, opacity 0.8s ease, filter 0.8s ease;
