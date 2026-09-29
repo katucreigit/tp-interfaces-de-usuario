@@ -48,6 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const masOpciones = document.querySelector("#masOpciones");
+    const menuMasOpciones = document.querySelector("#menuMasOpciones");
+
+    if (masOpciones && menuMasOpciones) {
+        masOpciones.addEventListener("click", (e) => {
+            e.stopPropagation();
+            menuMasOpciones.classList.toggle("abierto");
+        });
+
+        document.addEventListener("click", () => {
+            menuMasOpciones.classList.remove("abierto");
+        });
+    }
     const verCategorias = document.querySelector("#verCategorias");
 
     verCategorias.addEventListener("click", function(e) {
@@ -115,7 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Ludo King", background_image: "../img/ludo.jpeg" },
         { name: "Spider Solitarie", background_image: "../img/spidersolitarie.jpeg" },
         { name: "Monopoly", background_image: "../img/monopoly.jpeg" },
-        { name: "Block Puzzle", background_image: "../img/blockpuzzle.jpeg" }
+        { name: "Block Puzzle", background_image: "../img/blockpuzzle.jpeg" },
+        { name: "Red Ball 4", background_image: "../img/redball.jpeg" },
+        { name: "FireBoy and WaterGirl", background_image: "../img/fuegoyagua.jpeg" },
+        { name: "5 Roll", background_image: "../img/5roll.jpeg" },
+        { name: "Backgammon", background_image: "../img/backgammon.jpeg" },
+        { name: "Balatro", background_image: "../img/balatro.jpeg" },
+        { name: "Checkers", background_image: "../img/checkers.jpeg" },
+        { name: "Mario Kart", background_image: "../img/marioKart.jpg" },
+        { name: "Reversi", background_image: "../img/reversi.jpeg" },
+        { name: "Soldiers", background_image: "../img/soldiers.jpeg" }
     ];
 
     /* CARGAR JUEGOS */
