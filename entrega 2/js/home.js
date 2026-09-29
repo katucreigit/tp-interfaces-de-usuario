@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     if (pantallaCarga) pantallaCarga.style.display = "none";
                     if (pantallaFinal) pantallaFinal.style.display = "block";
-                }, 500);
+                }, 1000);
             }
-        }, 500);
+        }, 1000);
     }
 
     const botonMenu = document.querySelector(".menu");

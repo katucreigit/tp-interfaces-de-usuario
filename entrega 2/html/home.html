@@ -14,8 +14,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="stylesheet" href="home.css">
-    <title>Game World - Inicio</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <title>Inicio - Game World</title>
 </head>
 <body>
 
@@ -32,299 +32,268 @@
 	<div id="pantallaFinal">
         <header>
 
-        <div class="menu-logo">
-	    <div class="menu">
-	        <i class="fa-solid fa-bars"></i>
-    	    </div>
-            <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
-        </div>
-            
-        
-        <div class="buscador">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Buscar juego...">
-        </div>
-
-        <div class="iconos">
-            <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
-            <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
-
-            <div class="icono ajustes tooltip-sec" data-tooltip="Ajustes de pantalla" id="boton-ajustes">
-			<i class="fa-solid fa-gear"></i>
-		    <div class="menu-ajustes">
-
-			<div class="opcion-ajuste">
-			    <i class="fa-solid fa-globe"></i>
-
-			    <div class="texto-ajuste">
-				<span>Idioma</span>
-			    </div>
-			</div>
-
-			<div class="opcion-ajuste">
-			    <i class="fa-solid fa-palette"></i>
-
-			    <div class="texto-ajuste">
-				<span>Tema</span>
-			    </div>
-
-			   <label class="switch">
-			    <input type="checkbox">
-			    <span class="slider">
-				<i class="fa-regular fa-moon icono-luna"></i>
-				<i class="fa-regular fa-sun icono-sol"></i>
-			    </span>
-			</label>
-			</div>
-
-		    </div>
-		</div>
-		     <button class="btn-ingresar" id="btnIngresar">
-    Ingresar
-</button>
-            <div class="icono perfil"  id="perfilUsuario">A
-		    <div class="menu-perfil">
-
-		<a href="#">
-		    <i class="fa-regular fa-user"></i>
-		    <span>Mi perfil</span>
-		</a>
-		<a href="#">
-		    <i class="fa-regular fa-bookmark"></i>
-		    <span>Mi biblioteca</span>
-		</a>
-		<a href="#">
-		    <i class="fa-solid fa-trophy"></i>
-		    <span>Mis logros</span>
-		</a>
-
-		<a href="#">
-		    <i class="fa-solid fa-screwdriver-wrench"></i>
-		    <span>Configuración</span>
-		</a>
-
-		<div class="separador-perfil"></div>
-
-		<a href="#"  class="cerrar-sesion" id="cerrarSesion">
-		    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-		    <span>Cerrar sesión</span>
-		</a>
-
-	    </div>
+            <div class="menu-logo">
+            <div class="menu">
+                <i class="fa-solid fa-bars"></i>
+                </div>
+                <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
             </div>
-         
+                
+            <div class="buscador">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar juego...">
+            </div>
+
+            <div class="iconos">
+                <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
+
+                <div class="icono ajustes tooltip-sec" data-tooltip="Ajustes de pantalla" id="boton-ajustes">
+                    <i class="fa-solid fa-gear"></i>
+                    <div class="menu-ajustes">
+
+		            	<div class="opcion-ajuste">
+			                <i class="fa-solid fa-globe"></i>
+
+			                <div class="texto-ajuste">
+				                <span>Idioma</span>
+			                </div>
+			            </div>
+			            <div class="opcion-ajuste">
+			                <i class="fa-solid fa-palette"></i>
+
+			                <div class="texto-ajuste">
+				                <span>Tema</span>
+			                </div>
+
+			                <label class="switch">
+			                    <input type="checkbox">
+			                    <span class="slider">
+                                    <i class="fa-regular fa-moon icono-luna"></i>
+                                    <i class="fa-regular fa-sun icono-sol"></i>
+                                </span>
+                			</label>
+			            </div>
+		            </div>
+		        </div>
+		        <button class="btn-ingresar" id="btnIngresar">
+                Ingresar
+                </button>
+                <div class="icono perfil"  id="perfilUsuario">A
+		            <div class="menu-perfil">
+		                <a href="#">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Mi perfil</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa-regular fa-bookmark"></i>
+                            <span>Mi biblioteca</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span>Mis logros</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                            <span>Configuración</span>
+                        </a>
+
+		                <div class="separador-perfil"></div>
+
+                        <a href="#"  class="cerrar-sesion" id="cerrarSesion">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Cerrar sesión</span>
+                        </a>
+	                </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="menu-lateral" id="menuLateral">
+            <div class="menu-seccion">
+                <a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a>
+                <a href="#"><i class="fa-solid fa-crown"></i><span>Juegos populares</span></a>
+                <a href="#"><i class="fa-solid fa-dollar-sign"></i><span>Juegos pagos</span></a>
+                <a href="#"><i class="fa-solid fa-star"></i><span>Juegos gratuitos</span></a>
+            </div>
+
+            <div class="menu-separador"></div>
+
+            <div class="menu-categorias">
+                <h2>Categorías</h2>
+                <a href="#"><i class="fa-solid fa-khanda"></i><span>Acción</span></a>
+                <a href="#"><i class="fa-solid fa-car"></i><span>Autos</span></a>
+                <a href="#"><i class="fa-solid fa-compass"></i><span>Aventuras</span></a>
+                <a href="#"><i class="fa-solid fa-basketball"></i><span>Deportes</span></a>
+                <a href="#"><i class="fa-solid fa-crosshairs"></i><span>Disparos</span></a>
+                <a href="#"><i class="fa-solid fa-brain"></i><span>Estrategia</span></a>
+                <a href="#"><i class="fa-solid fa-dice"></i><span>Mesa</span></a>
+                <a href="#"><i class="fa-solid fa-ghost"></i><span>Terror</span></a>
+                <a href="#"><i class="fa-solid fa-gamepad"></i><span>Simulación</span></a>
+            </div>
+        </nav>
+
+        <div class="modal" id="modalIngreso">
+        <div class="modal-contenido" id="modal-contenido">
+            <button class="cerrar-modal" onclick="cerrarModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="tabs">
+                <button class="tab activo" onclick="mostrarFormulario('login', this)">
+                    Iniciar sesión
+                </button>
+
+                <button class="tab" onclick="mostrarFormulario('registro', this)">
+                    Registrarse
+                </button>
+            </div>
+
+            <form id="login" class="formulario activo">
+
+                <label for="email-login">Email o nombre de usuario</label>
+                <div class="input-icono">
+                        <i class="fa-solid fa-user"></i>
+                    <input  type="email"  id="email-login"  placeholder="tuemail@gmail.com" required>
+                </div>
+
+                <label for="password-login">Contraseña</label>
+                <div class="input-icono">
+                    <i class="fa-solid fa-lock"></i>
+                    <input  type="password"  id="password-login"  placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-form">
+                    Iniciar sesión
+                </button>
+                <div class="cambiar-formulario">
+                    <span>¿Todavía no tenés una cuenta?</span>
+                    <button type="button" onclick="mostrarFormulario('registro')">
+                        Crear cuenta
+                    </button>
+                </div>
+                <div class="separador">
+                    <span></span>
+                    <p>O</p>
+                    <span></span>
+                </div>
+                <div class="login-social">
+
+                    <button class="btn-social google">
+                        <img src="../img/google-icon.png" >
+                        Continuar con Google
+                    </button>
+                    <button class="btn-social facebook">
+                        <img src="../img/fb-icon.webp" >
+                        Continuar con Facebook
+                    </button>
+                </div>
+
+            </form>
+            <form id="registro" class="formulario">
+
+                <div class="campo">
+                    <label for="name-register">Nombre y Apellido</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="name-register" placeholder="Ingresa tu nombre completo" required>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="nickname-register">Nickname (Opcional)</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="nickname-register" placeholder="Elige un nombre de usuario">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="email-register">Email</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email-register" placeholder="tuemail@gmail.com" required>
+                    </div>
+               </div>
+
+                <div class="campo">
+                    <label for="edad-register">Edad</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="number" id="edad-register" placeholder="Escribe tu edad" required min="1">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="password-register">Contraseña</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password-register" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="repassword-register">Repetir contraseña</label>
+                    <div class="input-icono">
+                        <i class="fa-solid fa-lock"></i>
+                        <input  type="password" id="repassword-register" placeholder="••••••••" required>
+                    </div>
+                    <div id="error-password" class="mensaje-error"></div>
+                </div>
+                <img src="../img/recaptcha.png" alt= "reCAPTCHA">
+                <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
+                    Crear cuenta
+                </button>
+                <div class="cambiar-formulario">
+                    <span>¿Ya tenés una cuenta?</span>
+                    <button type="button" onclick="mostrarFormulario('login')">
+                    Iniciar sesión
+                    </button>
+                </div>
+                <div class="separador">
+                    <span></span>
+                    <p>O</p>
+                    <span></span>
+                </div>
+                <div class="login-social">
+                    <button class="btn-social google">
+                        <img src="../img/google-icon.png" >
+                        Continuar con Google
+                    </button>
+                    <button class="btn-social facebook">
+                        <img src="../img/fb-icon.webp" >
+                        Continuar con Facebook
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="transicionExito" class="transicion-exito">
+
+        <div class="portal">
+
+        <div class="portal-centro">
+            <img src="../img/joystick-carga.png" alt="Game World">
         </div>
 
-    </header>
+            <div class="portal-anillo"></div>
+            <div class="portal-anillo portal-anillo-2"></div>
 
-    <!-- MENÚ LATERAL -->
-<nav class="menu-lateral" id="menuLateral">
-    <div class="menu-seccion">
-        <a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a>
-        <a href="#"><i class="fa-solid fa-crown"></i><span>Juegos populares</span></a>
-        <a href="#"><i class="fa-solid fa-dollar-sign"></i><span>Juegos pagos</span></a>
-        <a href="#"><i class="fa-solid fa-star"></i><span>Juegos gratuitos</span></a>
-    </div>
-
-    <div class="menu-separador"></div>
-
-    <div class="menu-categorias">
-        <h2>Categorías</h2>
-        <a href="#"><i class="fa-solid fa-khanda"></i><span>Acción</span></a>
-        <a href="#"><i class="fa-solid fa-car"></i><span>Autos</span></a>
-        <a href="#"><i class="fa-solid fa-compass"></i><span>Aventuras</span></a>
-        <a href="#"><i class="fa-solid fa-basketball"></i><span>Deportes</span></a>
-        <a href="#"><i class="fa-solid fa-crosshairs"></i><span>Disparos</span></a>
-        <a href="#"><i class="fa-solid fa-brain"></i><span>Estrategia</span></a>
-        <a href="#"><i class="fa-solid fa-dice"></i><span>Mesa</span></a>
-        <a href="#"><i class="fa-solid fa-ghost"></i><span>Terror</span></a>
-        <a href="#"><i class="fa-solid fa-gamepad"></i><span>Simulación</span></a>
-    </div>
-</nav>
-
-<div class="modal" id="modalIngreso">
-   <div class="modal-contenido" id="modal-contenido">
-
-        <button class="cerrar-modal" onclick="cerrarModal()"><i class="fa-solid fa-xmark"></i></button>
-
-        <div class="tabs">
-            <button class="tab activo" onclick="mostrarFormulario('login', this)">
-                Iniciar sesión
-            </button>
-
-            <button class="tab" onclick="mostrarFormulario('registro', this)">
-                Registrarse
-            </button>
         </div>
 
+        <div class="particulas">
 
-        <form id="login" class="formulario activo">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
-  <label for="email-login">Email o nombre de usuario</label>
-
-  <div class="input-icono">
-        <i class="fa-solid fa-user"></i>
-      <input  type="email"  id="email-login"  placeholder="tuemail@gmail.com" required>
-  </div>
-
-  <label for="password-login">Contraseña</label>
-
-  <div class="input-icono">
-      <i class="fa-solid fa-lock"></i>
-      <input  type="password"  id="password-login"  placeholder="••••••••" required>
-  </div>
-
-            <button type="submit" class="btn-form">
-                Iniciar sesión
-            </button>
-	<div class="cambiar-formulario">
-		<span>¿Todavía no tenés una cuenta?</span>
-		<button type="button" onclick="mostrarFormulario('registro')">
-	    Crear cuenta
-	</button>
-	</div>
-            <div class="separador">
-        <span></span>
-        <p>O</p>
-        <span></span>
-    </div>
-    <div class="login-social">
-
-        <button class="btn-social google">
-      <img src="../img/google-icon.png" >
-      Continuar con Google
-        </button>
-
-        <button class="btn-social facebook">
-                       <img src="../img/fb-icon.webp" >
-      Continuar con Facebook
-        </button>
-
-  </div>
-
-        </form>
-  <form id="registro" class="formulario">
-
-      <div class="campo">
-    <label for="name-register">Nombre y Apellido</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-user"></i>
-        <input type="text" id="name-register" placeholder="Ingresa tu nombre completo" required>
-    </div>
-      </div>
-
-      <div class="campo">
-    <label for="nickname-register">Nickname (Opcional)</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-user"></i>
-        <input type="text" id="nickname-register" placeholder="Elige un nombre de usuario">
-    </div>
-      </div>
-
-
-      <div class="campo">
-    <label for="email-register">Email</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-envelope"></i>
-        <input type="email" id="email-register" placeholder="tuemail@gmail.com" required>
-    </div>
-      </div>
-
-      <div class="campo">
-    <label for="edad-register">Edad</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-calendar"></i>
-        <input type="number" id="edad-register" placeholder="Escribe tu edad" required min="1">
-    </div>
-      </div>
-
-      <div class="campo">
-    <label for="password-register">Contraseña</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="password-register" placeholder="••••••••" required>
-    </div>
-      </div>
-
-      <div class="campo">
-    <label for="repassword-register">Repetir contraseña</label>
-
-    <div class="input-icono">
-        <i class="fa-solid fa-lock"></i>
-        <input  type="password" id="repassword-register" placeholder="••••••••" required>
-    </div>
-    <div id="error-password" class="mensaje-error"></div>
-      </div>
-      <img src="../img/recaptcha.png" alt= "reCAPTCHA">
-      <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
-    Crear cuenta
-      </button>
-      <div class="cambiar-formulario">
-	<span>¿Ya tenés una cuenta?</span>
-	<button type="button" onclick="mostrarFormulario('login')">
-	    Iniciar sesión
-	</button>
-	</div>
-      <div class="separador">
-    <span></span>
-    <p>O</p>
-    <span></span>
-      </div>
-
-      <div class="login-social">
-
-    <button class="btn-social google">
-      <img src="../img/google-icon.png" >
-      Continuar con Google
-        </button>
-
-        <button class="btn-social facebook">
-                       <img src="../img/fb-icon.webp" >
-      Continuar con Facebook
-        </button>
-
-      </div>
-
-  </form>
-
-      </div>
-  </div>
-<div id="transicionExito" class="transicion-exito">
-
-    <div class="portal">
-
-	<div class="portal-centro">
-	    <img src="../img/joystick-carga.png" alt="Game World">
-	</div>
-
-        <div class="portal-anillo"></div>
-
-        <div class="portal-anillo portal-anillo-2"></div>
+        </div>
 
     </div>
-
-    <div class="particulas">
-
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-    </div>
-
-</div>
 <main>
 
-    <!-- RECOMENDADOS -->
     <section class="recommended game-category" id="top">
         <h2>Recomendados</h2>
 
@@ -443,8 +412,6 @@
             <button class="carousel-arrow" aria-label="Siguiente">›</button>
         </div>
     </section>
-
-    <!-- JUEGOS DE MESA -->
     <section class="game-category" data-genero=" Mesa">
         <h2>Juegos de mesa <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
@@ -538,14 +505,15 @@
                 <article class="card-juego card-chica">
                     <img src="img/reversi.jpg" alt="Reversi">
                 </article>
-
+                
+                <article class="card-juego card-chica">
+                    <img src="img/reversi.jpg" alt="Reversi">
+                </article>
             </div>
 
             <button class="carousel-arrow" aria-label="Siguiente">›</button>
         </div>
     </section>
-
-    <!-- JUEGOS DE AUTOS -->
     <section class="game-category" data-genero="Autos">
         <h2>Juegos de autos <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
@@ -602,190 +570,222 @@
                     </div>
                 </article>
 
+                <article class="card-juego card-grande">
+                    <img src="img/juego-autos-3.jpg" alt="Juego de autos">
+
+                    <div class="badge-juego popular">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>Popular</span>
+                    </div>
+                </article>
+
+                <article class="card-juego card-grande">
+                    <img src="img/juego-autos-3.jpg" alt="Juego de autos">
+
+                    <div class="badge-juego popular">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>Popular</span>
+                    </div>
+                </article>
+
             </div>
 
             <button class="carousel-arrow" aria-label="Siguiente">›</button>
         </div>
     </section>
+    <section class="game-category">
+        <h2>Juegos pagos <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
-    <!-- JUEGOS PAGOS -->
-<section class="game-category">
-    <h2>Juegos pagos <span><i class="fa-solid fa-angle-right"></i></span></h2>
+        <div class="carousel">
+            <button class="carousel-arrow" aria-label="Anterior">‹</button>
 
-    <div class="carousel">
-        <button class="carousel-arrow" aria-label="Anterior">‹</button>
+            <div class="game-list chicas">
 
-        <div class="game-list chicas">
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="2500">
+                    <img src="img/juego-pago-1.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="2500">
-                <img src="img/juego-pago-1.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3000">
+                    <img src="img/juego-pago-2.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3000">
-                <img src="img/juego-pago-2.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
-            <article class="card-juego card-chica" data-precio="3500">
-                <img src="img/juego-pago-3.jpg" alt="Juego pago">
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
 
-                <div class="badge-juego pago">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Pago</span>
-                </div>
-            </article>
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
 
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
+
+                <article class="card-juego card-chica" data-precio="3500">
+                    <img src="img/juego-pago-3.jpg" alt="Juego pago">
+
+                    <div class="badge-juego pago">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Pago</span>
+                    </div>
+                </article>
+
+            </div>
+
+            <button class="carousel-arrow" aria-label="Siguiente">›</button>
         </div>
-
-        <button class="carousel-arrow" aria-label="Siguiente">›</button>
-    </div>
-</section>
-
-    <!-- JUEGOS DE DEPORTES -->
+    </section>
     <section class="game-category" data-genero="Deportes">
         <h2>Juegos de deportes <span><i class="fa-solid fa-angle-right"></i></span></h2>
 
@@ -845,23 +845,16 @@
             <button class="carousel-arrow" aria-label="Siguiente">›</button>
         </div>
     </section>
-
-    <!-- VOLVER ARRIBA -->
     <div class="volver-arriba">
         <a href="#top" class="tooltip-izquierda" data-tooltip="Ir hacia arriba">
             <i class="fa-solid fa-angles-up"></i>
         </a>
     </div>
-
-    <!-- BOTÓN CATEGORÍAS -->
     <section class="all-categories">
         <a href="" id="verCategorias">Ver todas las categorías</a>
     </section>
-
 </main>
 
-
-    <!-- MODAL DE COMPRA -->
     <div class="modal-fondo" id="modalCompra">
 
         <div class="modal-compra">
@@ -891,8 +884,7 @@
             </div>
     
         </div>
-    
-        <!-- MENSAJE DE COMPRA EXITOSA -->
+
         <div class="compra-exitosa" id="compraExitosa">
             <i class="fa-solid fa-circle-check"></i>
             <h2>¡Compra realizada!</h2>
@@ -1008,6 +1000,6 @@
 
 </footer>
 </div>
-    <script src="menu.js"></script>
+    <script src="../js/home.js"></script>
 </body>
 </html>
