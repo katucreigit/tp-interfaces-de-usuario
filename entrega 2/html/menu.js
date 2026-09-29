@@ -53,6 +53,12 @@ const menuLateral = document.querySelector("#menuLateral");
 botonMenu.addEventListener("click", function() {
     menuLateral.classList.toggle("abierto");
 });
+const verCategorias = document.querySelector("#verCategorias");
+
+verCategorias.addEventListener("click", function(e) {
+    e.preventDefault();
+    menuLateral.classList.add("abierto");
+});
 
 const modalCompra = document.querySelector("#modalCompra");
 const modalImagen = document.querySelector("#modalImagen");
@@ -1067,4 +1073,385 @@ function inicializarCarruseles() {
     );
 
 }
+ // 5. MENÚ DE AJUSTES
+
+    const botonAjustes = document.getElementById("boton-ajustes");
+    const menuAjustes = document.querySelector(".menu-ajustes");
+
+
+    if (botonAjustes && menuAjustes) {
+
+        botonAjustes.addEventListener( "click",function (event) {
+
+                event.stopPropagation();
+
+                menuAjustes.classList.toggle("abierto");
+
+            }
+        );
+
+
+        menuAjustes.addEventListener( "click", function (event) {
+
+                event.stopPropagation();
+
+            }
+        );
+
+
+        document.addEventListener( "click", function () {
+
+                menuAjustes.classList.remove("abierto");
+
+            }
+        );
+    }
+    // 9. MODAL DE INGRESO
+
+    const modalIngreso = document.getElementById("modalIngreso");
+    const modalContenido = document.getElementById("modal-contenido");
+
+    // Abrir modal
+    function abrirModalIngreso() {
+
+        if (modalIngreso) {
+
+            modalIngreso.style.display = "flex";
+
+        }
+
+    }
+
+    // Cerrar modal
+    function cerrarModalIngreso() {
+
+        if (modalIngreso) {
+
+            modalIngreso.style.display = "none";
+
+        }
+
+    }
+
+    // Hacer las funciones accesibles desde HTML
+    window.abrirModal = abrirModalIngreso;
+    window.cerrarModal = cerrarModalIngreso;
+
+
+    // ==========================================
+    // CAMBIAR ENTRE LOGIN Y REGISTRO
+    // ==========================================
+
+    window.mostrarFormulario = function (
+        formulario,
+        boton
+    ) {
+
+        // Ocultar todos los formularios
+        document.querySelectorAll(".formulario").forEach(function (form) {
+
+                form.classList.remove("activo");
+
+            });
+
+
+        // Quitar activo de todas las pestañas
+        document.querySelectorAll(".tab").forEach(function (tab) {
+
+                tab.classList.remove("activo");
+
+            });
+
+
+        // Mostrar formulario seleccionado
+        const formularioSeleccionado = document.getElementById(formulario);
+
+
+        if (formularioSeleccionado) {
+
+            formularioSeleccionado.classList.add("activo");
+
+        }
+
+
+        // Activar pestaña
+        if (boton) {
+
+            boton.classList.add("activo");
+
+        }
+
+
+        // Cambiar tamaño del modal
+        if (modalContenido) {
+
+            modalContenido.classList.toggle(
+                "registro-grande",
+                formulario === "registro"
+            );
+
+        }
+
+    };
+
+
+    // ==========================================
+    // CERRAR MODAL HACIENDO CLICK AFUERA
+    // ==========================================
+
+    if (modalIngreso) {
+
+        modalIngreso.addEventListener("click",function (event) {
+
+                if (event.target === modalIngreso) {
+
+                    cerrarModalIngreso();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // ==========================================
+    // 10. HEADER - LOGIN / LOGOUT
+    // ==========================================
+
+    const btnIngresar = document.getElementById("btnIngresar");
+    const perfilUsuario = document.getElementById("perfilUsuario");
+    const cerrarSesion = document.getElementById("cerrarSesion");
+
+
+    // ==========================================
+    // ACTUALIZAR HEADER
+    // ==========================================
+
+    function actualizarHeader() {
+
+        const estaLogueado = localStorage.getItem("logueado") === "true";
+
+
+        // BOTÓN INGRESAR
+        if (btnIngresar) {
+
+            if (estaLogueado) {
+
+                btnIngresar.style.display = "none";
+
+            } else {
+
+                btnIngresar.style.display = "flex";
+
+            }
+
+        }
+
+
+        // AVATAR
+        if (perfilUsuario) {
+
+            if (estaLogueado) {
+
+                perfilUsuario.style.display = "flex";
+
+            } else {
+
+                perfilUsuario.style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BOTÓN INGRESAR
+    // ==========================================
+
+    if (btnIngresar) {
+
+        btnIngresar.addEventListener("click",function (event) {
+
+                event.preventDefault();
+
+                abrirModalIngreso();
+
+            }
+        );
+
+    }
+
+
+    // ==========================================
+    // FORMULARIO LOGIN
+    // ==========================================
+
+    const formularioLogin = document.getElementById("login");
+
+
+	if (formularioLogin) {
+
+		formularioLogin.addEventListener("submit",function (event) {
+
+		        event.preventDefault();
+
+		        // Mostrar animación
+		        mostrarAnimacionExito();
+
+		        // Guardar sesión
+		        localStorage.setItem("logueado", "true");
+
+		        // Actualizar header
+		        actualizarHeader();
+
+		        // Cerrar modal después de la animación
+		        setTimeout(function () {
+
+		            cerrarModalIngreso();
+
+		        }, 1800);
+
+		    }
+		);
+
+	}
+
+
+    // ==========================================
+    // CERRAR SESIÓN
+    // ==========================================
+
+    if (cerrarSesion) {
+
+        cerrarSesion.addEventListener("click",function (event) {
+
+                event.preventDefault();
+
+                // Eliminar sesión
+                localStorage.removeItem("logueado");
+
+
+                // Actualizar header
+                actualizarHeader();
+
+            }
+        );
+
+    }
+
+
+    // ==========================================
+    // COMPROBAR SESIÓN AL CARGAR
+    // ==========================================
+
+    actualizarHeader();
+	// ==========================================
+	// ANIMACIÓN DE ÉXITO
+	// ==========================================
+
+	function mostrarAnimacionExito() {
+
+		const transicion = document.getElementById("transicionExito");
+
+		if (!transicion) return;
+
+		transicion.classList.add("activa");
+
+		setTimeout(function () {
+
+		    transicion.classList.remove("activa");
+
+		}, 1800);
+	}
+	const formularioRegistro = document.getElementById("registro");
+	const btnCrearRegistro = document.getElementById("btnCrearRegistro");
+	const password = document.getElementById("password-register");
+	const repassword = document.getElementById("repassword-register");
+	const errorPassword = document.getElementById("error-password");
+
+	let giro;
+	let grados = 0;
+
+	if (formularioRegistro && password && repassword && errorPassword) {
+
+		formularioRegistro.addEventListener("submit", function (event) {
+
+		    event.preventDefault();
+
+		    if (password.value !== repassword.value) {
+
+		        password.classList.add("input-error");
+		        repassword.classList.add("input-error");
+
+		        errorPassword.textContent = "Las contraseñas no coinciden.";
+
+		        return;
+		    }
+
+		    password.classList.remove("input-error");
+		    repassword.classList.remove("input-error");
+
+		    errorPassword.textContent = "";
+
+		    // Animación de carga
+		    btnCrearRegistro.classList.add("cargando");
+
+		    grados = 0;
+
+		    giro = setInterval(function () {
+
+		        grados += 10;
+
+		        btnCrearRegistro.style.transform = `rotate(${grados}deg)`;
+
+		    }, 30);
+
+
+		    // Después de 2 segundos → mostrar ✓
+		    setTimeout(function () {
+
+		        clearInterval(giro);
+
+		        btnCrearRegistro.classList.remove("cargando");
+		        btnCrearRegistro.classList.add("exito");
+
+		        btnCrearRegistro.style.transform = "rotate(0deg)";
+		        btnCrearRegistro.textContent = "✓";
+
+
+		        // Después de mostrar el ✓
+		        setTimeout(function () {
+
+		            // Mostrar portal
+		            mostrarAnimacionExito();
+
+		            // Guardar sesión
+		            localStorage.setItem("logueado", "true");
+
+		            // Actualizar header
+		            actualizarHeader();
+
+
+		            // Volver a dejar el botón normal
+		            setTimeout(function () {
+
+		                btnCrearRegistro.classList.remove("exito");
+		                btnCrearRegistro.textContent = "Crear cuenta";
+		                btnCrearRegistro.style.transform = "rotate(0deg)";
+
+		                // Cerrar modal
+		                cerrarModalIngreso();
+
+		            }, 1800);
+
+		        }, 1200);
+
+		    }, 2000);
+
+		});
+
+	}
 });

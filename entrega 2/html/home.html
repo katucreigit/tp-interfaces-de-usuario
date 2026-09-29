@@ -30,27 +30,90 @@
 	</div>
 
 	<div id="pantallaFinal">
-    <header>
+        <header>
 
-    <div class="menu-logo">
-    <div class="menu">
-    <i class="fa-solid fa-bars"></i>
-    </div>
-    <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
-    </div>
+        <div class="menu-logo">
+	    <div class="menu">
+	        <i class="fa-solid fa-bars"></i>
+    	    </div>
+            <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
+        </div>
+            
+        
+        <div class="buscador">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Buscar juego...">
+        </div>
 
+        <div class="iconos">
+            <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
 
-    <div class="buscador">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" placeholder="Buscar juego...">
-    </div>
+            <div class="icono ajustes tooltip-sec" data-tooltip="Ajustes de pantalla" id="boton-ajustes">
+			<i class="fa-solid fa-gear"></i>
+		    <div class="menu-ajustes">
 
-    <div class="iconos">
-    <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
-    <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
-    <div class="icono tooltip-sec" data-tooltip="Ajustes de pantalla"><i class="fa-solid fa-gear"></i></div>
-    <div class="icono perfil">A</div>
-    </div>
+			<div class="opcion-ajuste">
+			    <i class="fa-solid fa-globe"></i>
+
+			    <div class="texto-ajuste">
+				<span>Idioma</span>
+			    </div>
+			</div>
+
+			<div class="opcion-ajuste">
+			    <i class="fa-solid fa-palette"></i>
+
+			    <div class="texto-ajuste">
+				<span>Tema</span>
+			    </div>
+
+			   <label class="switch">
+			    <input type="checkbox">
+			    <span class="slider">
+				<i class="fa-regular fa-moon icono-luna"></i>
+				<i class="fa-regular fa-sun icono-sol"></i>
+			    </span>
+			</label>
+			</div>
+
+		    </div>
+		</div>
+		     <button class="btn-ingresar" id="btnIngresar">
+    Ingresar
+</button>
+            <div class="icono perfil"  id="perfilUsuario">A
+		    <div class="menu-perfil">
+
+		<a href="#">
+		    <i class="fa-regular fa-user"></i>
+		    <span>Mi perfil</span>
+		</a>
+		<a href="#">
+		    <i class="fa-regular fa-bookmark"></i>
+		    <span>Mi biblioteca</span>
+		</a>
+		<a href="#">
+		    <i class="fa-solid fa-trophy"></i>
+		    <span>Mis logros</span>
+		</a>
+
+		<a href="#">
+		    <i class="fa-solid fa-screwdriver-wrench"></i>
+		    <span>Configuración</span>
+		</a>
+
+		<div class="separador-perfil"></div>
+
+		<a href="#"  class="cerrar-sesion" id="cerrarSesion">
+		    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+		    <span>Cerrar sesión</span>
+		</a>
+
+	    </div>
+            </div>
+         
+        </div>
 
     </header>
 
@@ -79,6 +142,186 @@
     </div>
 </nav>
 
+<div class="modal" id="modalIngreso">
+   <div class="modal-contenido" id="modal-contenido">
+
+        <button class="cerrar-modal" onclick="cerrarModal()">&times;</button>
+
+        <div class="tabs">
+            <button class="tab activo" onclick="mostrarFormulario('login', this)">
+                Iniciar sesión
+            </button>
+
+            <button class="tab" onclick="mostrarFormulario('registro', this)">
+                Registrarse
+            </button>
+        </div>
+
+
+        <form id="login" class="formulario activo">
+
+  <label for="email-login">Email o nombre de usuario</label>
+
+  <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+      <input  type="email"  id="email-login"  placeholder="tuemail@gmail.com" required>
+  </div>
+
+  <label for="password-login">Contraseña</label>
+
+  <div class="input-icono">
+      <i class="fa-solid fa-lock"></i>
+      <input  type="password"  id="password-login"  placeholder="••••••••" required>
+  </div>
+
+            <button type="submit" class="btn-form">
+                Iniciar sesión
+            </button>
+	<div class="cambiar-formulario">
+		<span>¿Todavía no tenés una cuenta?</span>
+		<button type="button" onclick="mostrarFormulario('registro')">
+	    Crear cuenta
+	</button>
+	</div>
+            <div class="separador">
+        <span></span>
+        <p>O</p>
+        <span></span>
+    </div>
+    <div class="login-social">
+
+        <button class="btn-social google">
+      <img src="../img/google-icon.png" >
+      Continuar con Google
+        </button>
+
+        <button class="btn-social facebook">
+                       <img src="../img/fb-icon.webp" >
+      Continuar con Facebook
+        </button>
+
+  </div>
+
+        </form>
+  <form id="registro" class="formulario">
+
+      <div class="campo">
+    <label for="name-register">Nombre y Apellido</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="name-register" placeholder="Ingresa tu nombre completo" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="nickname-register">Nickname (Opcional)</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="nickname-register" placeholder="Elige un nombre de usuario">
+    </div>
+      </div>
+
+
+      <div class="campo">
+    <label for="email-register">Email</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email-register" placeholder="tuemail@gmail.com" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="edad-register">Edad</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-calendar"></i>
+        <input type="number" id="edad-register" placeholder="Escribe tu edad" required min="1">
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="password-register">Contraseña</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password-register" placeholder="••••••••" required>
+    </div>
+      </div>
+
+      <div class="campo">
+    <label for="repassword-register">Repetir contraseña</label>
+
+    <div class="input-icono">
+        <i class="fa-solid fa-lock"></i>
+        <input  type="password" id="repassword-register" placeholder="••••••••" required>
+    </div>
+    <div id="error-password" class="mensaje-error"></div>
+      </div>
+      <img src="../img/recaptcha.png" alt= "reCAPTCHA">
+      <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
+    Crear cuenta
+      </button>
+      <div class="cambiar-formulario">
+	<span>¿Ya tenés una cuenta?</span>
+	<button type="button" onclick="mostrarFormulario('login')">
+	    Iniciar sesión
+	</button>
+	</div>
+      <div class="separador">
+    <span></span>
+    <p>O</p>
+    <span></span>
+      </div>
+
+      <div class="login-social">
+
+    <button class="btn-social google">
+      <img src="../img/google-icon.png" >
+      Continuar con Google
+        </button>
+
+        <button class="btn-social facebook">
+                       <img src="../img/fb-icon.webp" >
+      Continuar con Facebook
+        </button>
+
+      </div>
+
+  </form>
+
+      </div>
+  </div>
+<div id="transicionExito" class="transicion-exito">
+
+    <div class="portal">
+
+	<div class="portal-centro">
+	    <img src="../img/joystick-carga.png" alt="Game World">
+	</div>
+
+        <div class="portal-anillo"></div>
+
+        <div class="portal-anillo portal-anillo-2"></div>
+
+    </div>
+
+    <div class="particulas">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+</div>
 <main>
 
     <!-- RECOMENDADOS -->
@@ -416,14 +659,14 @@
 
     <!-- VOLVER ARRIBA -->
     <div class="volver-arriba">
-        <a href="#top" aria-label="Volver arriba">
+        <a href="#top" class="tooltip-izquierda" data-tooltip="Ir hacia arriba">
             <i class="fa-solid fa-angles-up"></i>
         </a>
     </div>
 
     <!-- BOTÓN CATEGORÍAS -->
     <section class="all-categories">
-        <a href="#" id="verCategorias">Ver todas las categorías</a>
+        <a href="" id="verCategorias">Ver todas las categorías</a>
     </section>
 
 </main>
@@ -490,88 +733,91 @@
     
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer">
 
     <div class="footer-banner">
-    <h2>¿LISTO PARA JUGAR?</h2>
-    <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
+        <h2>¿LISTO PARA JUGAR?</h2>
+        <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
 
-    <button class="btn-crear">Crear cuenta</button>
+        <button class="btn-crear" onclick="abrirModal(); mostrarFormulario('registro')">
+	    Crear cuenta
+	</button>
 
-    <p class="iniciar-sesion">¿Ya tenés una? Iniciar sesión</p>
+	<p class="iniciar-sesion" onclick="abrirModal(); mostrarFormulario('login')">
+	    ¿Ya tenés una? Iniciar sesión
+	</p>
     </div>
 
     <div class="footer-contenido">
 
-    <div class="footer-logo">
-    <img src="../img/GameWorld-logo.png" alt="Game World">
-    </div>
+        <div class="footer-logo">
+            <img src="../img/GameWorld-logo.png" alt="Game World">
+        </div>
 
-    <div class="footer-columna">
-    <h3>Categorías</h3>
+        <div class="footer-columna">
+            <h3>Categorías</h3>
 
-    <a href="#">Acción</a>
-    <a href="#">Autos</a>
-    <a href="#">Aventuras</a>
-    <a href="#">Deportes</a>
-    <a href="#">Disparos</a>
-    <a href="#">Mesa</a>
-    <a href="#">Terror</a>
-    <a href="#">Simulación</a>
-    <a href="#">Cocina</a>
-    <a href="#">Multijugador</a>
-    </div>
+            <a href="#">Acción</a>
+            <a href="#">Autos</a>
+            <a href="#">Aventuras</a>
+            <a href="#">Deportes</a>
+            <a href="#">Disparos</a>
+            <a href="#">Mesa</a>
+            <a href="#">Terror</a>
+            <a href="#">Simulación</a>
+            <a href="#">Cocina</a>
+            <a href="#">Multijugador</a>
+        </div>
 
-    <div class="footer-columna">
-    <h3>Explorar</h3>
+        <div class="footer-columna">
+            <h3>Explorar</h3>
 
-    <a href="#">Home</a>
-    <a href="#">Juegos populares</a>
-    <a href="#">Juegos pagos</a>
-    <a href="#">Juegos gratuitos</a>
-    <a href="#">Mi perfil</a>
-    <a href="#">Mi biblioteca</a>
-    <a href="#">Mis logros</a>
-    <a href="#">Configuración</a>
-    </div>
+            <a href="#">Home</a>
+            <a href="#">Juegos populares</a>
+            <a href="#">Juegos pagos</a>
+            <a href="#">Juegos gratuitos</a>
+            <a href="#">Mi perfil</a>
+            <a href="#">Mi biblioteca</a>
+            <a href="#">Mis logros</a>
+            <a href="#">Configuración</a>
+        </div>
 
-    <div class="footer-columna footer-social">
+        <div class="footer-columna footer-social">
 
-    <h3>Seguinos</h3>
+            <h3>Seguinos</h3>
 
-    <a href="#"><i class="fa-brands fa-instagram"></i>@gameworld_</a>
-    <a href="#"><i class="fa-brands fa-tiktok"></i> @gameworld</a>
-    <a href="#"><i class="fa-brands fa-x-twitter"></i> @gameworldok</a>
-    <a href="#"><i class="fa-brands fa-facebook-f"></i> @gameworld</a>
-    <a href="#"><i class="fa-brands fa-youtube"></i> Game World Gameplays</a>
+            <a href="#"><i class="fa-brands fa-instagram"></i>@gameworld_</a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i> @gameworld</a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i> @gameworldok</a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i> @gameworld</a>
+            <a href="#"><i class="fa-brands fa-youtube"></i> Game World Gameplays</a>
 
-    <h3 class="titulo-ayuda">Ayuda</h3>
+            <h3 class="titulo-ayuda">Ayuda</h3>
 
-    <a href="#">Soporte</a>
-    <a href="#">FAQ</a>
-    <a href="#">Contacto</a>
+            <a href="#">Soporte</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contacto</a>
 
-    </div>
+        </div>
 
     </div>
     <div class="footer-inferior">
 
-    <p>© 2026 Game World</p>
+        <p>© 2026 Game World</p>
 
-    <div class="footer-legales">
-    <a href="#">Privacidad</a>
-    <span>·</span>
-    <a href="#">Términos y condiciones</a>
-    <span>·</span>
-    <a href="#">Política de cookies</a>
-    <span>·</span>
-    <a href="#">Accesibilidad</a>
+        <div class="footer-legales">
+            <a href="#">Privacidad</a>
+            <span>·</span>
+            <a href="#">Términos y condiciones</a>
+            <span>·</span>
+            <a href="#">Política de cookies</a>
+            <span>·</span>
+            <a href="#">Accesibilidad</a>
+        </div>
+
     </div>
 
-    </div>
-
-    </footer>
+</footer>
 </div>
     <script src="menu.js"></script>
 </body>
