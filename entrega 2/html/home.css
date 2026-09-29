@@ -19,6 +19,16 @@ h2 {
     margin-bottom: 18px;
     margin-left: 10px;
 }
+
+html {
+scrollbar-width: thin;
+scrollbar-color: #FFC035 #020810;
+}
+
+.menu-lateral {
+scrollbar-width: auto;
+scrollbar-color: #FFDB8D #020810;
+}
 /* =========================
    MAIN
 ========================= */
