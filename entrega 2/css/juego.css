@@ -1786,7 +1786,3 @@ hr {
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
 }
-html,
-body {
-    overflow-x: hidden;
-}
