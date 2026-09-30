@@ -1,20 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // PANTALLA DE CARGA
-    const loaderImg = document.querySelector("#loaderImg"), barra = document.querySelector(".progreso"),
-        porcentaje = document.querySelector("#porcentaje"), pantallaCarga = document.querySelector("#pantallaCarga"),
+    const loaderImg = document.querySelector("#loaderImg"),
+        barra = document.querySelector(".progreso"),
+        porcentaje = document.querySelector("#porcentaje"),
+        pantallaCarga = document.querySelector("#pantallaCarga"),
         pantallaFinal = document.querySelector("#pantallaFinal");
 
-    if (loaderImg) setInterval(() => loaderImg.classList.toggle("latido"), 400);
+    if (loaderImg) {
+        setInterval(() => loaderImg.classList.toggle("latido"), 400);
+    }
 
     if (barra) {
         let progresoMain = 0;
+
         const intervaloCarga = setInterval(() => {
             progresoMain += 20;
             barra.style.width = progresoMain + "%";
-            if (porcentaje) porcentaje.textContent = progresoMain + "%";
+
+            if (porcentaje) {
+                porcentaje.textContent = progresoMain + "%";
+            }
+
             if (progresoMain >= 100) {
                 clearInterval(intervaloCarga);
+
                 setTimeout(() => {
                     if (pantallaCarga) pantallaCarga.style.display = "none";
                     if (pantallaFinal) pantallaFinal.style.display = "block";
@@ -24,15 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // MENÚ BURGER
-    const botonMenu = document.querySelector(".menu"), menuLateral = document.querySelector("#menuLateral");
+    const botonMenu = document.querySelector(".menu"),
+        menuLateral = document.querySelector("#menuLateral");
 
     if (botonMenu && menuLateral) {
         const iconoMenu = botonMenu.querySelector("i");
+
         botonMenu.addEventListener("click", () => {
             menuLateral.classList.toggle("abierto");
+
             if (iconoMenu) {
-                iconoMenu.classList.toggle("fa-bars-staggered", menuLateral.classList.contains("abierto"));
-                iconoMenu.classList.toggle("fa-bars", !menuLateral.classList.contains("abierto"));
+                iconoMenu.classList.toggle(
+                    "fa-bars-staggered",
+                    menuLateral.classList.contains("abierto")
+                );
+
+                iconoMenu.classList.toggle(
+                    "fa-bars",
+                    !menuLateral.classList.contains("abierto")
+                );
             }
         });
     }
@@ -45,16 +65,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (gameBarra) {
         let progresoGame = 0;
+
         const intervaloGameBarra = setInterval(() => {
             progresoGame += 20;
             gameBarra.style.width = progresoGame + "%";
-            if (gamePorcentaje) gamePorcentaje.textContent = progresoGame + "%";
+
+            if (gamePorcentaje) {
+                gamePorcentaje.textContent = progresoGame + "%";
+            }
 
             if (progresoGame >= 100) {
                 clearInterval(intervaloGameBarra);
+
                 setTimeout(() => {
-                    if (pantallaCargaJuego) pantallaCargaJuego.style.display = "none";
-                    if (pantallaGame) pantallaGame.style.display = "block";
+                    if (pantallaCargaJuego) {
+                        pantallaCargaJuego.style.display = "none";
+                    }
+
+                    if (pantallaGame) {
+                        pantallaGame.style.display = "block";
+                    }
                 }, 500);
             }
         }, 1000);
@@ -64,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".favorito").forEach(boton => {
         boton.addEventListener("click", function () {
             const icono = this.querySelector("i");
+
             if (icono) {
                 icono.classList.toggle("fa-regular");
                 icono.classList.toggle("fa-solid");
@@ -77,37 +108,38 @@ document.addEventListener("DOMContentLoaded", () => {
     if (contenedorJuegos) {
         const juegosHardcodeados = [
             {
-                name:"PacMan",
-                background_image:"../img/pacman.jpeg"
+                name: "PacMan",
+                background_image: "../img/pacman.jpeg"
             },
             {
-                name:"Uno",
-                background_image:"../img/uno.jpg"
+                name: "Uno",
+                background_image: "../img/uno.jpg"
             },
             {
-                name:"Dominoes Classic",
-                background_image:"../img/domino.jpeg"
+                name: "Dominoes Classic",
+                background_image: "../img/domino.jpeg"
             },
             {
-                name:"Ludo King",
-                background_image:"../img/ludo.jpeg"
+                name: "Ludo King",
+                background_image: "../img/ludo.jpeg"
             },
             {
-                name:"Spider Solitarie",
-                background_image:"../img/spidersolitarie.jpeg"
+                name: "Spider Solitarie",
+                background_image: "../img/spidersolitarie.jpeg"
             },
             {
-                name:"Monopoly",
-                background_image:"../img/monopoly.jpeg"
+                name: "Monopoly",
+                background_image: "../img/monopoly.jpeg"
             },
             {
-                name:"Block Puzzle",
-                background_image:"../img/blockpuzzle.jpeg"
+                name: "Block Puzzle",
+                background_image: "../img/blockpuzzle.jpeg"
             }
         ];
 
         async function cargarJuegos() {
             let juegos;
+
             try {
                 const response = await fetch("https://vj.interfaces.jima.com.ar/api/v2");
                 juegos = await response.json();
@@ -118,20 +150,27 @@ document.addEventListener("DOMContentLoaded", () => {
             juegos.slice(0, 7).forEach(juego => {
                 const card = document.createElement("div");
                 card.classList.add("card-juego");
+
                 card.innerHTML = `
                     <img src="${juego.background_image}" alt="${juego.name}">
                     <div class="overlay">
                         <h3>${juego.name}</h3>
                         <button class="btn-jugar">Jugar</button>
-                        <button class="fav"><span>Añadir a favoritos</span><i class="fa-regular fa-heart"></i></button>
-                    </div>`;
+                        <button class="fav">
+                            <span>Añadir a favoritos</span>
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+                `;
 
                 contenedorJuegos.appendChild(card);
 
                 const botonFavorito = card.querySelector(".fav");
+
                 if (botonFavorito) {
                     botonFavorito.addEventListener("click", function () {
                         const corazon = this.querySelector("i");
+
                         if (corazon) {
                             corazon.classList.toggle("fa-regular");
                             corazon.classList.toggle("fa-solid");
@@ -155,7 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         menuAjustes.addEventListener("click", event => event.stopPropagation());
-        document.addEventListener("click", () => menuAjustes.classList.remove("abierto"));
+
+        document.addEventListener("click", () => {
+            menuAjustes.classList.remove("abierto");
+        });
     }
 
     // MODAL COMPARTIR
@@ -163,15 +205,23 @@ document.addEventListener("DOMContentLoaded", () => {
         botonCerrarCompartir = document.getElementById("cerrarModal"),
         modalCompartir = document.getElementById("modalCompartir");
 
-    if (botonAbrirCompartir && modalCompartir)
-        botonAbrirCompartir.addEventListener("click", () => modalCompartir.style.display = "flex");
+    if (botonAbrirCompartir && modalCompartir) {
+        botonAbrirCompartir.addEventListener("click", () => {
+            modalCompartir.style.display = "flex";
+        });
+    }
 
-    if (botonCerrarCompartir && modalCompartir)
-        botonCerrarCompartir.addEventListener("click", () => modalCompartir.style.display = "none");
+    if (botonCerrarCompartir && modalCompartir) {
+        botonCerrarCompartir.addEventListener("click", () => {
+            modalCompartir.style.display = "none";
+        });
+    }
 
     if (modalCompartir) {
         modalCompartir.addEventListener("click", event => {
-            if (event.target === modalCompartir) modalCompartir.style.display = "none";
+            if (event.target === modalCompartir) {
+                modalCompartir.style.display = "none";
+            }
         });
     }
 
@@ -180,15 +230,23 @@ document.addEventListener("DOMContentLoaded", () => {
         botonCerrarInstrucciones = document.getElementById("cerrarInstrucciones"),
         modalInstrucciones = document.getElementById("modalInstrucciones");
 
-    if (botonAbrirInstrucciones && modalInstrucciones)
-        botonAbrirInstrucciones.addEventListener("click", () => modalInstrucciones.style.display = "flex");
+    if (botonAbrirInstrucciones && modalInstrucciones) {
+        botonAbrirInstrucciones.addEventListener("click", () => {
+            modalInstrucciones.style.display = "flex";
+        });
+    }
 
-    if (botonCerrarInstrucciones && modalInstrucciones)
-        botonCerrarInstrucciones.addEventListener("click", () => modalInstrucciones.style.display = "none");
+    if (botonCerrarInstrucciones && modalInstrucciones) {
+        botonCerrarInstrucciones.addEventListener("click", () => {
+            modalInstrucciones.style.display = "none";
+        });
+    }
 
     if (modalInstrucciones) {
         modalInstrucciones.addEventListener("click", event => {
-            if (event.target === modalInstrucciones) modalInstrucciones.style.display = "none";
+            if (event.target === modalInstrucciones) {
+                modalInstrucciones.style.display = "none";
+            }
         });
     }
 
@@ -213,31 +271,52 @@ document.addEventListener("DOMContentLoaded", () => {
         modalContenido = document.getElementById("modal-contenido");
 
     function abrirModalIngreso() {
-        if (modalIngreso) modalIngreso.style.display = "flex";
+        if (modalIngreso) {
+            modalIngreso.style.display = "flex";
+        }
     }
 
     function cerrarModalIngreso() {
-        if (modalIngreso) modalIngreso.style.display = "none";
+        if (modalIngreso) {
+            modalIngreso.style.display = "none";
+        }
     }
 
     window.abrirModal = abrirModalIngreso;
     window.cerrarModal = cerrarModalIngreso;
 
     window.mostrarFormulario = function (formulario, boton) {
-        document.querySelectorAll(".formulario").forEach(form => form.classList.remove("activo"));
-        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("activo"));
+        document.querySelectorAll(".formulario").forEach(form => {
+            form.classList.remove("activo");
+        });
+
+        document.querySelectorAll(".tab").forEach(tab => {
+            tab.classList.remove("activo");
+        });
 
         const formularioSeleccionado = document.getElementById(formulario);
-        if (formularioSeleccionado) formularioSeleccionado.classList.add("activo");
-        if (boton) boton.classList.add("activo");
 
-        if (modalContenido)
-            modalContenido.classList.toggle("registro-grande", formulario === "registro");
+        if (formularioSeleccionado) {
+            formularioSeleccionado.classList.add("activo");
+        }
+
+        if (boton) {
+            boton.classList.add("activo");
+        }
+
+        if (modalContenido) {
+            modalContenido.classList.toggle(
+                "registro-grande",
+                formulario === "registro"
+            );
+        }
     };
 
     if (modalIngreso) {
         modalIngreso.addEventListener("click", event => {
-            if (event.target === modalIngreso) cerrarModalIngreso();
+            if (event.target === modalIngreso) {
+                cerrarModalIngreso();
+            }
         });
     }
 
@@ -249,8 +328,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function actualizarHeader() {
         const estaLogueado = localStorage.getItem("logueado") === "true";
 
-        if (btnIngresar) btnIngresar.style.display = estaLogueado ? "none" : "flex";
-        if (perfilUsuario) perfilUsuario.style.display = estaLogueado ? "flex" : "none";
+        if (btnIngresar) {
+            btnIngresar.style.display = estaLogueado ? "none" : "flex";
+        }
+
+        if (perfilUsuario) {
+            perfilUsuario.style.display = estaLogueado ? "flex" : "none";
+        }
     }
 
     if (btnIngresar) {
@@ -262,10 +346,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function mostrarAnimacionExito() {
         const transicion = document.getElementById("transicionExito");
+
         if (!transicion) return;
 
         transicion.classList.add("activa");
-        setTimeout(() => transicion.classList.remove("activa"), 1800);
+
+        setTimeout(() => {
+            transicion.classList.remove("activa");
+        }, 1800);
     }
 
     const formularioLogin = document.getElementById("login");
@@ -273,9 +361,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (formularioLogin) {
         formularioLogin.addEventListener("submit", event => {
             event.preventDefault();
+
             mostrarAnimacionExito();
             localStorage.setItem("logueado", "true");
             actualizarHeader();
+
             setTimeout(cerrarModalIngreso, 1800);
         });
     }
@@ -297,7 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
         repassword = document.getElementById("repassword-register"),
         errorPassword = document.getElementById("error-password");
 
-    let giro, grados = 0;
+    let giro,
+        grados = 0;
 
     if (formularioRegistro && password && repassword && errorPassword) {
         formularioRegistro.addEventListener("submit", event => {
@@ -324,6 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 clearInterval(giro);
+
                 btnCrearRegistro.classList.remove("cargando");
                 btnCrearRegistro.classList.add("exito");
                 btnCrearRegistro.style.transform = "rotate(0deg)";

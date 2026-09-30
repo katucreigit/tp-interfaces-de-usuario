@@ -5,77 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peg Solitarie Spiderman - Game World</title>
     <link rel="stylesheet" href="../css/juego.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <div class="menu-logo" >
-	        <div class="menu">
-	            <i class="fa-solid fa-bars"></i>
-    	    </div>
-            <a href="home.html">
+        <div class="menu-logo">
+            <div class="menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <a href="index.html">
                 <img src="../img/GameWorld-logo.png" class="logo-img" alt="Game World">
             </a>
-        </div>        
-        
+        </div>
+
         <div class="buscador">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar juego...">
         </div>
 
         <div class="iconos">
-            <div class="icono tooltip-sec" data-tooltip="Juegos pagos"><i class="fa-solid fa-dollar-sign"></i></div>
-            <div class="icono tooltip-sec" data-tooltip="FAQ"><i class="fa-regular fa-circle-question"></i></div>
+            <div class="icono tooltip-sec" data-tooltip="Juegos pagos">
+                <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+
+            <div class="icono tooltip-sec" data-tooltip="FAQ">
+                <i class="fa-regular fa-circle-question"></i>
+            </div>
 
             <div class="icono ajustes tooltip-sec" data-tooltip="Ajustes de pantalla" id="boton-ajustes">
                 <i class="fa-solid fa-gear"></i>
+
                 <div class="menu-ajustes">
+                    <div class="opcion-ajuste">
+                        <i class="fa-solid fa-globe"></i>
 
-                <div class="opcion-ajuste">
-                    <i class="fa-solid fa-globe"></i>
-
-                    <div class="texto-ajuste">
-                        <span>Idioma</span>
-                    </div>
-                </div>
-
-                <div class="opcion-ajuste">
-                    <i class="fa-solid fa-palette"></i>
-
-                    <div class="texto-ajuste">
-                        <span>Tema</span>
+                        <div class="texto-ajuste">
+                            <span>Idioma</span>
+                        </div>
                     </div>
 
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider">
-                            <i class="fa-regular fa-moon icono-luna"></i>
-                            <i class="fa-regular fa-sun icono-sol"></i>
-                        </span>
-                    </label>
-                </div>
+                    <div class="opcion-ajuste">
+                        <i class="fa-solid fa-palette"></i>
 
+                        <div class="texto-ajuste">
+                            <span>Tema</span>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider">
+                                <i class="fa-regular fa-moon icono-luna"></i>
+                                <i class="fa-regular fa-sun icono-sol"></i>
+                            </span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
-		<button class="btn-ingresar" id="btnIngresar">Ingresar</button>
-        <div class="icono perfil"  id="perfilUsuario">A
-		    <div class="menu-perfil">
+
+        <button class="btn-ingresar" id="btnIngresar">Ingresar</button>
+
+        <div class="icono perfil" id="perfilUsuario">
+            A
+
+            <div class="menu-perfil">
                 <a href="#">
                     <i class="fa-regular fa-user"></i>
                     <span>Mi perfil</span>
                 </a>
+
                 <a href="#">
                     <i class="fa-regular fa-bookmark"></i>
                     <span>Mi biblioteca</span>
                 </a>
+
                 <a href="#">
                     <i class="fa-solid fa-trophy"></i>
                     <span>Mis logros</span>
@@ -88,178 +98,255 @@
 
                 <div class="separador-perfil"></div>
 
-                <a href="#"  class="cerrar-sesion" id="cerrarSesion">
+                <a href="#" class="cerrar-sesion" id="cerrarSesion">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>Cerrar sesión</span>
-                </a>            
-            </div> 
+                </a>
+            </div>
         </div>
     </header>
 
+    <!-- Menú lateral -->
     <nav class="menu-lateral" id="menuLateral">
         <div class="menu-seccion">
-            <a href="home.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
-            <a href="#"><i class="fa-solid fa-crown"></i><span>Juegos populares</span></a>
-            <a href="#"><i class="fa-solid fa-dollar-sign"></i><span>Juegos pagos</span></a>
-            <a href="#"><i class="fa-solid fa-star"></i><span>Juegos gratuitos</span></a>
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-crown"></i>
+                <span>Juegos populares</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <span>Juegos pagos</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-star"></i>
+                <span>Juegos gratuitos</span>
+            </a>
         </div>
 
         <div class="menu-separador"></div>
 
         <div class="menu-categorias">
             <h2>Categorías</h2>
-            <a href="#"><i class="fa-solid fa-khanda"></i><span>Acción</span></a>
-            <a href="#"><i class="fa-solid fa-car"></i><span>Autos</span></a>
-            <a href="#"><i class="fa-solid fa-compass"></i><span>Aventuras</span></a>
-            <a href="#"><i class="fa-solid fa-basketball"></i><span>Deportes</span></a>
-            <a href="#"><i class="fa-solid fa-crosshairs"></i><span>Disparos</span></a>
-            <a href="#"><i class="fa-solid fa-brain"></i><span>Estrategia</span></a>
-            <a href="#"><i class="fa-solid fa-dice"></i><span>Mesa</span></a>
-            <a href="#"><i class="fa-solid fa-ghost"></i><span>Terror</span></a>
-            <a href="#"><i class="fa-solid fa-gamepad"></i><span>Simulación</span></a>
+
+            <a href="#">
+                <i class="fa-solid fa-khanda"></i>
+                <span>Acción</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-car"></i>
+                <span>Autos</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-compass"></i>
+                <span>Aventuras</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-basketball"></i>
+                <span>Deportes</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-crosshairs"></i>
+                <span>Disparos</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-brain"></i>
+                <span>Estrategia</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-dice"></i>
+                <span>Mesa</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-ghost"></i>
+                <span>Terror</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Simulación</span>
+            </a>
         </div>
     </nav>
 
+    <!-- Modal de ingreso -->
     <div class="modal" id="modalIngreso">
         <div class="modal-contenido" id="modal-contenido">
-
-            <button class="cerrar-modal" onclick="cerrarModal()"> <i class="fa-solid fa-xmark"></i>
-</button>
+            <button class="cerrar-modal" onclick="cerrarModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
             <div class="tabs">
                 <button class="tab activo" onclick="mostrarFormulario('login', this)">
                     Iniciar sesión
                 </button>
+
                 <button class="tab" onclick="mostrarFormulario('registro', this)">
                     Registrarse
                 </button>
             </div>
-            <form id="login" class="formulario activo">
 
+            <form id="login" class="formulario activo">
                 <label for="email-login">Email o nombre de usuario</label>
+
                 <div class="input-icono">
                     <i class="fa-solid fa-user"></i>
-                    <input  type="email"  id="email-login"  placeholder="tuemail@gmail.com" required>
+                    <input type="email" id="email-login" placeholder="tuemail@gmail.com" required>
                 </div>
 
                 <label for="password-login">Contraseña</label>
+
                 <div class="input-icono">
                     <i class="fa-solid fa-lock"></i>
-                    <input  type="password"  id="password-login"  placeholder="••••••••" required>
+                    <input type="password" id="password-login" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn-form">Iniciar sesión </button>
-                
+                <button type="submit" class="btn-form">Iniciar sesión</button>
+
                 <div class="cambiar-formulario">
                     <span>¿Todavía no tenés una cuenta?</span>
+
                     <button type="button" onclick="mostrarFormulario('registro')">
                         Crear cuenta
                     </button>
                 </div>
+
                 <div class="separador">
                     <span></span>
                     <p>O</p>
                     <span></span>
                 </div>
+
                 <div class="login-social">
                     <button class="btn-social google">
-                        <img src="../img/google-icon.png" >
-                            Continuar con Google
+                        <img src="../img/google-icon.png">
+                        Continuar con Google
                     </button>
+
                     <button class="btn-social facebook">
-                        <img src="../img/fb-icon.webp" >
-                            Continuar con Facebook
+                        <img src="../img/fb-icon.webp">
+                        Continuar con Facebook
                     </button>
                 </div>
-
             </form>
-            <form id="registro" class="formulario">
 
+            <form id="registro" class="formulario">
                 <div class="campo">
                     <label for="name-register">Nombre y Apellido</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-user"></i>
                         <input type="text" id="name-register" placeholder="Ingresa tu nombre completo" required>
                     </div>
                 </div>
+
                 <div class="campo">
                     <label for="nickname-register">Nickname (Opcional)</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-user"></i>
                         <input type="text" id="nickname-register" placeholder="Elige un nombre de usuario">
                     </div>
                 </div>
+
                 <div class="campo">
                     <label for="email-register">Email</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-envelope"></i>
                         <input type="email" id="email-register" placeholder="tuemail@gmail.com" required>
                     </div>
                 </div>
+
                 <div class="campo">
                     <label for="edad-register">Edad</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-calendar"></i>
                         <input type="number" id="edad-register" placeholder="Escribe tu edad" required min="1">
                     </div>
                 </div>
+
                 <div class="campo">
                     <label for="password-register">Contraseña</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" id="password-register" placeholder="••••••••" required>
                     </div>
                 </div>
+
                 <div class="campo">
                     <label for="repassword-register">Repetir contraseña</label>
+
                     <div class="input-icono">
                         <i class="fa-solid fa-lock"></i>
-                        <input  type="password" id="repassword-register" placeholder="••••••••" required>
+                        <input type="password" id="repassword-register" placeholder="••••••••" required>
                     </div>
+
                     <div id="error-password" class="mensaje-error"></div>
                 </div>
-                <img src="../img/recaptcha.png" alt= "reCAPTCHA">
-                <button type="submit"class="btn-crear-registro" id="btnCrearRegistro">
+
+                <img src="../img/recaptcha.png" alt="reCAPTCHA">
+
+                <button type="submit" class="btn-crear-registro" id="btnCrearRegistro">
                     Crear cuenta
                 </button>
+
                 <div class="cambiar-formulario">
                     <span>¿Ya tenés una cuenta?</span>
+
                     <button type="button" onclick="mostrarFormulario('login')">
                         Iniciar sesión
                     </button>
                 </div>
+
                 <div class="separador">
                     <span></span>
                     <p>O</p>
                     <span></span>
                 </div>
-                <div class="login-social">
 
+                <div class="login-social">
                     <button class="btn-social google">
-                        <img src="../img/google-icon.png" >
+                        <img src="../img/google-icon.png">
                         Continuar con Google
                     </button>
+
                     <button class="btn-social facebook">
-                        <img src="../img/fb-icon.webp" >
+                        <img src="../img/fb-icon.webp">
                         Continuar con Facebook
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Transición de éxito -->
     <div id="transicionExito" class="transicion-exito">
-
         <div class="portal">
-
             <div class="portal-centro">
                 <img src="../img/joystick-carga.png" alt="Game World">
             </div>
+
             <div class="portal-anillo"></div>
             <div class="portal-anillo portal-anillo-2"></div>
-
         </div>
+
         <div class="particulas">
-
             <span></span>
             <span></span>
             <span></span>
@@ -268,14 +355,13 @@
             <span></span>
             <span></span>
             <span></span>
-
         </div>
-
     </div>
-    <main class="contenedor" id="top">
 
+    <!-- Contenido principal -->
+    <main class="contenedor" id="top">
         <div class="breadcrumb">
-            <a href="home.html">Juegos</a>
+            <a href="index.html">Juegos</a>
             <i class="fa-solid fa-chevron-right"></i>
             <span>Mesa</span>
             <i class="fa-solid fa-chevron-right"></i>
@@ -283,13 +369,11 @@
         </div>
 
         <div class="contenido">
-
             <section class="principal">
-		
-        		<div class="pantalla-carga" id="pantallaCargaJuego">
-		            <img src="../img/peg-solitarie.png" alt="Imagen del juego">
+                <div class="pantalla-carga" id="pantallaCargaJuego">
+                    <img src="../img/peg-solitarie.png" alt="Imagen del juego">
 
-		            <div class="loading">
+                    <div class="loading">
                         <div class="contenedor-carga">
                             <span id="gamePorcentaje">0%</span>
 
@@ -297,28 +381,48 @@
                                 <div class="game-progreso"></div>
                             </div>
                         </div>
-		            </div>
-		        </div>
+                    </div>
+                </div>
+
                 <div class="pantallaJuego" id="pantallaJuego">
                     <img src="../img/juego-ejecutando.png" alt="Juego">
                 </div>
+
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
-                        <button class="btn-barra tooltip-acento" data-tooltip="Instrucciones"  id="abrirInstrucciones"><i class="fa-solid fa-clipboard-question"></i></button>
-                        <a href="#descripcion" class="btn-barra tooltip-acento" data-tooltip="Descripción"><i class="fa-solid fa-book"></i></a>
-                        <a href="#comentarios" class="btn-barra tooltip-acento" data-tooltip="Comentarios"><i class="fa-solid fa-comments"></i></a>
+                        <button class="btn-barra tooltip-acento" data-tooltip="Instrucciones" id="abrirInstrucciones">
+                            <i class="fa-solid fa-clipboard-question"></i>
+                        </button>
+
+                        <a href="#descripcion" class="btn-barra tooltip-acento" data-tooltip="Descripción">
+                            <i class="fa-solid fa-book"></i>
+                        </a>
+
+                        <a href="#comentarios" class="btn-barra tooltip-acento" data-tooltip="Comentarios">
+                            <i class="fa-solid fa-comments"></i>
+                        </a>
                     </div>
+
                     <h3>Peg Solitarie: Spiderman</h3>
+
                     <div class="btn-derechos">
-                        <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos"><i class="fa-regular fa-heart"></i></button>
-                        <button class="btn-barra tooltip-acento" data-tooltip="Compartir" id="abrirModalCompartir"><i class="fa-solid fa-share-nodes"></i></button>
-                        <button class="btn-barra tooltip-acento" data-tooltip="Agrandar pantalla"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+                        <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+
+                        <button class="btn-barra tooltip-acento" data-tooltip="Compartir" id="abrirModalCompartir">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+
+                        <button class="btn-barra tooltip-acento" data-tooltip="Agrandar pantalla">
+                            <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                        </button>
                     </div>
                 </div>
+
+                <!-- Modal compartir -->
                 <div class="modal" id="modalCompartir">
-
                     <div class="modal-compartir">
-
                         <button class="cerrar-modal" id="cerrarModal">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
@@ -326,19 +430,32 @@
                         <h3>Compartir en</h3>
 
                         <div class="redes-modal">
+                            <a href="#" class="red-social instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
 
-                            <a href="#" class="red-social instagram"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#" class="red-social twitter"><i class="fa-brands fa-x-twitter"></i></a>   
-                            <a href="#" class="red-social telegram"><i class="fa-regular fa-paper-plane"></i></a>
-                            <a href="#" class="red-social email"><i class="fa-regular fa-envelope"></i></a>
-                            <a href="#" class="red-social mensajes"><i class="fa-regular fa-message"></i></a>
+                            <a href="#" class="red-social twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
 
+                            <a href="#" class="red-social telegram">
+                                <i class="fa-regular fa-paper-plane"></i>
+                            </a>
+
+                            <a href="#" class="red-social email">
+                                <i class="fa-regular fa-envelope"></i>
+                            </a>
+
+                            <a href="#" class="red-social mensajes">
+                                <i class="fa-regular fa-message"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-	            <div class="modal" id="modalInstrucciones">
-                    <div class="modal-instrucciones">
 
+                <!-- Modal instrucciones -->
+                <div class="modal" id="modalInstrucciones">
+                    <div class="modal-instrucciones">
                         <button class="cerrar-modal" id="cerrarInstrucciones">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
@@ -347,6 +464,7 @@
 
                         <div class="instruccion">
                             <i class="fa-solid fa-bullseye"></i>
+
                             <div>
                                 <h3>Objetivo</h3>
                                 <p>
@@ -354,21 +472,26 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="instruccion">
                             <i class="fa-solid fa-layer-group"></i>
+
                             <div>
                                 <h3>Reglas</h3>
+
                                 <ul>
                                     <li>Selecciona una ficha para moverla.</li>
                                     <li>Una ficha puede saltar sobre otra ficha hacia un espacio vacío.</li>
                                     <li>La ficha sobre la que saltas desaparece.</li>
                                     <li>Solo podés mover en linea recta: arriba, abajo, izquierda o derecha.</li>
-                                    <li>No se permiten movimientos en diagonal</li>		            		            		            		            
+                                    <li>No se permiten movimientos en diagonal.</li>
                                 </ul>
                             </div>
                         </div>
+
                         <div class="instruccion">
                             <i class="fa-solid fa-trophy"></i>
+
                             <div>
                                 <h3>¡Ganás!</h3>
                                 <p>
@@ -376,101 +499,107 @@
                                 </p>
                             </div>
                         </div>
-		                <h2>¡Buena suerte!</h2>
-	                </div>
-	            </div>
+
+                        <h2>¡Buena suerte!</h2>
+                    </div>
+                </div>
+
                 <section class="descripcion" id="descripcion">
+                    <h2 class="titulo-seccion">Descripción</h2>
 
-                    <h2 class="titulo-seccion"> Descripción</h2>
+                    <p>
+                        ¡Poné a prueba tu estrategia y ayudá a Spider-Man a superar este desafío!
+                    </p>
 
-                    <p>¡Poné a prueba tu estrategia y ayudá a Spider-Man a superar este desafío!</p>
                     <p>
                         En Spider-Man Peg Solitaire, tendrás que mover las piezas por el tablero siguiendo las reglas del clásico
                         Peg Solitaire, intentando eliminar todas las piezas hasta dejar solamente una.
                         Cada movimiento requiere pensar con anticipación y encontrar la mejor combinación para superar el nivel.
                     </p>
+
                     <p>
                         ¿Podrás resolver el tablero sin quedar atrapado? ¡Demostrá tus habilidades y completá el desafío!
                     </p>
+
                     <div class="video">
-
                         <div class="video-imagen">
-                        <img src="../img/juego-ejecutando.png" alt="Spider-Man Peg Solitaire">
+                            <img src="../img/juego-ejecutando.png" alt="Spider-Man Peg Solitaire">
 
-                        <div class="video-overlay">
-                            <i class="fa-solid fa-play"></i>
-                            <span>Ver tutorial</span>
-                        </div>
-		            </div>
-
-		        </div>
-            </section>
-            <hr>
-            <section class="comentarios" id="comentarios">
-                <h2 class="titulo-seccion"> Comentarios </h2>
-
-                <div class="caja-comentario">
-                    <textarea placeholder="Deja tu comentario en la comunidad..." ></textarea>
-
-                        <div class="comentar">
-
-                            <button>Comentar </button>
-
+                            <div class="video-overlay">
+                                <i class="fa-solid fa-play"></i>
+                                <span>Ver tutorial</span>
+                            </div>
                         </div>
                     </div>
+                </section>
+
+                <hr>
+
+                <section class="comentarios" id="comentarios">
+                    <h2 class="titulo-seccion">Comentarios</h2>
+
+                    <div class="caja-comentario">
+                        <textarea placeholder="Deja tu comentario en la comunidad..."></textarea>
+
+                        <div class="comentar">
+                            <button>Comentar</button>
+                        </div>
+                    </div>
+
                     <div class="comentario">
                         <div class="usuario">
-
                             <div class="avatar">M</div>
+
                             <div class="usuario-info">
-                                <p>Martina</p>	
+                                <p>Martina</p>
                             </div>
-                        
                         </div>
+
                         <p class="comentario-texto">
                             "Está buenísimo el juego, me costó bastante
                             encontrar la solución al principio."
                         </p>
-			            <div class="likes">
+
+                        <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>
                         </div>
                     </div>
+
                     <div class="comentario">
                         <div class="usuario">
-
                             <div class="avatar">J</div>
 
                             <div class="usuario-info">
-                                <p>Juan</p>	
+                                <p>Juan</p>
                             </div>
-
                         </div>
 
                         <p class="comentario-texto">
                             "Muy entretenido. La temática de Spider-Man
                             queda genial."
                         </p>
+
                         <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>
                         </div>
                     </div>
+
                     <div class="comentario">
-
                         <div class="usuario">
-
                             <div class="avatar">L</div>
 
                             <div class="usuario-info">
-                                <p>Lucas</p>	
+                                <p>Lucas</p>
                             </div>
-
                         </div>
+
                         <p class="comentario-texto">
                             "Me gustó, aunque algunos niveles son bastante
                             difíciles."
                         </p>
+
                         <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>
@@ -478,40 +607,49 @@
                     </div>
                 </section>
             </section>
+
             <aside class="sidebar">
                 <div class="volver">
-                    <a href="home.html"><i class="fa-solid fa-arrow-left-long"></i> Volver al inicio </a>
+                    <a href="index.html">
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                        Volver al inicio
+                    </a>
                 </div>
-                      
+
                 <div id="contenedor-juegos"></div>
+
                 <div class="ver-mas">
                     <button>
-                        Ver más<i class="fa-solid fa-arrow-right-long"></i>
+                        Ver más
+                        <i class="fa-solid fa-arrow-right-long"></i>
                     </button>
-
                 </div>
             </aside>
         </div>
     </main>
+
     <div class="volver-arriba">
         <a href="#top" class="tooltip-izquierda" data-tooltip="Ir hacia arriba">
             <i class="fa-solid fa-angles-up"></i>
         </a>
     </div>
-    <footer class="footer">
 
+    <!-- Footer -->
+    <footer class="footer">
         <div class="footer-banner">
             <h2>¿LISTO PARA JUGAR?</h2>
             <p>Crea tu cuenta y lleva el registro de tus juegos, logros y progreso.</p>
 
-            <button class="btn-crear" onclick="abrirModal(); mostrarFormulario('registro')"> Crear cuenta</button>
+            <button class="btn-crear" onclick="abrirModal(); mostrarFormulario('registro')">
+                Crear cuenta
+            </button>
 
             <p class="iniciar-sesion" onclick="abrirModal(); mostrarFormulario('login')">
                 ¿Ya tenés una? Iniciar sesión
             </p>
         </div>
-        <div class="footer-contenido">
 
+        <div class="footer-contenido">
             <div class="footer-logo">
                 <img src="../img/GameWorld-logo.png" alt="Game World">
             </div>
@@ -534,7 +672,7 @@
             <div class="footer-columna">
                 <h3>Explorar</h3>
 
-                <a href="home.html">Home</a>
+                <a href="index.html">Home</a>
                 <a href="#">Juegos populares</a>
                 <a href="#">Juegos pagos</a>
                 <a href="#">Juegos gratuitos</a>
@@ -545,26 +683,42 @@
             </div>
 
             <div class="footer-columna footer-social">
-
                 <h3>Seguinos</h3>
 
-                <a href="#"><i class="fa-brands fa-instagram"></i>@gameworld_</a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i> @gameworld</a>
-                <a href="#"><i class="fa-brands fa-x-twitter"></i> @gameworldok</a>
-                <a href="#"><i class="fa-brands fa-facebook-f"></i> @gameworld</a>
-                <a href="#"><i class="fa-brands fa-youtube"></i> Game World Gameplays</a>
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                    @gameworld_
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-tiktok"></i>
+                    @gameworld
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    @gameworldok
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    @gameworld
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-youtube"></i>
+                    Game World Gameplays
+                </a>
 
                 <h3 class="titulo-ayuda">Ayuda</h3>
 
                 <a href="#">Soporte</a>
                 <a href="#">FAQ</a>
                 <a href="#">Contacto</a>
-
             </div>
-
         </div>
-        <div class="footer-inferior">
 
+        <div class="footer-inferior">
             <p>© 2026 Game World</p>
 
             <div class="footer-legales">
@@ -576,10 +730,9 @@
                 <span>·</span>
                 <a href="#">Accesibilidad</a>
             </div>
-
         </div>
-
     </footer>
+
     <script src="../js/juego.js"></script>
 </body>
 </html>
