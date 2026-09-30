@@ -23,19 +23,20 @@ html {
 h1, h2, h3{
     font-family: Orbitron;
 }
+
 header {
-    height: 72px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    border-bottom: 2px solid #FFC035;
-    background-color: #030912;
-    display: flex;
-    align-items: center;
-    padding: 0 32px;
-    justify-content: space-between;
+    height:72px;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    border-bottom:2px solid #FFC035;
+    background-color:#030912;
+    display:flex;
+    align-items:center;
+    padding:0 32px;
+    justify-content:space-between;
 }
 
 #perfilUsuario {
@@ -381,6 +382,7 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
+    margin: 120px 50px auto;
 }
 button{
     font-family: Asap Condensed;
@@ -408,9 +410,8 @@ button{
     grid-template-columns: 1fr 300px;
     gap: 30px;
 }
-.contenido img {
-    width: 100%;
-    max-width: 900px;
+.contenido img{
+    width: 900px;
     margin-top: 20px;
     display: block;
 }
@@ -423,8 +424,7 @@ button{
 }
 
 .pantalla-carga img, .pantallaJuego img {
-    width: 100%;
-    max-width: 900px;
+    width: 900px;
     margin-top: 20px;
     display: block;
 }
@@ -1785,4 +1785,11 @@ hr {
 
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
+}
+
+@media (min-width: 1280px) {
+    .contenedor {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
