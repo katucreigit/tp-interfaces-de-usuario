@@ -381,8 +381,6 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
 }
 button{
     font-family: Asap Condensed;
@@ -1787,4 +1785,8 @@ hr {
 
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
+}
+html,
+body {
+    overflow-x: hidden;
 }
