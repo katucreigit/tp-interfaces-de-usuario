@@ -23,7 +23,14 @@ html {
 h1, h2, h3{
     font-family: Orbitron;
 }
-
+header {
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+}
 header {
     height:72px;
     position:fixed;
