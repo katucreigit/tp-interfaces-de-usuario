@@ -380,7 +380,7 @@ header {
 
 /*contenedor*/
 .contenedor {
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     margin: 120px 50px auto;
 }
@@ -1785,4 +1785,11 @@ hr {
 
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
+}
+
+@media (min-width: 1280px) {
+    .contenedor {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
