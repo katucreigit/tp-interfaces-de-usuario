@@ -12,28 +12,28 @@ permissions:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
 
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Pages
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Preparar archivos
         run: |
           mkdir _site
-          cp -r entrega2/* _site/
+          cp -r "entrega 2"/. _site/
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: _site
 
       - name: Publicar
         id: deployment
