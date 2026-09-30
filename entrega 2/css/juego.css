@@ -382,7 +382,7 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
-    margin: 120px 50px auto;
+    margin: 120px auto 0;
 }
 button{
     font-family: Asap Condensed;
