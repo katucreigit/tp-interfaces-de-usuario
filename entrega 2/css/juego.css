@@ -9,9 +9,6 @@ body{
     color:#fff;
     font-family: Asap Condensed;
 }
-body {
-    overflow-x: hidden;
-}
 
 html {
     scrollbar-width: thin;
@@ -39,7 +36,7 @@ header {
     display:flex;
     align-items:center;
     padding:0 32px;
-    justify-content:flex-start;
+    justify-content:space-between;
 }
 
 #perfilUsuario {
@@ -385,7 +382,8 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
-    margin: 120px 50px auto;
+    margin: 120px auto 0;
+    padding: 0 20px;
 }
 button{
     font-family: Asap Condensed;
@@ -413,8 +411,9 @@ button{
     grid-template-columns: 1fr 300px;
     gap: 30px;
 }
-.contenido img{
-    width: 900px;
+.contenido img {
+    width: 100%;
+    max-width: 900px;
     margin-top: 20px;
     display: block;
 }
@@ -427,7 +426,8 @@ button{
 }
 
 .pantalla-carga img, .pantallaJuego img {
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
     margin-top: 20px;
     display: block;
 }
