@@ -118,6 +118,7 @@ section {
 
 /* CARDS*/
 .card-juego {
+    text-align: center;
     flex-shrink: 0;
     overflow: hidden;
     background-color: #071421;
@@ -311,6 +312,10 @@ section {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.card-grande .fav {
+    font-size: 18px;
 }
 
 /* CARD CHICA */
@@ -1382,6 +1387,9 @@ header {
         font-size: 14px;
     }
 
+    .tooltip-sec:hover::after {
+        display: none;
+    }
 
     /* INGRESAR */
 
@@ -1492,9 +1500,92 @@ header {
 
     /* CARDS */
 
+    
     .card-grande {
         width: 260px;
         height: 185px;
+    }
+
+    .card-grande .overlay h3, .card-grande .overlay .fav {
+        font-size: 15px;
+    }
+
+    .card-grande .overlay .btn-jugar {
+        font-size: 14px;
+        padding: 0;
+        width: 110px;
+        height: 35px;
+    }
+
+    .card-grande .badge-juego {
+        height: 34px;
+        font-size: 12px;
+    }
+
+
+     .card-recomendado .overlay {
+        padding: 8px;
+    }
+
+    .card-recomendado .overlay h3 {
+        margin-top: 10px;
+        margin-bottom: 6px;
+        font-size: 11px;
+    }
+
+    .card-recomendado .overlay .btn-jugar {
+        font-size: 11px;
+        padding: 0;
+        width: 80px;
+        height: 26px;
+        margin-top: 5px;
+    }
+
+    .card-recomendado .overlay .fav {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    .card-recomendado .badge-juego {
+        height: 22px;
+        padding: 0 6px;
+        font-size: 10px;
+    }
+
+    .card-recomendado .badge-juego span {
+        font-size: 12px;
+    }
+
+     .card-chica .overlay {
+        padding: 8px;
+    }
+
+    .card-chica .overlay h3 {
+        margin-top: 11px;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .card-chica .overlay .btn-jugar {
+        font-size: 11px;
+        width: 80px;
+        height: 27px;
+        margin-top: 4px;
+    }
+
+    .card-chica .overlay .fav {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .card-chica .badge-juego {
+        height: 23px;
+        padding: 0 7px;
+        font-size: 11px;
+    }
+
+    .card-chica .badge-juego span {
+        font-size: 12px;
     }
 
     .game-list.chicas {
@@ -1694,6 +1785,15 @@ header {
 
 @media (max-width: 500px) {
 
+    .card-recomendado .btn-jugar, .card-grande .btn-jugar, .card-chica-jugar {
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+    .fav {
+        margin-top: 0;
+    }
+
     /* HEADER */
 
     header {
@@ -1783,18 +1883,33 @@ header {
         width: 175px;
     }
 
-    .menu-ajustes {
-        top: 36px;
-        right: -5px;
-        width: 180px;
-    }
-
     .menu-perfil {
         top: 36px;
         right: -5px;
         width: 180px;
     }
 
+     .menu-ajustes {
+        width: 160px;
+        top: 42px;
+        padding: 4px 0;
+        right: -5px;
+    }
+
+    .opcion-ajuste {
+        min-height: 45px;
+        padding: 6px 10px;
+    }
+
+    .opcion-ajuste > i {
+        width: 20px;
+        margin-right: 7px;
+        font-size: 14px;
+    }
+
+    .texto-ajuste span {
+        font-size: 14px;
+    }
 
     main {
         padding-top: 58px;
@@ -1817,6 +1932,69 @@ header {
     }
 
     /* CARDS */
+
+    /* CARDS GRANDES */
+
+    .card-grande .overlay {
+        padding: 10px;
+    }
+
+    .card-grande .overlay h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .card-grande .overlay .btn-jugar {
+        width: 90px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .card-grande .overlay .fav {
+        font-size: 13px;
+    }
+
+    /* CARDS CHICAS */
+
+    .card-chica .overlay {
+        padding: 7px;
+    }
+
+    .game-list.chicas .overlay h3{
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .card-chica .overlay .fav {
+        font-size: 11px;
+    }
+
+    /* RECOMENDADAS */
+
+    .card-recomendado .overlay {
+        padding: 6px;
+    }
+
+    .card-recomendado .overlay h3 {
+        font-size: 10px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+
+    .card-recomendado .overlay .btn-jugar {
+        width: 65px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .card-recomendado .overlay .fav {
+        font-size: 10px;
+    }
+
+    .card-recomendado .overlay .fav i {
+        font-size: 10px;
+    }
 
     .card-grande {
         width: 230px;
@@ -1850,10 +2028,16 @@ header {
     }
 
     .carousel-arrow {
-        width: 17px;
-        font-size: 26px;
+        display: none;
     }
 
+    .game-list {
+        cursor: grab;
+    }
+
+    .game-list:active {
+        cursor: grabbing;
+    }
     /* MENÚ */
 
     .menu-lateral {

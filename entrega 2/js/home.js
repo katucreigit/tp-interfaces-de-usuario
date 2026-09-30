@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             menuMasOpciones.classList.remove("abierto");
         });
     }
+
     const verCategorias = document.querySelector("#verCategorias");
 
     verCategorias.addEventListener("click", function(e) {
@@ -360,6 +361,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function inicializarCarruseles() {
 
+        /* FUNCIÓN PARA ARRASTRAR */
+
+        function hacerArrastrable(lista) {
+            let presionando = false;
+            let inicioX = 0;
+            let scrollInicial = 0;
+
+            lista.addEventListener("mousedown", function(e) {
+                if (window.innerWidth > 500) return;
+
+                presionando = true;
+                inicioX = e.pageX;
+                scrollInicial = lista.scrollLeft;
+            });
+
+            lista.addEventListener("mousemove", function(e) {
+                if (!presionando || window.innerWidth > 500) return;
+
+                e.preventDefault();
+
+                const movimiento = e.pageX - inicioX;
+                lista.scrollLeft = scrollInicial - movimiento;
+            });
+
+            lista.addEventListener("mouseup", function() {
+                presionando = false;
+            });
+
+            lista.addEventListener("mouseleave", function() {
+                presionando = false;
+            });
+
+            lista.addEventListener("touchstart", function(e) {
+                if (window.innerWidth > 500) return;
+
+                inicioX = e.touches[0].pageX;
+                scrollInicial = lista.scrollLeft;
+            }, { passive: true });
+
+            lista.addEventListener("touchmove", function(e) {
+                if (window.innerWidth > 500) return;
+
+                const movimiento = e.touches[0].pageX - inicioX;
+                lista.scrollLeft = scrollInicial - movimiento;
+            }, { passive: true });
+        }
+
         /* CARRUSEL RECOMENDADOS */
 
         const listaRecomendados = document.querySelector(".recommended .game-list");
@@ -462,8 +510,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            hacerArrastrable(lista);
+
             const espacio = 12;
-            const cantidadMovimiento = 3;
+            const cantidadMovimiento = window.innerWidth <= 500 ? 1 : window.innerWidth <= 768 ? 2 : 3;
 
             /* Derecha */
 
@@ -523,8 +573,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            hacerArrastrable(lista);
+
             const espacio = 25;
-            const cantidadMovimiento = 2;
+            const cantidadMovimiento = window.innerWidth <= 500 ? 1 : window.innerWidth <= 768 ? 2 : 3;
 
             /* Derecha */
 
