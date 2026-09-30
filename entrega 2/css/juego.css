@@ -36,7 +36,7 @@ header {
     display:flex;
     align-items:center;
     padding:0 32px;
-    justify-content:space-between;
+    justify-content:flex-start;
 }
 
 #perfilUsuario {
@@ -382,7 +382,7 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
-    margin: 120px auto 0;
+    margin: 120px 50px auto;
 }
 button{
     font-family: Asap Condensed;
