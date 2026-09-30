@@ -29,6 +29,9 @@ jobs:
         run: |
           mkdir _site
           cp -r "entrega 2/html"/. _site/
+          cp -r "entrega 2/css" _site/
+          cp -r "entrega 2/js" _site/
+          cp -r "entrega 2/img" _site/
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
