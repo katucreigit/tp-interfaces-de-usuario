@@ -381,7 +381,6 @@ header {
 .contenedor {
     width: 100%;
     max-width: 1200px;
-
 }
 button{
     font-family: Asap Condensed;
@@ -404,9 +403,9 @@ button{
 .breadcrumb-active{
     color: #E4A623;
 }
-.contenido {
+.contenido{
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: 1fr 300px;
     gap: 30px;
 }
 .contenido img {
@@ -1786,11 +1785,4 @@ hr {
 
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
-}
-
-@media (min-width: 1280px) {
-    .contenedor {
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
