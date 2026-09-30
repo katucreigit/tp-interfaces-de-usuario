@@ -123,22 +123,22 @@ document.addEventListener("DOMContentLoaded", () => {
     /* API DE JUEGOS */
 
     const juegosHardcodeados = [
-        { name: "PacMan", background_image: "../img/pacman.jpeg" },
-        { name: "Uno", background_image: "../img/uno.jpg" },
-        { name: "Dominoes Classic", background_image: "../img/domino.jpeg" },
-        { name: "Ludo King", background_image: "../img/ludo.jpeg" },
-        { name: "Spider Solitarie", background_image: "../img/spidersolitarie.jpeg" },
-        { name: "Monopoly", background_image: "../img/monopoly.jpeg" },
-        { name: "Block Puzzle", background_image: "../img/blockpuzzle.jpeg" },
-        { name: "Red Ball 4", background_image: "../img/redball.jpeg" },
-        { name: "FireBoy and WaterGirl", background_image: "../img/fuegoyagua.jpeg" },
-        { name: "5 Roll", background_image: "../img/5roll.jpeg" },
-        { name: "Backgammon", background_image: "../img/backgammon.jpeg" },
-        { name: "Balatro", background_image: "../img/balatro.jpeg" },
-        { name: "Checkers", background_image: "../img/checkers.jpeg" },
-        { name: "Mario Kart", background_image: "../img/marioKart.jpg" },
-        { name: "Reversi", background_image: "../img/reversi.jpeg" },
-        { name: "Soldiers", background_image: "../img/soldiers.jpeg" }
+        { name: "PacMan", background_image: "img/pacman.jpeg" },
+        { name: "Uno", background_image: "img/uno.jpg" },
+        { name: "Dominoes Classic", background_image: "img/domino.jpeg" },
+        { name: "Ludo King", background_image: "img/ludo.jpeg" },
+        { name: "Spider Solitarie", background_image: "img/spidersolitarie.jpeg" },
+        { name: "Monopoly", background_image: "img/monopoly.jpeg" },
+        { name: "Block Puzzle", background_image: "img/blockpuzzle.jpeg" },
+        { name: "Red Ball 4", background_image: "img/redball.jpeg" },
+        { name: "FireBoy and WaterGirl", background_image: "img/fuegoyagua.jpeg" },
+        { name: "5 Roll", background_image: "img/5roll.jpeg" },
+        { name: "Backgammon", background_image: "img/backgammon.jpeg" },
+        { name: "Balatro", background_image: "img/balatro.jpeg" },
+        { name: "Checkers", background_image: "img/checkers.jpeg" },
+        { name: "Mario Kart", background_image: "img/marioKart.jpg" },
+        { name: "Reversi", background_image: "img/reversi.jpeg" },
+        { name: "Soldiers", background_image: "img/soldiers.jpeg" }
     ];
 
     /* CARGAR JUEGOS */
@@ -149,15 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch("https://vj.interfaces.jima.com.ar/api/v2");
 
-            if (!response.ok) {
-                throw new Error("La API no respondió correctamente");
-            }
-
             juegos = await response.json();
-            console.log("Juegos cargados desde la API");
+
         } catch (error) {
-            console.error("Error al obtener los juegos desde la API:", error);
-            console.log("Se utilizarán los juegos hardcodeados");
+            
             juegos = juegosHardcodeados;
         }
 
@@ -175,8 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (esPegSolitaire) {
                 juego = {
                     name: "Peg Solitaire",
-                    background_image: "../img/peg-solitarie.png",
-                    background_image_low_res: "../img/peg-solitarie.png",
+                    background_image: "img/peg-solitarie.png",
+                    background_image_low_res: "img/peg-solitarie.png",
                     description: "Juego clásico de estrategia y lógica."
                 };
             }
@@ -252,8 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (esPegSolitaire) {
                 juego = {
                     name: "Peg Solitaire",
-                    background_image: "../img/peg-solitarie.png",
-                    background_image_low_res: "../img/peg-solitarie.png",
+                    background_image: "img/peg-solitarie.png",
+                    background_image_low_res: "img/peg-solitarie.png",
                     description: "Juego clásico de estrategia y lógica."
                 };
             }
