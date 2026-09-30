@@ -9,6 +9,9 @@ body{
     color:#fff;
     font-family: Asap Condensed;
 }
+body {
+    overflow-x: hidden;
+}
 
 html {
     scrollbar-width: thin;
