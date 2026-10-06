@@ -2184,6 +2184,27 @@ header {
     align-items: center;
     gap: 20px;
     font-family: Asap Condensed;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: background-color 0.5s ease, transform 0.8s ease;
+}
+
+.loader-container.finalizando {
+    background: #F7BD25;
+}
+
+.loader-container.finalizando .loader-joystick {
+    transform: scale(4);
+    filter: drop-shadow(0 0 30px rgba(247, 189, 37, 1));
+}
+
+.loader-container.finalizando .loader-bar,
+.loader-container.finalizando .loader-text {
+    opacity: 0;
+}
+
+.loader-container.salir {
+    transform: scaleX(0);
 }
 
 .loader-joystick {
