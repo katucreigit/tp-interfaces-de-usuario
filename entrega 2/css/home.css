@@ -32,7 +32,7 @@ scrollbar-color: #FFDB8D #020810;
 
 /* MAIN */
 #pantallaFinal{
-    display: none;
+    display: block;
 }
 main {
     width: 100%;
@@ -2205,6 +2205,7 @@ header {
 
 .loader-container.salir {
     transform: scaleX(0);
+    transform-origin: left;
 }
 
 .loader-joystick {

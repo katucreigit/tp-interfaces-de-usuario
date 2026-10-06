@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (progresoMain >= 100) {
                 clearInterval(intervaloCarga);
                 pantallaCarga.classList.add("finalizando");
-                
+
                 setTimeout(() => {
                     pantallaCarga.classList.add("salir");
                 }, 700);
