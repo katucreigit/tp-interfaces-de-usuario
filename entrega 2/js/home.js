@@ -25,17 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (progresoMain >= 100) {
                 clearInterval(intervaloCarga);
                 pantallaCarga.classList.add("finalizando");
+                
                 setTimeout(() => {
                     pantallaCarga.classList.add("salir");
-                    setTimeout(() => {
-                        pantallaCarga.style.display = "none";
-
-                        if (pantallaFinal) {
-                            pantallaFinal.style.display = "block";
-                        }
-                    }, 800);
-
                 }, 700);
+
+                setTimeout(() => {
+                    pantallaCarga.style.display = "none";
+                }, 1500);
             }
         }, 1000);
     }
