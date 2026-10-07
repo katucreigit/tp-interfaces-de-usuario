@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (imagen) {
                 imagen.src = juego.background_image_low_res || juego.background_image;
+                console.log("IMAGEN RECOMENDADO:", imagen.src);
                 imagen.alt = juego.name;
             }
 
@@ -412,44 +413,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const listaRecomendados = document.querySelector(".recommended .game-list");
 
+        const botonAnterior = document.querySelector("#recomendadosAnterior");
+        const botonSiguiente = document.querySelector("#recomendadosSiguiente");
+
         if (listaRecomendados) {
             let cardsRecomendadas = Array.from(
                 listaRecomendados.querySelectorAll(".card-recomendado")
             );
 
-            const espacio = 12;
+            if (window.innerWidth <= 500) {
 
-            function obtenerAnchoCard() {
-                if (cardsRecomendadas.length === 0) {
-                    return 0;
-                }
+                let inicioX = 0;
+            
+                listaRecomendados.addEventListener("touchstart", function(event) {
+                    inicioX = event.touches[0].clientX;
+                });
+            
+                listaRecomendados.addEventListener("touchend", function(event) {
+                    const finalX = event.changedTouches[0].clientX;
+                    const diferencia = finalX - inicioX;
+            
+                    if (Math.abs(diferencia) < 50) {
+                        return;
+                    }
+            
+                    if (diferencia < 0) {
+                        // Arrastró hacia la izquierda
+                        rotarRecomendados();
+                    } else {
+                        // Arrastró hacia la derecha
+                        const ultima = cardsRecomendadas.pop();
+                        cardsRecomendadas.unshift(ultima);
+                        actualizarPosiciones(true);
+                    }
+                });
+            }
 
-                return cardsRecomendadas[0].offsetWidth;
+            if (botonSiguiente) {
+                botonSiguiente.addEventListener("click", function() {
+                    rotarRecomendados();
+                });
+            }
+
+            if (botonAnterior) {
+                botonAnterior.addEventListener("click", function() {
+                    const ultima = cardsRecomendadas.pop();
+            
+                    cardsRecomendadas.unshift(ultima);
+            
+                    actualizarPosiciones(true);
+                });
             }
 
             function actualizarPosiciones(animar = true) {
-                const cantidad = cardsRecomendadas.length;
-
-                if (cantidad === 0) {
-                    return;
-                }
-
-                const centro = Math.floor(cantidad / 2);
-                const anchoCard = obtenerAnchoCard();
-                const paso = anchoCard + espacio;
 
                 cardsRecomendadas.forEach((card, indice) => {
-                    let posicion = indice - centro;
+                    let izquierda;
 
-                    if (posicion > cantidad / 2) {
-                        posicion -= cantidad;
+                    if (window.innerWidth <= 500) {
+                        if (indice === 0) {
+                            izquierda = "-5%";
+                        } else if (indice === 1) {
+                            izquierda = "20%";
+                        } else {
+                            izquierda = "43%";
+                        }
+                    } else if (window.innerWidth <= 768) {
+                        if (indice === 0) {
+                            izquierda = "2%";
+                        } else if (indice === 1) {
+                            izquierda = "25%";
+                        } else {
+                            izquierda = "48%";
+                        }
+                    } else {
+                        if (indice === 0) {
+                            izquierda = "0%";
+                        } else if (indice === 1) {
+                            izquierda = "27.5%";
+                        } else {
+                            izquierda = "55%";
+                        }
                     }
-
-                    if (posicion < -cantidad / 2) {
-                        posicion += cantidad;
-                    }
-
-                    const izquierda = `calc(50% + ${posicion * paso - anchoCard / 2}px)`;
 
                     if (!animar) {
                         card.style.transition = "none";
@@ -463,13 +508,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     card.style.left = izquierda;
 
-                    if (
-                        posicion === -Math.floor(cantidad / 2) ||
-                        posicion === Math.floor(cantidad / 2)
-                    ) {
+                    if (indice === 0 || indice === 2) {
                         card.classList.add("fondo");
+                        card.style.zIndex = "1";
                     } else {
                         card.classList.remove("fondo");
+                        card.style.zIndex = "3";
                     }
                 });
             }
