@@ -87,6 +87,22 @@ document.addEventListener("DOMContentLoaded", () => {
             299
         );
 
+        canvas.onclick = (event) => {
+            const rect = canvas.getBoundingClientRect();
+        
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+        
+            if (
+                x >= canvas.width / 2 - 110 &&
+                x <= canvas.width / 2 + 110 &&
+                y >= 260 &&
+                y <= 320
+            ) {
+                mostrarSeleccion();
+            }
+        };
+
     }
 
 
@@ -228,6 +244,8 @@ function mostrarSeleccion() {
 
     function mostrarImagenSeleccionada() {
 
+        canvas.onclick = null;
+
         ctx.fillStyle = "#040F1C";
         ctx.fillRect(
             0,
@@ -235,26 +253,108 @@ function mostrarSeleccion() {
             canvas.width,
             canvas.height
         );
-
-
+    
         ctx.fillStyle = "#FFC035";
         ctx.font = "36px Orbitron";
-
+        ctx.textAlign = "center";
+    
         ctx.fillText(
-            "IMAGEN SELECCIONADA",
+            "BLOCKA",
             canvas.width / 2,
-            70
+            60
         );
-
-
-        ctx.drawImage(
-            imagenesCargadas[imagenSeleccionada],
-            250,
-            110,
-            400,
-            300
-        );
-
+    
+        const imagen = imagenesCargadas[imagenSeleccionada];
+    
+        // Tamaño del puzzle
+        const anchoPuzzle = 400;
+        const altoPuzzle = 300;
+    
+        const xPuzzle = 250;
+        const yPuzzle = 100;
+    
+        // Tamaño de cada pieza
+        const anchoPieza = anchoPuzzle / 2;
+        const altoPieza = altoPuzzle / 2;
+    
+        // -------------------------
+        // PIEZAS
+        // -------------------------
+    
+        const piezas = [
+            {
+                fila: 0,
+                columna: 0,
+                rotacion: 0
+            },
+            {
+                fila: 0,
+                columna: 1,
+                rotacion: 0
+            },
+            {
+                fila: 1,
+                columna: 0,
+                rotacion: 0
+            },
+            {
+                fila: 1,
+                columna: 1,
+                rotacion: 0
+            }
+        ];
+    
+        // -------------------------
+        // DESORDENAR
+        // -------------------------
+    
+        piezas.sort(() => Math.random() - 0.5);
+    
+        // -------------------------
+        // DIBUJAR PIEZAS
+        // -------------------------
+    
+        piezas.forEach((pieza, indice) => {
+    
+            const posicionFila = Math.floor(indice / 2);
+            const posicionColumna = indice % 2;
+    
+            const x = xPuzzle + posicionColumna * anchoPieza;
+            const y = yPuzzle + posicionFila * altoPieza;
+    
+            const origenX = pieza.columna * (imagen.width / 2);
+            const origenY = pieza.fila * (imagen.height / 2);
+    
+            ctx.save();
+    
+            // Centro de la pieza
+            ctx.translate(
+                x + anchoPieza / 2,
+                y + altoPieza / 2
+            );
+    
+            // Rotación
+            ctx.rotate(
+                pieza.rotacion * Math.PI / 180
+            );
+    
+            ctx.drawImage(
+                imagen,
+    
+                origenX,
+                origenY,
+                imagen.width / 2,
+                imagen.height / 2,
+    
+                -anchoPieza / 2,
+                -altoPieza / 2,
+                anchoPieza,
+                altoPieza
+            );
+    
+            ctx.restore();
+    
+        });
     }
 
 
@@ -262,28 +362,7 @@ function mostrarSeleccion() {
     // CLICK EN COMENZAR
     // -------------------------
 
-    canvas.addEventListener("click", (event) => {
-
-        const rect = canvas.getBoundingClientRect();
-
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-
-        // Botón COMENZAR
-
-        if (
-            x >= canvas.width / 2 - 110 &&
-            x <= canvas.width / 2 + 110 &&
-            y >= 260 &&
-            y <= 320
-        ) {
-
-            mostrarSeleccion();
-
-        }
-
-    });
+    
 
 
     mostrarInicio();
