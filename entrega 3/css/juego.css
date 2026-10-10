@@ -1786,3 +1786,19 @@ hr {
 .transicion-exito.activa .particulas span:nth-child(8) {
     transform: translate(100px, 0) scale(1);
 }
+
+/* BLOCKA */
+#pantallaJuego {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvasBlocka {
+    display: block;
+    width: 900px;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto 0;
+}
+
