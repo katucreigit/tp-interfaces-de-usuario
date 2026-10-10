@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let imagenSeleccionada = 0;
 
+    let piezas = [];
+
 
     // -------------------------
     // BANCO DE IMÁGENES
@@ -219,6 +221,7 @@ function mostrarSeleccion() {
                 clearInterval(animacion);
 
                 imagenSeleccionada = i;
+                piezas = [];
 
                 console.log(
                     "Imagen seleccionada:",
@@ -281,34 +284,48 @@ function mostrarSeleccion() {
         // PIEZAS
         // -------------------------
     
-        const piezas = [
-            {
-                fila: 0,
-                columna: 0,
-                rotacion: 0
-            },
-            {
-                fila: 0,
-                columna: 1,
-                rotacion: 0
-            },
-            {
-                fila: 1,
-                columna: 0,
-                rotacion: 0
-            },
-            {
-                fila: 1,
-                columna: 1,
-                rotacion: 0
-            }
-        ];
-    
-        // -------------------------
-        // DESORDENAR
-        // -------------------------
-    
-        piezas.sort(() => Math.random() - 0.5);
+        if (piezas.length === 0) {
+
+            piezas = [
+                {
+                    fila: 0,
+                    columna: 0,
+                    rotacion: 0
+                },
+                {
+                    fila: 0,
+                    columna: 1,
+                    rotacion: 0
+                },
+                {
+                    fila: 1,
+                    columna: 0,
+                    rotacion: 0
+                },
+                {
+                    fila: 1,
+                    columna: 1,
+                    rotacion: 0
+                }
+            ];
+        
+            // Mezclamos las posiciones
+            piezas.sort(() => Math.random() - 0.5);
+        
+            // Asignamos la posición inicial
+            piezas.forEach((pieza, indice) => {
+                pieza.posicion = indice;
+            });
+        
+            // Asignamos una rotación inicial aleatoria
+            piezas.forEach((pieza) => {
+        
+                const rotaciones = [0, 90, 180, 270];
+        
+                pieza.rotacion =
+                    rotaciones[Math.floor(Math.random() * rotaciones.length)];
+            });
+        }
     
         // -------------------------
         // DIBUJAR PIEZAS
@@ -316,8 +333,8 @@ function mostrarSeleccion() {
     
         piezas.forEach((pieza, indice) => {
     
-            const posicionFila = Math.floor(indice / 2);
-            const posicionColumna = indice % 2;
+            const posicionFila = Math.floor(pieza.posicion / 2);
+            const posicionColumna = pieza.posicion % 2;
     
             const x = xPuzzle + posicionColumna * anchoPieza;
             const y = yPuzzle + posicionFila * altoPieza;
@@ -355,18 +372,121 @@ function mostrarSeleccion() {
             ctx.restore();
     
         });
+
+        canvas.onclick = (event) => {
+
+            const rect = canvas.getBoundingClientRect();
+        
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+        
+            const anchoPieza = 200;
+            const altoPieza = 150;
+        
+            const xPuzzle = 250;
+            const yPuzzle = 100;
+        
+            const columna = Math.floor((x - xPuzzle) / anchoPieza);
+            const fila = Math.floor((y - yPuzzle) / altoPieza);
+        
+            if (
+                columna < 0 ||
+                columna > 1 ||
+                fila < 0 ||
+                fila > 1
+            ) {
+                return;
+            }
+        
+            const posicion = fila * 2 + columna;
+        
+            const pieza = piezas.find(
+                pieza => pieza.posicion === posicion
+            );
+        
+            if (!pieza) {
+                return;
+            }
+        
+            // Click izquierdo
+            pieza.rotacion -= 90;
+
+            mostrarImagenSeleccionada();
+
+            if (verificarPuzzle()) {
+                console.log("¡PUZZLE COMPLETADO!");
+            }
+        
+        canvas.oncontextmenu = (event) => {
+        
+            event.preventDefault();
+        
+            const rect = canvas.getBoundingClientRect();
+        
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+        
+            const anchoPieza = 200;
+            const altoPieza = 150;
+        
+            const xPuzzle = 250;
+            const yPuzzle = 100;
+        
+            const columna = Math.floor((x - xPuzzle) / anchoPieza);
+            const fila = Math.floor((y - yPuzzle) / altoPieza);
+        
+            if (
+                columna < 0 ||
+                columna > 1 ||
+                fila < 0 ||
+                fila > 1
+            ) {
+                return;
+            }
+        
+            const posicion = fila * 2 + columna;
+        
+            const pieza = piezas.find(
+                pieza => pieza.posicion === posicion
+            );
+        
+            if (!pieza) {
+                return;
+            }
+        
+            // Click derecho
+            pieza.rotacion += 90;
+
+            mostrarImagenSeleccionada();
+
+            if (verificarPuzzle()) {
+                console.log("¡PUZZLE COMPLETADO!");
+            }
+        };
+
     }
 
 
-    // -------------------------
-    // CLICK EN COMENZAR
-    // -------------------------
+    function verificarPuzzle() {
+
+        for (let i = 0; i < piezas.length; i++) {
+    
+            if (
+                piezas[i].posicion !== i ||
+                piezas[i].rotacion % 360 !== 0
+            ) {
+                return false;
+            }
+    
+        }
+    
+        return true;
+    }
 
     
-
+    }
 
     mostrarInicio();
 
 });
-
 
