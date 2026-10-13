@@ -704,16 +704,18 @@ button{
     position: relative;
     overflow: hidden;
     border-radius: 15px;
-    
+    width: 700px;
+    height: 400px;
 }
 
-.video-imagen img {
-    width: 700px;
-    transition: transform 0.5s ease, filter 0.5s ease;
-     display: block;
-    margin: 0;
+.video-imagen video {
+    width: 100%;
+    height: 100%;
+    display: block;
     object-fit: cover;
+    transition: transform 0.5s ease, filter 0.5s ease;
 }
+
 .video-overlay {
     position: absolute;
     inset: 0;
@@ -747,7 +749,7 @@ button{
     font-weight: 600;
 }
 
-.video-imagen:hover img {
+.video-imagen:hover video {
     transform: scale(1.05);
     filter: brightness(0.5);
 }

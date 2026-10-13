@@ -168,6 +168,17 @@ document.addEventListener("DOMContentLoaded", () => {
         cardsRecomendadas.forEach((card, indice) => {
             let juego = juegos[indice % juegos.length];
 
+            const esBlocka = card.classList.contains("blocka");
+
+            if (esBlocka) {
+                juego = {
+                    name: "BLOCKA",
+                    background_image: "../img/blocka.jpg",
+                    background_image_low_res: "../img/blocka.jpg",
+                    description: "Reconstruí la imagen girando sus piezas."
+                };
+            }
+
             const esPegSolitaire =
                 card.classList.contains("peg-solitaire") ||
                 (card.classList.contains("peg") && card.classList.contains("solitaire"));
@@ -236,6 +247,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 }
             }
+
+            if (esBlocka ) {
+                const botonJugar = overlay.querySelector(".btn-jugar");
+
+                if (botonJugar) {
+                    botonJugar.addEventListener("click", function() {
+                        window.location.href = "blocka.html";
+                    });
+                }
+            }
         });
 
         /* RESTO DE LOS JUEGOS */
@@ -244,6 +265,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         cards.forEach((card, indice) => {
             let juego = juegos[indice % juegos.length];
+
+            const esBlocka = card.classList.contains("blocka");
+
+            if (esBlocka) {
+                juego = {
+                    name: "BLOCKA",
+                    background_image: "../img/blocka.jpg",
+                    background_image_low_res: "../img/blocka.jpg",
+                    description: "Reconstruí la imagen girando sus piezas."
+                };
+            }
 
             const esPegSolitaire =
                 card.classList.contains("peg-solitaire") ||
@@ -344,6 +376,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (botonJugar) {
                     botonJugar.addEventListener("click", function() {
                         window.location.href = "juego.html";
+                    });
+                }
+            }
+
+            if (esBlocka && !esPago) {
+                const botonJugar = overlay.querySelector(".btn-jugar");
+
+                if (botonJugar) {
+                    botonJugar.addEventListener("click", function() {
+                        window.location.href = "blocka.html";
                     });
                 }
             }

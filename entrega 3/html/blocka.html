@@ -68,6 +68,7 @@
                     </div>
                 </div>
             </div>
+
             <button class="btn-ingresar" id="btnIngresar">Ingresar</button>
 
             <div class="icono perfil" id="perfilUsuario">
@@ -102,7 +103,6 @@
                     </a>
                 </div>
             </div>
-        
         </div>
     </header>
 
@@ -363,15 +363,15 @@
         <div class="breadcrumb">
             <a href="index.html">Juegos</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <span>Mesa</span>
+            <span>Estrategia</span>
             <i class="fa-solid fa-chevron-right"></i>
-            <span class="breadcrumb-active">Peg Solitaire: Spiderman</span>
+            <span class="breadcrumb-active">BLOCKA</span>
         </div>
 
         <div class="contenido">
             <section class="principal">
                 <div class="pantalla-carga" id="pantallaCargaJuego">
-                    <img src="img/peg-solitarie.png" alt="Imagen del juego">
+                    <img src="img/blocka/imagen1.jpg" alt="Imagen del juego">
 
                     <div class="loading">
                         <div class="contenedor-carga">
@@ -385,8 +385,8 @@
                 </div>
 
                 <div class="pantallaJuego" id="pantallaJuego">
-		    <canvas id="canvasBlocka" width="900" height="600"></canvas>
-		</div>
+                    <canvas id="canvasBlocka" width="900" height="600"></canvas>
+                </div>
 
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
@@ -403,7 +403,7 @@
                         </a>
                     </div>
 
-                    <h3>Peg Solitarie: Spiderman</h3>
+                    <h3>BLOCKA</h3>
 
                     <div class="btn-derechos">
                         <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
@@ -468,24 +468,47 @@
                             <div>
                                 <h3>Objetivo</h3>
                                 <p>
-                                    Eliminar todas las fichas del tablero y dejar solo una.
+                                    Completá la imagen logrando que todas las piezas queden orientadas correctamente.
                                 </p>
                             </div>
                         </div>
 
                         <div class="instruccion">
-                            <i class="fa-solid fa-layer-group"></i>
+                            <i class="fa-solid fa-rotate"></i>
 
                             <div>
-                                <h3>Reglas</h3>
+                                <h3>¿Cómo jugar?</h3>
 
                                 <ul>
-                                    <li>Selecciona una ficha para moverla.</li>
-                                    <li>Una ficha puede saltar sobre otra ficha hacia un espacio vacío.</li>
-                                    <li>La ficha sobre la que saltas desaparece.</li>
-                                    <li>Solo podés mover en linea recta: arriba, abajo, izquierda o derecha.</li>
-                                    <li>No se permiten movimientos en diagonal.</li>
+                                    <li>Las piezas aparecen rotadas y deben ser orientadas correctamente.</li>
+                                    <li>Hacé clic izquierdo sobre una pieza para girarla hacia la izquierda.</li>
+                                    <li>Hacé clic derecho sobre una pieza para girarla hacia la derecha.</li>
+                                    <li>Las piezas mantienen siempre su posición dentro del tablero.</li>
+                                    <li>Completá todas las piezas para resolver el nivel.</li>
                                 </ul>
+                            </div>
+                        </div>
+
+                        <div class="instruccion">
+                            <i class="fa-solid fa-clock"></i>
+
+                            <div>
+                                <h3>Tiempo</h3>
+                                <p>
+                                    En los niveles más avanzados tendrás un tiempo límite para completar el desafío.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="instruccion">
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                            <div>
+                                <h3>Ayudita</h3>
+                                <p>
+                                    En los niveles avanzados podés usar una ayudita para colocar correctamente una pieza.
+                                    Al usarla, se sumarán 5 segundos al contador.
+                                </p>
                             </div>
                         </div>
 
@@ -495,7 +518,7 @@
                             <div>
                                 <h3>¡Ganás!</h3>
                                 <p>
-                                    Ganás cuando queda una sola ficha en el tablero.
+                                    Completás el nivel cuando todas las piezas están orientadas correctamente.
                                 </p>
                             </div>
                         </div>
@@ -508,22 +531,33 @@
                     <h2 class="titulo-seccion">Descripción</h2>
 
                     <p>
-                        ¡Poné a prueba tu estrategia y ayudá a Spider-Man a superar este desafío!
+                        ¡Poné a prueba tu capacidad de observación y orientación con BLOCKA!
                     </p>
 
                     <p>
-                        En Spider-Man Peg Solitaire, tendrás que mover las piezas por el tablero siguiendo las reglas del clásico
-                        Peg Solitaire, intentando eliminar todas las piezas hasta dejar solamente una.
-                        Cada movimiento requiere pensar con anticipación y encontrar la mejor combinación para superar el nivel.
+                        En BLOCKA tendrás que reconstruir diferentes imágenes girando sus piezas
+                        hasta conseguir que todas queden orientadas correctamente. Cada pieza
+                        permanece en su posición dentro del tablero, por lo que tendrás que
+                        observar la imagen y descubrir cómo debe estar orientada cada una.
                     </p>
 
                     <p>
-                        ¿Podrás resolver el tablero sin quedar atrapado? ¡Demostrá tus habilidades y completá el desafío!
+                        A medida que avances, los niveles serán cada vez más desafiantes y,
+                        en los niveles avanzados, tendrás un tiempo límite para completar
+                        el desafío. También podrás utilizar una ayudita para corregir una
+                        pieza, aunque esto sumará 5 segundos al contador.
+                    </p>
+
+                    <p>
+                        ¿Podrás orientar todas las piezas correctamente antes de que se acabe el tiempo?
                     </p>
 
                     <div class="video">
                         <div class="video-imagen">
-                            <img src="img/juego-ejecutando.png" alt="Spider-Man Peg Solitaire">
+                            <video>
+                                <source src="../img/blocka_venom_explicativo.mp4" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
 
                             <div class="video-overlay">
                                 <i class="fa-solid fa-play"></i>
@@ -733,7 +767,7 @@
         </div>
     </footer>
 
-<script src="../js/juego.js"></script>
-<script src="../js/blocka.js"></script>
+    <script src="../js/juego.js"></script>
+    <script src="../js/blocka.js"></script>
 </body>
 </html>

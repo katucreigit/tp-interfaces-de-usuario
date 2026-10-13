@@ -731,5 +731,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     mostrarInicio();
+
+    const video = document.querySelector(".video-imagen video");
+    const overlay = document.querySelector(".video-overlay");
+    const iconoVideo = overlay?.querySelector("i");
+
+    if (video && overlay) {
+        overlay.addEventListener("click", function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        video.addEventListener("play", function() {
+            if (iconoVideo) {
+                iconoVideo.classList.remove("fa-play");
+                iconoVideo.classList.add("fa-pause");
+            }
+        });
+
+        video.addEventListener("pause", function() {
+            if (iconoVideo) {
+                iconoVideo.classList.remove("fa-pause");
+                iconoVideo.classList.add("fa-play");
+            }
+        });
+    }
 });
 
