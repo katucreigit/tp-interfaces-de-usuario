@@ -1,3 +1,4 @@
+```yaml
 name: Deploy GitHub Pages
 
 on:
@@ -27,24 +28,28 @@ jobs:
 
       - name: Preparar archivos
         run: |
-          mkdir -p _site/1
-          mkdir -p _site/2
-          mkdir -p _site/3
+          mkdir -p _site/1 _site/2 _site/3
 
           # ENTREGA 1
           cp "entrega 1/index.html" _site/1/index.html
 
           # ENTREGA 2
           cp -r "entrega 2/html/." _site/2/
-          cp -r "entrega 2/css" _site/2/
-          cp -r "entrega 2/js" _site/2/
-          cp -r "entrega 2/img" _site/2/
+
+          for carpeta in css js img; do
+            if [ -d "entrega 2/$carpeta" ]; then
+              cp -r "entrega 2/$carpeta" _site/2/
+            fi
+          done
 
           # ENTREGA 3
           cp -r "entrega 3/html/." _site/3/
-          cp -r "entrega 3/css" _site/3/
-          cp -r "entrega 3/js" _site/3/
-          cp -r "entrega 3/img" _site/3/
+
+          for carpeta in css js img; do
+            if [ -d "entrega 3/$carpeta" ]; then
+              cp -r "entrega 3/$carpeta" _site/3/
+            fi
+          done
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
@@ -54,3 +59,4 @@ jobs:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
+```
