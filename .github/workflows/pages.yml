@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -p _site/1
           mkdir -p _site/2
+          mkdir -p _site/3
 
           # ENTREGA 1
           cp "entrega 1/index.html" _site/1/index.html
@@ -38,6 +39,12 @@ jobs:
           cp -r "entrega 2/css" _site/2/
           cp -r "entrega 2/js" _site/2/
           cp -r "entrega 2/img" _site/2/
+
+          # ENTREGA 3
+          cp -r "entrega 3/html/." _site/2/
+          cp -r "entrega 3/css" _site/2/
+          cp -r "entrega 3/js" _site/2/
+          cp -r "entrega 3/img" _site/2/
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
