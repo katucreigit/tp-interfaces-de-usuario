@@ -10,6 +10,10 @@ body{
     font-family: Asap Condensed;
 }
 
+#canvasBlocka {
+    margin-top: 25px;
+}
+
 html {
     scrollbar-width: thin;
     scrollbar-color: #FFC035 #020810;
