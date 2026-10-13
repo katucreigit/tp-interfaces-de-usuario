@@ -7,7 +7,7 @@
 body {
     background-color: #040F1C;
     color: #FFFFFF;
-      font-family: "Asap Condensed", sans-serif;
+    font-family: Asap Condensed;
 }
 
 h1, h2, h3{
@@ -699,6 +699,7 @@ section {
 }
 
 header {
+    font-family: Asap Condensed;
     height: 72px;
     position: fixed;
     top: 0;
