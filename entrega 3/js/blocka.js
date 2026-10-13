@@ -11,29 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
     let temporizador = null;
     let nivel = 1;
     let nivelesDesbloqueados = 1;
-    let mostrarOriginal = false;
     let cantidadPiezas = 4;
     let juegoTerminado = false;
-
     let records = JSON.parse(localStorage.getItem("blockaRecords")) || {};
 
-    // Carga de iconos
     let iconosListos = false;
-
     const fuenteIconos = new FontFace(
         "Font Awesome 6 Free",
         'url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2)',
         { weight: "900" }
     );
 
-    fuenteIconos.load()
-        .then(fuente => {
-            document.fonts.add(fuente);
-            iconosListos = true;
-        })
-        .catch(error => {
-            console.error("No se pudieron cargar los iconos", error);
-        });
+    fuenteIconos.load().then(fuente => {
+        document.fonts.add(fuente);
+        iconosListos = true;
+    }).catch(error => {
+        console.error("No se pudieron cargar los iconos", error);
+    });
 
     const imagenes = [
         "img/blocka/imagen1.jpg",
@@ -52,20 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function obtenerCoordenadas(event) {
         const rect = canvas.getBoundingClientRect();
-
         return {
             x: (event.clientX - rect.left) * canvas.width / rect.width,
             y: (event.clientY - rect.top) * canvas.height / rect.height
         };
     }
 
-    // FONDO GENERAL
-
     function dibujarFondo() {
-        const degradado = ctx.createLinearGradient(
-            0, 0, canvas.width, canvas.height
-        );
-
+        const degradado = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
         degradado.addColorStop(0, "#080D0A");
         degradado.addColorStop(0.55, "#0D1710");
         degradado.addColorStop(1, "#101F15");
@@ -84,16 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function dibujarRectanguloRedondeado(
-        x, y, ancho, alto, radio, color
-    ) {
+    function dibujarRectanguloRedondeado(x, y, ancho, alto, radio, color) {
         ctx.fillStyle = color;
         ctx.beginPath();
         ctx.roundRect(x, y, ancho, alto, radio);
         ctx.fill();
     }
-
-    // ICONOS
 
     function dibujarIcono(icono, x, y, tamano, color) {
         if (!iconosListos) return;
@@ -107,12 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.restore();
     }
 
-    // BOTONES
-
-    function dibujarBoton(
-        texto, x, y, ancho, alto,
-        seleccionado = true, tamano = 16, icono = null
-    ) {
+    function dibujarBoton(texto, x, y, ancho, alto, seleccionado = true, tamano = 16, icono = null) {
         dibujarRectanguloRedondeado(
             x, y, ancho, alto, 12,
             seleccionado ? "#39FF78" : "#17251B"
@@ -125,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.stroke();
 
         const colorTexto = seleccionado ? "#07110A" : "#E6F3E9";
-
         ctx.fillStyle = colorTexto;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -136,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const separacion = 9;
             const anchoTexto = ctx.measureText(texto).width;
             const anchoTotal = anchoIcono + separacion + anchoTexto;
-
             const inicioX = x + (ancho - anchoTotal) / 2;
 
             dibujarIcono(
@@ -163,12 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textAlign = "center";
         ctx.fillStyle = "#39FF78";
         ctx.font = "bold 36px Orbitron";
-
         ctx.shadowColor = "rgba(57, 255, 120, 0.35)";
         ctx.shadowBlur = 14;
-
         ctx.fillText(titulo, canvas.width / 2, 58);
-
         ctx.shadowBlur = 0;
 
         if (subtitulo) {
@@ -186,13 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.strokeStyle = activa ? "#39FF78" : "#294331";
         ctx.lineWidth = activa ? 2.5 : 1.3;
-
         ctx.beginPath();
         ctx.roundRect(x, y, ancho, alto, 14);
         ctx.stroke();
     }
-
-    // DIFICULTAD Y FILTROS
 
     function obtenerFiltro(nivel) {
         if (nivel === 1) return "grayscale(100%)";
@@ -217,18 +188,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const columnas = cantidadPiezas / 2;
         const filas = 2;
-
         const anchoOrigen = imagen.naturalWidth / columnas;
         const altoOrigen = imagen.naturalHeight / filas;
 
         for (const pieza of piezas) {
             const canvasPieza = document.createElement("canvas");
-
             canvasPieza.width = Math.ceil(anchoOrigen);
             canvasPieza.height = Math.ceil(altoOrigen);
 
             const contextoPieza = canvasPieza.getContext("2d");
-
             contextoPieza.filter = pieza.filtro;
 
             contextoPieza.drawImage(
@@ -243,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 canvasPieza.height
             );
 
-            contextoPieza.filter = "none";
             pieza.imagenFiltrada = canvasPieza;
         }
 
@@ -254,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nivel === 4) return 45;
         if (nivel === 5) return 30;
         if (nivel === 6) return 15;
-
         return null;
     }
 
@@ -263,12 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (recordAnterior === undefined || tiempo < recordAnterior) {
             records[nivel] = tiempo;
-
-            localStorage.setItem(
-                "blockaRecords",
-                JSON.stringify(records)
-            );
-
+            localStorage.setItem("blockaRecords", JSON.stringify(records));
             return true;
         }
 
@@ -281,11 +242,9 @@ document.addEventListener("DOMContentLoaded", () => {
             : "Récord: " + records[nivel] + " s";
     }
 
-    // PANTALLA DE INICIO
-
     function mostrarInicio() {
         clearInterval(temporizador);
-        clearInterval(animacion);
+        clearTimeout(animacion);
 
         temporizador = null;
         animacion = null;
@@ -304,31 +263,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.strokeStyle = "#294331";
         ctx.lineWidth = 2;
-
         ctx.beginPath();
-        ctx.roundRect(
-            canvas.width / 2 - 260,
-            72,
-            520,
-            290,
-            24
-        );
+        ctx.roundRect(canvas.width / 2 - 260, 72, 520, 290, 24);
         ctx.stroke();
 
         ctx.textAlign = "center";
         ctx.fillStyle = "#39FF78";
         ctx.font = "bold 62px Orbitron";
-
         ctx.shadowColor = "rgba(57, 255, 120, 0.45)";
         ctx.shadowBlur = 20;
-
         ctx.fillText("BLOCKA", canvas.width / 2, 155);
-
         ctx.shadowBlur = 0;
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "23px 'Asap Condensed'";
-
         ctx.fillText(
             "Reconstruí la imagen girando sus piezas",
             canvas.width / 2,
@@ -337,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.fillStyle = "#91A999";
         ctx.font = "16px 'Asap Condensed'";
-
         ctx.fillText(
             "Elegí un nivel, girá las piezas y completá el desafío",
             canvas.width / 2,
@@ -372,199 +319,178 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    // SELECCIÓN DE IMAGEN
+    function mostrarSeleccion() {
+        clearTimeout(animacion);
+        clearInterval(temporizador);
 
-    
-function mostrarSeleccion() {
-    clearTimeout(animacion);
-    clearInterval(animacion);
-    clearInterval(temporizador);
+        temporizador = null;
+        animacion = null;
+        juegoTerminado = true;
+        canvas.onclick = null;
 
-    temporizador = null;
-    animacion = null;
-    juegoTerminado = true;
-    canvas.onclick = null;
+        const imagenesDisponibles = [];
 
-    const imagenesDisponibles = [];
-
-    for (let i = 0; i < imagenesCargadas.length; i++) {
-        if (
-            i !== imagenAnterior &&
-            imagenesCargadas[i].complete &&
-            imagenesCargadas[i].naturalWidth > 0
-        ) {
-            imagenesDisponibles.push(i);
-        }
-    }
-
-    if (imagenesDisponibles.length === 0) {
-        dibujarFondo();
-        ctx.fillStyle = "#FFFFFF";
-        ctx.textAlign = "center";
-        ctx.font = "22px 'Asap Condensed'";
-        ctx.fillText(
-            "No se pudieron cargar las imágenes.",
-            canvas.width / 2,
-            canvas.height / 2
-        );
-        return;
-    }
-
-    const imagenFinal = imagenesDisponibles[
-        Math.floor(Math.random() * imagenesDisponibles.length)
-    ];
-
-    let posicion = 0;
-    let pasos = 0;
-    const cantidadVueltas = 2;
-    const totalPasos = imagenesCargadas.length * cantidadVueltas;
-
-    function dibujarSeleccion(zoom = 1, brillo = 0) {
-        dibujarFondo();
-
-        dibujarEncabezado(
-            brillo > 0
-                ? "¡IMAGEN SELECCIONADA!"
-                : "ELIGIENDO IMAGEN",
-            brillo > 0
-                ? "Preparando el desafío..."
-                : "Buscando tu próximo desafío..."
-        );
-
-        const imagen = imagenesCargadas[posicion];
-        const ancho = 360 * zoom;
-        const alto = 250 * zoom;
-        const x = (canvas.width - ancho) / 2;
-        const y = 260 - alto / 2;
-
-        // Destello verde detrás de la tarjeta al confirmar la imagen.
-        if (brillo > 0) {
-            ctx.save();
-            ctx.shadowColor = "#39FF78";
-            ctx.shadowBlur = 18 + brillo * 25;
-            ctx.strokeStyle = `rgba(57, 255, 120, ${brillo})`;
-            ctx.lineWidth = 3 + brillo * 3;
-            ctx.beginPath();
-            ctx.roundRect(x - 10, y - 10, ancho + 20, alto + 20, 16);
-            ctx.stroke();
-            ctx.restore();
+        for (let i = 0; i < imagenesCargadas.length; i++) {
+            if (
+                i !== imagenAnterior &&
+                imagenesCargadas[i].complete &&
+                imagenesCargadas[i].naturalWidth > 0
+            ) {
+                imagenesDisponibles.push(i);
+            }
         }
 
-        dibujarTarjeta(
-            x - 10,
-            y - 10,
-            ancho + 20,
-            alto + 20,
-            true
-        );
+        if (imagenesDisponibles.length === 0) {
+            dibujarFondo();
+            ctx.fillStyle = "#FFFFFF";
+            ctx.textAlign = "center";
+            ctx.font = "22px 'Asap Condensed'";
+            ctx.fillText(
+                "No se pudieron cargar las imágenes.",
+                canvas.width / 2,
+                canvas.height / 2
+            );
+            return;
+        }
 
-        if (imagen && imagen.complete && imagen.naturalWidth > 0) {
-            ctx.save();
+        const imagenFinal =
+            imagenesDisponibles[
+                Math.floor(Math.random() * imagenesDisponibles.length)
+            ];
+
+        let posicion = 0;
+        let pasos = 0;
+        let velocidad = 100;
+        const totalPasos = imagenesCargadas.length * 2;
+
+        function dibujarSeleccion(zoom = 1, brillo = 0) {
+            dibujarFondo();
+
+            dibujarEncabezado(
+                brillo > 0 ? "¡IMAGEN SELECCIONADA!" : "ELIGIENDO IMAGEN",
+                brillo > 0
+                    ? "Preparando el desafío..."
+                    : "Buscando tu próximo desafío..."
+            );
+
+            const imagen = imagenesCargadas[posicion];
+            const ancho = 360 * zoom;
+            const alto = 250 * zoom;
+            const x = (canvas.width - ancho) / 2;
+            const y = 260 - alto / 2;
 
             if (brillo > 0) {
+                ctx.save();
                 ctx.shadowColor = "#39FF78";
-                ctx.shadowBlur = 12 + brillo * 24;
+                ctx.shadowBlur = 18 + brillo * 25;
+                ctx.strokeStyle = `rgba(57, 255, 120, ${brillo})`;
+                ctx.lineWidth = 3 + brillo * 3;
+                ctx.beginPath();
+                ctx.roundRect(x - 10, y - 10, ancho + 20, alto + 20, 16);
+                ctx.stroke();
+                ctx.restore();
             }
 
-            ctx.beginPath();
-            ctx.roundRect(x, y, ancho, alto, 12);
-            ctx.clip();
+            dibujarTarjeta(
+                x - 10,
+                y - 10,
+                ancho + 20,
+                alto + 20,
+                true
+            );
 
-            ctx.drawImage(imagen, x, y, ancho, alto);
+            if (imagen && imagen.complete && imagen.naturalWidth > 0) {
+                ctx.save();
 
-            ctx.restore();
-        }
-
-        ctx.textAlign = "center";
-        ctx.fillStyle = brillo > 0 ? "#FFFFFF" : "#39FF78";
-        ctx.font = "bold 16px Orbitron";
-        ctx.fillText(
-            brillo > 0
-                ? "✓ IMAGEN " + (posicion + 1)
-                : "IMAGEN " + (posicion + 1),
-            canvas.width / 2,
-            425
-        );
-    }
-
-    dibujarSeleccion();
-
-    let velocidad = 100;
-
-    function avanzarAnimacion() {
-        posicion = (posicion + 1) % imagenesCargadas.length;
-        pasos++;
-
-        if (pasos >= totalPasos) {
-            posicion = imagenFinal;
-            imagenSeleccionada = imagenFinal;
-            imagenAnterior = imagenFinal;
-            animacion = null;
-
-            // Efecto de confirmación: pequeño zoom y destello verde.
-            let cuadro = 0;
-            const totalCuadros = 8;
-
-            function confirmarSeleccion() {
-                cuadro++;
-
-                const progreso = cuadro / totalCuadros;
-                const zoom = 1 + Math.sin(progreso * Math.PI) * 0.045;
-                const brillo = Math.sin(progreso * Math.PI);
-
-                dibujarSeleccion(zoom, brillo);
-
-                if (cuadro < totalCuadros) {
-                    animacion = setTimeout(confirmarSeleccion, 45);
-                } else {
-                    animacion = null;
-
-                    dibujarSeleccion();
-
-                    // Volvemos a mostrar la imagen seleccionada
-                    // antes de avanzar a la siguiente pantalla.
-                    posicion = imagenFinal;
-                    dibujarSeleccion(1, 0.25);
-
-                    setTimeout(() => {
-                        piezas = [];
-                        mostrarSeleccionCantidad();
-                    }, 650);
+                if (brillo > 0) {
+                    ctx.shadowColor = "#39FF78";
+                    ctx.shadowBlur = 12 + brillo * 24;
                 }
+
+                ctx.beginPath();
+                ctx.roundRect(x, y, ancho, alto, 12);
+                ctx.clip();
+                ctx.drawImage(imagen, x, y, ancho, alto);
+                ctx.restore();
             }
 
-            confirmarSeleccion();
-            return;
+            ctx.textAlign = "center";
+            ctx.fillStyle = brillo > 0 ? "#FFFFFF" : "#39FF78";
+            ctx.font = "bold 16px Orbitron";
+            ctx.fillText(
+                brillo > 0
+                    ? "✓ IMAGEN " + (posicion + 1)
+                    : "IMAGEN " + (posicion + 1),
+                canvas.width / 2,
+                425
+            );
         }
 
         dibujarSeleccion();
 
-        // La ruleta se ralentiza progresivamente al final.
-        if (pasos > totalPasos - 5) {
-            velocidad += 90;
+        function avanzarAnimacion() {
+            posicion = (posicion + 1) % imagenesCargadas.length;
+            pasos++;
+
+            if (pasos >= totalPasos) {
+                posicion = imagenFinal;
+                imagenSeleccionada = imagenFinal;
+                imagenAnterior = imagenFinal;
+                animacion = null;
+
+                let cuadro = 0;
+                const totalCuadros = 8;
+
+                function confirmarSeleccion() {
+                    cuadro++;
+
+                    const progreso = cuadro / totalCuadros;
+                    const zoom = 1 + Math.sin(progreso * Math.PI) * 0.045;
+                    const brillo = Math.sin(progreso * Math.PI);
+
+                    dibujarSeleccion(zoom, brillo);
+
+                    if (cuadro < totalCuadros) {
+                        animacion = setTimeout(confirmarSeleccion, 45);
+                    } else {
+                        animacion = null;
+                        posicion = imagenFinal;
+                        dibujarSeleccion(1, 0.25);
+
+                        setTimeout(() => {
+                            piezas = [];
+                            mostrarSeleccionCantidad();
+                        }, 650);
+                    }
+                }
+
+                confirmarSeleccion();
+                return;
+            }
+
+            dibujarSeleccion();
+
+            if (pasos > totalPasos - 5) {
+                velocidad += 90;
+            }
+
+            animacion = setTimeout(avanzarAnimacion, velocidad);
         }
 
         animacion = setTimeout(avanzarAnimacion, velocidad);
+
+        canvas.oncontextmenu = event => event.preventDefault();
     }
-
-    animacion = setTimeout(avanzarAnimacion, velocidad);
-
-    canvas.onclick = null;
-    canvas.oncontextmenu = event => event.preventDefault();
-}
-
-    // SELECCIÓN DE NIVEL
 
     function mostrarSeleccionNivel() {
         clearInterval(temporizador);
-        clearInterval(animacion);
+        clearTimeout(animacion);
 
         temporizador = null;
         animacion = null;
         juegoTerminado = true;
 
         dibujarFondo();
-
         dibujarEncabezado(
             "ELEGÍ UN NIVEL",
             "Superá cada desafío para desbloquear el siguiente"
@@ -593,22 +519,16 @@ function mostrarSeleccion() {
             ctx.textAlign = "center";
             ctx.fillStyle = desbloqueado ? "#39FF78" : "#758078";
             ctx.font = "bold 22px Orbitron";
-
             ctx.fillText(
                 "NIVEL " + opcion.numero,
                 opcion.x + 100,
                 opcion.y + 42
             );
 
-            ctx.fillStyle = desbloqueado ? "#D7E7DB" : "#8A938D";
-            ctx.font = "18px 'Asap Condensed'";
-
             if (desbloqueado) {
-
                 if (records[opcion.numero] !== undefined) {
                     ctx.fillStyle = "#91FFA9";
                     ctx.font = "14px 'Asap Condensed'";
-
                     ctx.fillText(
                         "Récord: " + records[opcion.numero] + " s",
                         opcion.x + 100,
@@ -617,22 +537,20 @@ function mostrarSeleccion() {
                 }
             } else {
                 dibujarIcono(
-    "\uf023",
-    opcion.x + 100,
-    opcion.y + 68,
-    24,
-    "#758078"
-);
+                    "\uf023",
+                    opcion.x + 100,
+                    opcion.y + 68,
+                    24,
+                    "#758078"
+                );
 
-ctx.fillStyle = "#8A938D";
-ctx.font = "14px 'Asap Condensed'";
-ctx.textAlign = "center";
-
-ctx.fillText(
-    "BLOQUEADO",
-    opcion.x + 100,
-    opcion.y + 100
-);
+                ctx.fillStyle = "#8A938D";
+                ctx.font = "14px 'Asap Condensed'";
+                ctx.fillText(
+                    "BLOQUEADO",
+                    opcion.x + 100,
+                    opcion.y + 100
+                );
             }
         });
 
@@ -650,7 +568,6 @@ ctx.fillText(
 
                     nivel = opcion.numero;
                     mostrarSeleccion();
-
                     return;
                 }
             }
@@ -659,19 +576,12 @@ ctx.fillText(
         canvas.oncontextmenu = event => event.preventDefault();
     }
 
-    // SELECCIÓN DE CANTIDAD DE PIEZAS
-
     function mostrarSeleccionCantidad() {
+        clearTimeout(animacion);
         juegoTerminado = true;
-
-        if (animacion) {
-            clearInterval(animacion);
-            cancelAnimationFrame(animacion);
-            animacion = null;
-        }
+        animacion = null;
 
         dibujarFondo();
-
         dibujarEncabezado(
             "CANTIDAD DE PIEZAS",
             "Elegí la dificultad para este desafío"
@@ -681,7 +591,6 @@ ctx.fillText(
         const ancho = 150;
         const alto = 70;
         const separacion = 25;
-
         const inicioX = (
             canvas.width -
             (cantidades.length * ancho +
@@ -704,19 +613,8 @@ ctx.fillText(
             ctx.fillStyle = cantidadPiezas === cantidad
                 ? "#39FF78"
                 : "#E6F3E9";
-
             ctx.font = "bold 30px Orbitron";
-
-            ctx.fillText(
-                cantidad,
-                x + ancho / 2,
-                y + 43
-            );
-
-            ctx.fillStyle = "#8DA696";
-            ctx.font = "13px 'Asap Condensed'";
-
-            
+            ctx.fillText(cantidad, x + ancho / 2, y + 43);
         });
 
         const botonX = canvas.width / 2 - 100;
@@ -758,7 +656,6 @@ ctx.fillText(
                 y >= botonY &&
                 y <= botonY + botonAlto
             ) {
-                canvas.onclick = null;
                 iniciarPuzzle();
             }
         };
@@ -766,20 +663,16 @@ ctx.fillText(
         canvas.oncontextmenu = event => event.preventDefault();
     }
 
-    // INICIO DEL ROMPECABEZAS
-
     function iniciarPuzzle() {
         piezas = [];
-        mostrarOriginal = false;
         juegoTerminado = false;
         tiempo = 0;
         tiempoMaximo = obtenerTiempoMaximo(nivel);
 
         const columnas = cantidadPiezas / 2;
-        const filas = 2;
         const rotaciones = [0, 90, 180, 270];
 
-        for (let fila = 0; fila < filas; fila++) {
+        for (let fila = 0; fila < 2; fila++) {
             for (let columna = 0; columna < columnas; columna++) {
                 piezas.push({
                     fila,
@@ -806,13 +699,9 @@ ctx.fillText(
         iniciarTemporizador();
     }
 
-    // TEMPORIZADOR
-
     function iniciarTemporizador() {
         clearInterval(temporizador);
-        temporizador = null;
         tiempo = 0;
-
         mostrarImagenSeleccionada();
 
         temporizador = setInterval(() => {
@@ -828,7 +717,6 @@ ctx.fillText(
                 clearInterval(temporizador);
                 temporizador = null;
                 juegoTerminado = true;
-
                 mostrarTiempoAgotado();
                 return;
             }
@@ -836,8 +724,6 @@ ctx.fillText(
             mostrarImagenSeleccionada();
         }, 1000);
     }
-
-    // AYUDITA
 
     function usarAyudita() {
         if (juegoTerminado || nivel < 4) return;
@@ -860,7 +746,6 @@ ctx.fillText(
             clearInterval(temporizador);
             temporizador = null;
             juegoTerminado = true;
-
             mostrarTiempoAgotado();
             return;
         }
@@ -872,14 +757,10 @@ ctx.fillText(
         }
     }
 
-    // PANTALLA PRINCIPAL DEL JUEGO
-
     function mostrarImagenSeleccionada() {
         const imagen = imagenesCargadas[imagenSeleccionada];
 
-        if (!imagen || !imagen.complete || imagen.naturalWidth === 0) {
-            return;
-        }
+        if (!imagen || !imagen.complete || imagen.naturalWidth === 0) return;
 
         dibujarFondo();
         dibujarEncabezado("BLOCKA");
@@ -887,7 +768,6 @@ ctx.fillText(
         ctx.fillStyle = "#B7C9BC";
         ctx.textAlign = "center";
         ctx.font = "17px 'Asap Condensed'";
-
         ctx.fillText(
             "Hace clic izquierdo o derecho para girar las piezas",
             canvas.width / 2,
@@ -905,7 +785,6 @@ ctx.fillText(
             "\uf060"
         );
 
-        // Panel del temporizador
         const panelX = canvas.width - 215;
         const panelY = 20;
         const panelAncho = 185;
@@ -922,7 +801,6 @@ ctx.fillText(
 
         ctx.strokeStyle = "#31583C";
         ctx.lineWidth = 1.5;
-
         ctx.beginPath();
         ctx.roundRect(
             panelX,
@@ -939,13 +817,11 @@ ctx.fillText(
                 : "#39FF78";
 
         const textoTiempo = "TIEMPO " + tiempo + " s";
-
         ctx.font = "bold 15px Orbitron";
 
         const anchoTextoTiempo = ctx.measureText(textoTiempo).width;
         const anchoIconoTiempo = 17;
         const separacionTiempo = 7;
-
         const anchoTotalTiempo =
             anchoIconoTiempo +
             separacionTiempo +
@@ -965,7 +841,6 @@ ctx.fillText(
         ctx.fillStyle = colorTiempo;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-
         ctx.fillText(
             textoTiempo,
             inicioTiempo +
@@ -974,7 +849,6 @@ ctx.fillText(
                 anchoTextoTiempo / 2,
             panelY + panelAlto / 2
         );
-
         ctx.textBaseline = "alphabetic";
 
         if (nivel >= 4) {
@@ -992,20 +866,15 @@ ctx.fillText(
 
         const columnas = cantidadPiezas / 2;
         const filas = 2;
-
         const anchoPieza = 400 / columnas;
         const altoPieza = 300 / filas;
-
         const separacionX = anchoPieza + 12;
         const separacionY = altoPieza + 12;
-
         const xInicial =
             canvas.width / 2 -
             ((columnas - 1) * separacionX) / 2;
-
         const yInicial = 205;
 
-        // Marco ajustado al canvas de 900 x 500
         dibujarRectanguloRedondeado(
             25,
             120,
@@ -1017,22 +886,18 @@ ctx.fillText(
 
         ctx.strokeStyle = "#203A28";
         ctx.lineWidth = 1.5;
-
         ctx.beginPath();
         ctx.roundRect(25, 120, 850, 360, 18);
         ctx.stroke();
 
-        // Dibujo de las piezas
         piezas.forEach(pieza => {
             const centroX =
                 xInicial + pieza.columna * separacionX;
-
             const centroY =
                 yInicial + pieza.fila * separacionY;
 
             const origenX =
                 pieza.columna * (imagen.width / columnas);
-
             const origenY =
                 pieza.fila * (imagen.height / filas);
 
@@ -1040,35 +905,22 @@ ctx.fillText(
             const altoOrigen = imagen.height / filas;
 
             ctx.save();
-
             ctx.translate(centroX, centroY);
             ctx.rotate(pieza.rotacion * Math.PI / 180);
 
-            if (mostrarOriginal) {
-                ctx.drawImage(
-                    imagen,
-                    origenX,
-                    origenY,
-                    anchoOrigen,
-                    altoOrigen,
-                    -anchoPieza / 2,
-                    -altoPieza / 2,
-                    anchoPieza,
-                    altoPieza
-                );
-            } else {
-                ctx.drawImage(
-                    pieza.imagenFiltrada,
-                    -anchoPieza / 2,
-                    -altoPieza / 2,
-                    anchoPieza,
-                    altoPieza
-                );
-            }
+            ctx.drawImage(
+                pieza.imagenFiltrada,
+                -anchoPieza / 2,
+                -altoPieza / 2,
+                anchoPieza,
+                altoPieza
+            );
 
             ctx.restore();
 
-            ctx.strokeStyle = pieza.fija ? "#39FF78" : "#4D9B63";
+            ctx.strokeStyle = pieza.fija
+                ? "#39FF78"
+                : "#4D9B63";
             ctx.lineWidth = pieza.fija ? 4 : 2;
 
             ctx.strokeRect(
@@ -1083,7 +935,6 @@ ctx.fillText(
             for (const pieza of piezas) {
                 const centroX =
                     xInicial + pieza.columna * separacionX;
-
                 const centroY =
                     yInicial + pieza.fila * separacionY;
 
@@ -1100,7 +951,6 @@ ctx.fillText(
             return null;
         }
 
-        // Giro con clic izquierdo
         canvas.onclick = event => {
             if (juegoTerminado) return;
 
@@ -1125,17 +975,15 @@ ctx.fillText(
             ) {
                 clearInterval(temporizador);
                 temporizador = null;
-
                 mostrarSeleccionNivel();
                 return;
             }
 
             const pieza = buscarPieza(x, y);
 
-            if (pieza === null || pieza.fija) return;
+            if (!pieza || pieza.fija) return;
 
             pieza.rotacion = (pieza.rotacion + 270) % 360;
-
             mostrarImagenSeleccionada();
 
             if (verificarPuzzle()) {
@@ -1143,7 +991,6 @@ ctx.fillText(
             }
         };
 
-        // Giro con clic derecho
         canvas.oncontextmenu = event => {
             event.preventDefault();
 
@@ -1166,10 +1013,9 @@ ctx.fillText(
 
             const pieza = buscarPieza(x, y);
 
-            if (pieza === null || pieza.fija) return false;
+            if (!pieza || pieza.fija) return false;
 
             pieza.rotacion = (pieza.rotacion + 90) % 360;
-
             mostrarImagenSeleccionada();
 
             if (verificarPuzzle()) {
@@ -1184,17 +1030,12 @@ ctx.fillText(
         return piezas.every(pieza => pieza.rotacion === 0);
     }
 
-    // PANTALLA DE VICTORIA
-
     function mostrarVictoria() {
         if (juegoTerminado) return;
 
         juegoTerminado = true;
-
         clearInterval(temporizador);
         temporizador = null;
-
-        mostrarOriginal = true;
 
         const nuevoRecord = guardarRecord();
 
@@ -1211,13 +1052,10 @@ ctx.fillText(
 
         if (imagen && imagen.complete && imagen.naturalWidth > 0) {
             ctx.save();
-
             ctx.beginPath();
             ctx.roundRect(250, 35, 400, 220, 14);
             ctx.clip();
-
             ctx.drawImage(imagen, 250, 35, 400, 220);
-
             ctx.restore();
         }
 
@@ -1226,16 +1064,16 @@ ctx.fillText(
         ctx.textAlign = "center";
         ctx.fillStyle = "#39FF78";
         ctx.font = "bold 27px Orbitron";
-
         ctx.fillText(
-            nivel < 6 ? "¡NIVEL COMPLETADO!" : "¡JUEGO COMPLETADO!",
+            nivel < 6
+                ? "¡NIVEL COMPLETADO!"
+                : "¡JUEGO COMPLETADO!",
             canvas.width / 2,
             310
         );
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "19px 'Asap Condensed'";
-
         ctx.fillText(
             "¡Muy bien! Reconstruiste la imagen",
             canvas.width / 2,
@@ -1244,7 +1082,6 @@ ctx.fillText(
 
         ctx.fillStyle = "#B7C9BC";
         ctx.font = "17px Orbitron";
-
         ctx.fillText(
             "TIEMPO: " + tiempo + " s",
             canvas.width / 2,
@@ -1253,7 +1090,6 @@ ctx.fillText(
 
         ctx.fillStyle = nuevoRecord ? "#39FF78" : "#D7E7DB";
         ctx.font = "16px 'Asap Condensed'";
-
         ctx.fillText(
             nuevoRecord
                 ? "✦ ¡NUEVO RÉCORD! ✦"
@@ -1327,22 +1163,17 @@ ctx.fillText(
         canvas.oncontextmenu = event => event.preventDefault();
     }
 
-    // PANTALLA DE TIEMPO AGOTADO
-
     function mostrarTiempoAgotado() {
         juegoTerminado = true;
-
         clearInterval(temporizador);
         temporizador = null;
 
         dibujarFondo();
-
         dibujarTarjeta(150, 105, 600, 310, true);
 
         ctx.textAlign = "center";
         ctx.fillStyle = "#FF7777";
         ctx.font = "bold 34px Orbitron";
-
         ctx.fillText(
             "¡TIEMPO AGOTADO!",
             canvas.width / 2,
@@ -1351,7 +1182,6 @@ ctx.fillText(
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "20px 'Asap Condensed'";
-
         ctx.fillText(
             "No lograste reconstruir la imagen a tiempo",
             canvas.width / 2,
@@ -1360,7 +1190,6 @@ ctx.fillText(
 
         ctx.fillStyle = "#A9BDAE";
         ctx.font = "18px Orbitron";
-
         ctx.fillText(
             "NIVEL " + nivel,
             canvas.width / 2,
@@ -1412,18 +1241,14 @@ ctx.fillText(
         canvas.oncontextmenu = event => event.preventDefault();
     }
 
-    // INICIAR JUEGO
-
     mostrarInicio();
-
-    // CONTROLES DEL VIDEO
 
     const video = document.querySelector(".video-imagen video");
     const overlay = document.querySelector(".video-overlay");
     const iconoVideo = overlay?.querySelector("i");
 
     if (video && overlay) {
-        overlay.addEventListener("click", function() {
+        overlay.addEventListener("click", () => {
             if (video.paused) {
                 video.play();
             } else {
@@ -1431,14 +1256,14 @@ ctx.fillText(
             }
         });
 
-        video.addEventListener("play", function() {
+        video.addEventListener("play", () => {
             if (iconoVideo) {
                 iconoVideo.classList.remove("fa-play");
                 iconoVideo.classList.add("fa-pause");
             }
         });
 
-        video.addEventListener("pause", function() {
+        video.addEventListener("pause", () => {
             if (iconoVideo) {
                 iconoVideo.classList.remove("fa-pause");
                 iconoVideo.classList.add("fa-play");

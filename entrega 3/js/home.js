@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (barra) {
         let progresoMain = 0;
+
         const intervaloCarga = setInterval(() => {
             progresoMain += 20;
             barra.style.width = progresoMain + "%";
@@ -47,8 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
             menuLateral.classList.toggle("abierto");
 
             if (iconoMenu) {
-                iconoMenu.classList.toggle("fa-bars-staggered", menuLateral.classList.contains("abierto"));
-                iconoMenu.classList.toggle("fa-bars", !menuLateral.classList.contains("abierto"));
+                iconoMenu.classList.toggle(
+                    "fa-bars-staggered",
+                    menuLateral.classList.contains("abierto")
+                );
+
+                iconoMenu.classList.toggle(
+                    "fa-bars",
+                    !menuLateral.classList.contains("abierto")
+                );
             }
         });
     }
@@ -126,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* API DE JUEGOS */
-
     const juegosHardcodeados = [
         { name: "PacMan", background_image: "img/pacman.jpeg" },
         { name: "Uno", background_image: "img/uno.jpg" },
@@ -147,23 +154,20 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     /* CARGAR JUEGOS */
-
     async function cargarJuegos() {
         let juegos;
 
         try {
             const response = await fetch("https://vj.interfaces.jima.com.ar/api/v2");
-
             juegos = await response.json();
-
         } catch (error) {
-            
             juegos = juegosHardcodeados;
         }
 
         /* RECOMENDADAS */
-
-        const cardsRecomendadas = document.querySelectorAll(".recommended .card-recomendado");
+        const cardsRecomendadas = document.querySelectorAll(
+            ".recommended .card-recomendado"
+        );
 
         cardsRecomendadas.forEach((card, indice) => {
             let juego = juegos[indice % juegos.length];
@@ -180,7 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const esPegSolitaire =
                 card.classList.contains("peg-solitaire") ||
-                (card.classList.contains("peg") && card.classList.contains("solitaire"));
+                (card.classList.contains("peg") &&
+                    card.classList.contains("solitaire"));
 
             if (esPegSolitaire) {
                 juego = {
@@ -194,7 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const imagen = card.querySelector("img");
 
             if (imagen) {
-                imagen.src = juego.background_image_low_res || juego.background_image;
+                imagen.src =
+                    juego.background_image_low_res ||
+                    juego.background_image;
+
                 imagen.alt = juego.name;
             }
 
@@ -236,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             /* PEG SOLITAIRE */
-
             if (esPegSolitaire) {
                 const botonJugar = overlay.querySelector(".btn-jugar");
 
@@ -247,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            if (esBlocka ) {
+            if (esBlocka) {
                 const botonJugar = overlay.querySelector(".btn-jugar");
 
                 if (botonJugar) {
@@ -259,8 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         /* RESTO DE LOS JUEGOS */
-
-        const cards = document.querySelectorAll(".game-category:not(.recommended) .card-juego");
+        const cards = document.querySelectorAll(
+            ".game-category:not(.recommended) .card-juego"
+        );
 
         cards.forEach((card, indice) => {
             let juego = juegos[indice % juegos.length];
@@ -278,7 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const esPegSolitaire =
                 card.classList.contains("peg-solitaire") ||
-                (card.classList.contains("peg") && card.classList.contains("solitaire"));
+                (card.classList.contains("peg") &&
+                    card.classList.contains("solitaire"));
 
             if (esPegSolitaire) {
                 juego = {
@@ -292,7 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const imagen = card.querySelector("img");
 
             if (imagen) {
-                imagen.src = juego.background_image_low_res || juego.background_image;
+                imagen.src =
+                    juego.background_image_low_res ||
+                    juego.background_image;
+
                 console.log("IMAGEN RECOMENDADO:", imagen.src);
                 imagen.alt = juego.name;
             }
@@ -338,7 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             /* JUEGOS PAGOS */
-
             const modalPrecio = document.querySelector("#modalPrecio");
             const esPago = card.querySelector(".pago");
 
@@ -349,18 +360,27 @@ document.addEventListener("DOMContentLoaded", () => {
                     botonComprar.addEventListener("click", function() {
                         if (!modalCompra) return;
 
-                        modalImagen.src = juego.background_image_low_res || juego.background_image;
+                        modalImagen.src =
+                            juego.background_image_low_res ||
+                            juego.background_image;
+
                         modalImagen.alt = juego.name;
                         modalTitulo.textContent = juego.name;
 
-                        const descripcion = juego.description || "Breve descripción del juego";
+                        const descripcion =
+                            juego.description ||
+                            "Breve descripción del juego";
 
-                        modalDescripcion.textContent = descripcion.length > 120
-                            ? descripcion.substring(0, 120) + "..."
-                            : descripcion;
+                        modalDescripcion.textContent =
+                            descripcion.length > 120
+                                ? descripcion.substring(0, 120) + "..."
+                                : descripcion;
 
                         const precio = card.dataset.precio || "0";
-                        modalPrecio.textContent = "Precio: $" + Number(precio).toLocaleString("es-AR");
+
+                        modalPrecio.textContent =
+                            "Precio: $" +
+                            Number(precio).toLocaleString("es-AR");
 
                         modalCompra.classList.add("abierto");
                     });
@@ -368,7 +388,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             /* PEG SOLITAIRE */
-
             if (esPegSolitaire && !esPago) {
                 const botonJugar = overlay.querySelector(".btn-jugar");
 
@@ -392,19 +411,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* EJECUTAR CARGA */
-
     cargarJuegos();
 
     /* INICIALIZAR CARRUSELES */
-
     inicializarCarruseles();
 
     /* CARRUSELES */
-
     function inicializarCarruseles() {
-
         /* FUNCIÓN PARA ARRASTRAR */
-
         function hacerArrastrable(lista) {
             let presionando = false;
             let inicioX = 0;
@@ -435,79 +449,111 @@ document.addEventListener("DOMContentLoaded", () => {
                 presionando = false;
             });
 
-            lista.addEventListener("touchstart", function(e) {
-                if (window.innerWidth > 500) return;
+            lista.addEventListener(
+                "touchstart",
+                function(e) {
+                    if (window.innerWidth > 500) return;
 
-                inicioX = e.touches[0].pageX;
-                scrollInicial = lista.scrollLeft;
-            }, { passive: true });
+                    inicioX = e.touches[0].pageX;
+                    scrollInicial = lista.scrollLeft;
+                },
+                { passive: true }
+            );
 
-            lista.addEventListener("touchmove", function(e) {
-                if (window.innerWidth > 500) return;
+            lista.addEventListener(
+                "touchmove",
+                function(e) {
+                    if (window.innerWidth > 500) return;
 
-                const movimiento = e.touches[0].pageX - inicioX;
-                lista.scrollLeft = scrollInicial - movimiento;
-            }, { passive: true });
+                    const movimiento = e.touches[0].pageX - inicioX;
+                    lista.scrollLeft = scrollInicial - movimiento;
+                },
+                { passive: true }
+            );
         }
 
         /* CARRUSEL RECOMENDADOS */
+        const listaRecomendados = document.querySelector(
+            ".recommended .game-list"
+        );
 
-        const listaRecomendados = document.querySelector(".recommended .game-list");
+        const botonAnterior = document.querySelector(
+            "#recomendadosAnterior"
+        );
 
-        const botonAnterior = document.querySelector("#recomendadosAnterior");
-        const botonSiguiente = document.querySelector("#recomendadosSiguiente");
+        const botonSiguiente = document.querySelector(
+            "#recomendadosSiguiente"
+        );
 
         if (listaRecomendados) {
             let cardsRecomendadas = Array.from(
-                listaRecomendados.querySelectorAll(".card-recomendado")
+                listaRecomendados.querySelectorAll(
+                    ".card-recomendado"
+                )
             );
 
             if (window.innerWidth <= 500) {
-
                 let inicioX = 0;
-            
-                listaRecomendados.addEventListener("touchstart", function(event) {
-                    inicioX = event.touches[0].clientX;
-                });
-            
-                listaRecomendados.addEventListener("touchend", function(event) {
-                    const finalX = event.changedTouches[0].clientX;
-                    const diferencia = finalX - inicioX;
-            
-                    if (Math.abs(diferencia) < 50) {
-                        return;
+
+                listaRecomendados.addEventListener(
+                    "touchstart",
+                    function(event) {
+                        inicioX = event.touches[0].clientX;
                     }
-            
-                    if (diferencia < 0) {
-                        // Arrastró hacia la izquierda
-                        rotarRecomendados();
-                    } else {
-                        // Arrastró hacia la derecha
-                        const ultima = cardsRecomendadas.pop();
-                        cardsRecomendadas.unshift(ultima);
-                        actualizarPosiciones(true);
+                );
+
+                listaRecomendados.addEventListener(
+                    "touchend",
+                    function(event) {
+                        const finalX =
+                            event.changedTouches[0].clientX;
+
+                        const diferencia = finalX - inicioX;
+
+                        if (Math.abs(diferencia) < 50) {
+                            return;
+                        }
+
+                        if (diferencia < 0) {
+                            // Arrastró hacia la izquierda
+                            rotarRecomendados();
+                        } else {
+                            // Arrastró hacia la derecha
+                            const ultima =
+                                cardsRecomendadas.pop();
+
+                            cardsRecomendadas.unshift(ultima);
+
+                            actualizarPosiciones(true);
+                        }
                     }
-                });
+                );
             }
 
             if (botonSiguiente) {
-                botonSiguiente.addEventListener("click", function() {
-                    rotarRecomendados();
-                });
+                botonSiguiente.addEventListener(
+                    "click",
+                    function() {
+                        rotarRecomendados();
+                    }
+                );
             }
 
             if (botonAnterior) {
-                botonAnterior.addEventListener("click", function() {
-                    const ultima = cardsRecomendadas.pop();
-            
-                    cardsRecomendadas.unshift(ultima);
-            
-                    actualizarPosiciones(true);
-                });
+                botonAnterior.addEventListener(
+                    "click",
+                    function() {
+                        const ultima =
+                            cardsRecomendadas.pop();
+
+                        cardsRecomendadas.unshift(ultima);
+
+                        actualizarPosiciones(true);
+                    }
+                );
             }
 
             function actualizarPosiciones(animar = true) {
-
                 cardsRecomendadas.forEach((card, indice) => {
                     let izquierda;
 
@@ -577,66 +623,85 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         /* CARRUSELES GRANDES */
-
         const carruselesGrandes = document.querySelectorAll(
             ".game-category:not(.recommended) .carousel"
         );
 
         carruselesGrandes.forEach(carousel => {
             const lista = carousel.querySelector(".game-list");
-            const botonIzquierda = carousel.querySelector(".carousel-arrow:first-child");
-            const botonDerecha = carousel.querySelector(".carousel-arrow:last-child");
+
+            const botonIzquierda = carousel.querySelector(
+                ".carousel-arrow:first-child"
+            );
+
+            const botonDerecha = carousel.querySelector(
+                ".carousel-arrow:last-child"
+            );
 
             const card = lista
                 ? lista.querySelector(".card-grande")
                 : null;
 
-            if (!lista || !card || !botonIzquierda || !botonDerecha) {
+            if (
+                !lista ||
+                !card ||
+                !botonIzquierda ||
+                !botonDerecha
+            ) {
                 return;
             }
 
             hacerArrastrable(lista);
 
             const espacio = 12;
-            const cantidadMovimiento = window.innerWidth <= 500 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+
+            const cantidadMovimiento =
+                window.innerWidth <= 500
+                    ? 1
+                    : window.innerWidth <= 768
+                    ? 2
+                    : 3;
 
             /* Derecha */
+            botonDerecha.addEventListener(
+                "click",
+                function() {
+                    const paso = card.offsetWidth + espacio;
 
-            botonDerecha.addEventListener("click", function() {
-                const paso = card.offsetWidth + espacio;
+                    lista.classList.add("animando");
 
-                lista.classList.add("animando");
+                    lista.scrollBy({
+                        left: paso * cantidadMovimiento,
+                        behavior: "smooth"
+                    });
 
-                lista.scrollBy({
-                    left: paso * cantidadMovimiento,
-                    behavior: "smooth"
-                });
-
-                setTimeout(() => {
-                    lista.classList.remove("animando");
-                }, 700);
-            });
+                    setTimeout(() => {
+                        lista.classList.remove("animando");
+                    }, 700);
+                }
+            );
 
             /* Izquierda */
+            botonIzquierda.addEventListener(
+                "click",
+                function() {
+                    const paso = card.offsetWidth + espacio;
 
-            botonIzquierda.addEventListener("click", function() {
-                const paso = card.offsetWidth + espacio;
+                    lista.classList.add("animando");
 
-                lista.classList.add("animando");
+                    lista.scrollBy({
+                        left: -(paso * cantidadMovimiento),
+                        behavior: "smooth"
+                    });
 
-                lista.scrollBy({
-                    left: -(paso * cantidadMovimiento),
-                    behavior: "smooth"
-                });
-
-                setTimeout(() => {
-                    lista.classList.remove("animando");
-                }, 700);
-            });
+                    setTimeout(() => {
+                        lista.classList.remove("animando");
+                    }, 700);
+                }
+            );
         });
 
         /* CARRUSELES CHICAS */
-
         const carruselesChicas = document.querySelectorAll(
             ".game-category .game-list.chicas"
         );
@@ -654,73 +719,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const card = lista.querySelector(".card-chica");
 
-            if (!card || !botonIzquierda || !botonDerecha) {
+            if (
+                !card ||
+                !botonIzquierda ||
+                !botonDerecha
+            ) {
                 return;
             }
 
             hacerArrastrable(lista);
 
             const espacio = 25;
-            const cantidadMovimiento = window.innerWidth <= 500 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+
+            const cantidadMovimiento =
+                window.innerWidth <= 500
+                    ? 1
+                    : window.innerWidth <= 768
+                    ? 2
+                    : 3;
 
             /* Derecha */
+            botonDerecha.addEventListener(
+                "click",
+                function() {
+                    const paso = card.offsetWidth + espacio;
 
-            botonDerecha.addEventListener("click", function() {
-                const paso = card.offsetWidth + espacio;
+                    lista.classList.add("animando");
 
-                lista.classList.add("animando");
+                    lista.scrollBy({
+                        left: paso * cantidadMovimiento,
+                        behavior: "smooth"
+                    });
 
-                lista.scrollBy({
-                    left: paso * cantidadMovimiento,
-                    behavior: "smooth"
-                });
-
-                setTimeout(() => {
-                    lista.classList.remove("animando");
-                }, 500);
-            });
+                    setTimeout(() => {
+                        lista.classList.remove("animando");
+                    }, 500);
+                }
+            );
 
             /* Izquierda */
+            botonIzquierda.addEventListener(
+                "click",
+                function() {
+                    const paso = card.offsetWidth + espacio;
 
-            botonIzquierda.addEventListener("click", function() {
-                const paso = card.offsetWidth + espacio;
+                    lista.classList.add("animando");
 
-                lista.classList.add("animando");
+                    lista.scrollBy({
+                        left: -(paso * cantidadMovimiento),
+                        behavior: "smooth"
+                    });
 
-                lista.scrollBy({
-                    left: -(paso * cantidadMovimiento),
-                    behavior: "smooth"
-                });
-
-                setTimeout(() => {
-                    lista.classList.remove("animando");
-                }, 500);
-            });
+                    setTimeout(() => {
+                        lista.classList.remove("animando");
+                    }, 500);
+                }
+            );
         });
     }
 
     // 5. MENÚ DE AJUSTES
-
     const botonAjustes = document.getElementById("boton-ajustes");
     const menuAjustes = document.querySelector(".menu-ajustes");
 
     if (botonAjustes && menuAjustes) {
-        botonAjustes.addEventListener("click", function(event) {
-            event.stopPropagation();
-            menuAjustes.classList.toggle("abierto");
-        });
+        botonAjustes.addEventListener(
+            "click",
+            function(event) {
+                event.stopPropagation();
+                menuAjustes.classList.toggle("abierto");
+            }
+        );
 
-        menuAjustes.addEventListener("click", function(event) {
-            event.stopPropagation();
-        });
+        menuAjustes.addEventListener(
+            "click",
+            function(event) {
+                event.stopPropagation();
+            }
+        );
 
-        document.addEventListener("click", function() {
-            menuAjustes.classList.remove("abierto");
-        });
+        document.addEventListener(
+            "click",
+            function() {
+                menuAjustes.classList.remove("abierto");
+            }
+        );
     }
 
     // 9. MODAL DE INGRESO
-
     const modalIngreso = document.getElementById("modalIngreso");
     const modalContenido = document.getElementById("modal-contenido");
 
@@ -740,17 +826,21 @@ document.addEventListener("DOMContentLoaded", () => {
     window.cerrarModal = cerrarModalIngreso;
 
     // CAMBIAR ENTRE LOGIN Y REGISTRO
-
     window.mostrarFormulario = function(formulario, boton) {
-        document.querySelectorAll(".formulario").forEach(function(form) {
-            form.classList.remove("activo");
-        });
+        document.querySelectorAll(".formulario").forEach(
+            function(form) {
+                form.classList.remove("activo");
+            }
+        );
 
-        document.querySelectorAll(".tab").forEach(function(tab) {
-            tab.classList.remove("activo");
-        });
+        document.querySelectorAll(".tab").forEach(
+            function(tab) {
+                tab.classList.remove("activo");
+            }
+        );
 
-        const formularioSeleccionado = document.getElementById(formulario);
+        const formularioSeleccionado =
+            document.getElementById(formulario);
 
         if (formularioSeleccionado) {
             formularioSeleccionado.classList.add("activo");
@@ -769,17 +859,18 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // CERRAR MODAL HACIENDO CLICK AFUERA
-
     if (modalIngreso) {
-        modalIngreso.addEventListener("click", function(event) {
-            if (event.target === modalIngreso) {
-                cerrarModalIngreso();
+        modalIngreso.addEventListener(
+            "click",
+            function(event) {
+                if (event.target === modalIngreso) {
+                    cerrarModalIngreso();
+                }
             }
-        });
+        );
     }
 
     // 10. HEADER - LOGIN / LOGOUT
-
     const btnIngresar = document.getElementById("btnIngresar");
     const perfilUsuario = document.getElementById("perfilUsuario");
     const cerrarSesion = document.getElementById("cerrarSesion");
@@ -806,52 +897,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (btnIngresar) {
-        btnIngresar.addEventListener("click", function(event) {
-            event.preventDefault();
-            abrirModalIngreso();
-        });
+        btnIngresar.addEventListener(
+            "click",
+            function(event) {
+                event.preventDefault();
+                abrirModalIngreso();
+            }
+        );
     }
 
     // FORMULARIO LOGIN
-
     const formularioLogin = document.getElementById("login");
 
     if (formularioLogin) {
-        formularioLogin.addEventListener("submit", function(event) {
-            event.preventDefault();
+        formularioLogin.addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
 
-            mostrarAnimacionExito();
+                mostrarAnimacionExito();
 
-            localStorage.setItem("logueado", "true");
+                localStorage.setItem("logueado", "true");
 
-            actualizarHeader();
+                actualizarHeader();
 
-            setTimeout(function() {
-                cerrarModalIngreso();
-            }, 1800);
-        });
+                setTimeout(function() {
+                    cerrarModalIngreso();
+                }, 1800);
+            }
+        );
     }
 
     // CERRAR SESIÓN
-
     if (cerrarSesion) {
-        cerrarSesion.addEventListener("click", function(event) {
-            event.preventDefault();
+        cerrarSesion.addEventListener(
+            "click",
+            function(event) {
+                event.preventDefault();
 
-            localStorage.removeItem("logueado");
+                localStorage.removeItem("logueado");
 
-            actualizarHeader();
-        });
+                actualizarHeader();
+            }
+        );
     }
 
     // COMPROBAR SESIÓN AL CARGAR
-
     actualizarHeader();
 
     // ANIMACIÓN DE ÉXITO
-
     function mostrarAnimacionExito() {
-        const transicion = document.getElementById("transicionExito");
+        const transicion =
+            document.getElementById("transicionExito");
 
         if (!transicion) return;
 
@@ -862,63 +959,101 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1800);
     }
 
-    const formularioRegistro = document.getElementById("registro");
-    const btnCrearRegistro = document.getElementById("btnCrearRegistro");
-    const password = document.getElementById("password-register");
-    const repassword = document.getElementById("repassword-register");
-    const errorPassword = document.getElementById("error-password");
+    const formularioRegistro =
+        document.getElementById("registro");
+
+    const btnCrearRegistro =
+        document.getElementById("btnCrearRegistro");
+
+    const password =
+        document.getElementById("password-register");
+
+    const repassword =
+        document.getElementById("repassword-register");
+
+    const errorPassword =
+        document.getElementById("error-password");
 
     let giro;
     let grados = 0;
 
-    if (formularioRegistro && password && repassword && errorPassword) {
-        formularioRegistro.addEventListener("submit", function(event) {
-            event.preventDefault();
+    if (
+        formularioRegistro &&
+        password &&
+        repassword &&
+        errorPassword
+    ) {
+        formularioRegistro.addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
 
-            if (password.value !== repassword.value) {
-                password.classList.add("input-error");
-                repassword.classList.add("input-error");
-                errorPassword.textContent = "Las contraseñas no coinciden.";
-                return;
-            }
+                if (password.value !== repassword.value) {
+                    password.classList.add("input-error");
+                    repassword.classList.add("input-error");
 
-            password.classList.remove("input-error");
-            repassword.classList.remove("input-error");
-            errorPassword.textContent = "";
+                    errorPassword.textContent =
+                        "Las contraseñas no coinciden.";
 
-            btnCrearRegistro.classList.add("cargando");
+                    return;
+                }
 
-            grados = 0;
+                password.classList.remove("input-error");
+                repassword.classList.remove("input-error");
 
-            giro = setInterval(function() {
-                grados += 10;
-                btnCrearRegistro.style.transform = `rotate(${grados}deg)`;
-            }, 30);
+                errorPassword.textContent = "";
 
-            setTimeout(function() {
-                clearInterval(giro);
+                btnCrearRegistro.classList.add("cargando");
 
-                btnCrearRegistro.classList.remove("cargando");
-                btnCrearRegistro.classList.add("exito");
+                grados = 0;
 
-                btnCrearRegistro.style.transform = "rotate(0deg)";
-                btnCrearRegistro.textContent = "✓";
+                giro = setInterval(function() {
+                    grados += 10;
+
+                    btnCrearRegistro.style.transform =
+                        `rotate(${grados}deg)`;
+                }, 30);
 
                 setTimeout(function() {
-                    mostrarAnimacionExito();
+                    clearInterval(giro);
 
-                    localStorage.setItem("logueado", "true");
+                    btnCrearRegistro.classList.remove(
+                        "cargando"
+                    );
 
-                    actualizarHeader();
+                    btnCrearRegistro.classList.add("exito");
+
+                    btnCrearRegistro.style.transform =
+                        "rotate(0deg)";
+
+                    btnCrearRegistro.textContent = "✓";
 
                     setTimeout(function() {
-                        btnCrearRegistro.classList.remove("exito");
-                        btnCrearRegistro.textContent = "Crear cuenta";
-                        btnCrearRegistro.style.transform = "rotate(0deg)";
-                        cerrarModalIngreso();
-                    }, 1800);
-                }, 1200);
-            }, 2000);
-        });
+                        mostrarAnimacionExito();
+
+                        localStorage.setItem(
+                            "logueado",
+                            "true"
+                        );
+
+                        actualizarHeader();
+
+                        setTimeout(function() {
+                            btnCrearRegistro.classList.remove(
+                                "exito"
+                            );
+
+                            btnCrearRegistro.textContent =
+                                "Crear cuenta";
+
+                            btnCrearRegistro.style.transform =
+                                "rotate(0deg)";
+
+                            cerrarModalIngreso();
+                        }, 1800);
+                    }, 1200);
+                }, 2000);
+            }
+        );
     }
 });
