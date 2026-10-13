@@ -36,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     const imagenes = [
-        "../img/blocka/imagen1.jpg",
-        "../img/blocka/imagen2.jpg",
-        "../img/blocka/imagen3.jpg",
-        "../img/blocka/imagen4.jpg",
-        "../img/blocka/imagen5.jpg",
-        "../img/blocka/imagen6.jpg"
+        "img/blocka/imagen1.jpg",
+        "img/blocka/imagen2.jpg",
+        "img/blocka/imagen3.jpg",
+        "img/blocka/imagen4.jpg",
+        "img/blocka/imagen5.jpg",
+        "img/blocka/imagen6.jpg"
     ];
 
     const imagenesCargadas = imagenes.map(ruta => {

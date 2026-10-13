@@ -173,8 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (esBlocka) {
                 juego = {
                     name: "BLOCKA",
-                    background_image: "../img/blocka.jpg",
-                    background_image_low_res: "../img/blocka.jpg",
+                    background_image: "img/blocka.jpg",
                     description: "Reconstruí la imagen girando sus piezas."
                 };
             }
@@ -271,8 +270,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (esBlocka) {
                 juego = {
                     name: "BLOCKA",
-                    background_image: "../img/blocka.jpg",
-                    background_image_low_res: "../img/blocka.jpg",
+                    background_image: "img/blocka.jpg",
+                    background_image_low_res: "img/blocka.jpg",
                     description: "Reconstruí la imagen girando sus piezas."
                 };
             }
