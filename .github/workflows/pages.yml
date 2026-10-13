@@ -41,10 +41,10 @@ jobs:
           cp -r "entrega 2/img" _site/2/
 
           # ENTREGA 3
-          cp -r "entrega 3/html/." _site/2/
-          cp -r "entrega 3/css" _site/2/
-          cp -r "entrega 3/js" _site/2/
-          cp -r "entrega 3/img" _site/2/
+          cp -r "entrega 3/html/." _site/3/
+          cp -r "entrega 3/css" _site/3/
+          cp -r "entrega 3/js" _site/3/
+          cp -r "entrega 3/img" _site/3/
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
