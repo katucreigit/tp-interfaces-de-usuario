@@ -1,4 +1,3 @@
-```yaml
 name: Deploy GitHub Pages
 
 on:
@@ -28,28 +27,40 @@ jobs:
 
       - name: Preparar archivos
         run: |
-          mkdir -p _site/1 _site/2 _site/3
+          mkdir -p _site/1
+          mkdir -p _site/2
+          mkdir -p _site/3
 
           # ENTREGA 1
           cp "entrega 1/index.html" _site/1/index.html
 
           # ENTREGA 2
           cp -r "entrega 2/html/." _site/2/
+          cp -r "entrega 2/css" _site/2/
+          cp -r "entrega 2/js" _site/2/
+          cp -r "entrega 2/img" _site/2/
 
-          for carpeta in css js img; do
-            if [ -d "entrega 2/$carpeta" ]; then
-              cp -r "entrega 2/$carpeta" _site/2/
-            fi
-          done
+          # ENTREGA 3: comprobar HTML
+          if [ ! -d "entrega 3/html" ]; then
+            echo "ERROR: No existe entrega 3/html"
+            exit 1
+          fi
 
-          # ENTREGA 3
+          # ENTREGA 3: copiar HTML
           cp -r "entrega 3/html/." _site/3/
 
+          # ENTREGA 3: copiar recursos si existen
           for carpeta in css js img; do
             if [ -d "entrega 3/$carpeta" ]; then
               cp -r "entrega 3/$carpeta" _site/3/
+            else
+              echo "AVISO: No existe entrega 3/$carpeta"
             fi
           done
+
+          # Mostrar archivos publicados para verificar
+          echo "Archivos de la entrega 3:"
+          find _site/3 -type f
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
