@@ -438,43 +438,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // JUEGO PEG SOLITAIRE
-const tableroJuego = document.getElementById("tableroJuego");
 
-if (tableroJuego) {
-
-    // Tamaño de cada posición del tablero
-    const tamañoCelda = 90;
-
-    // Posiciones válidas del tablero
-    const posiciones = [
-        [0, 2], [0, 3], [0, 4],
-        [1, 2], [1, 3], [1, 4],
-        [2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6],
-        [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, 6],
-        [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [4, 6],
-        [5, 2], [5, 3], [5, 4],
-        [6, 2], [6, 3], [6, 4]
-    ];
-
-    // Crear las fichas
-    posiciones.forEach(([fila, columna]) => {
-
-        // La posición central comienza vacía
-        if (fila === 3 && columna === 3) {
-            return;
-        }
-
-        const ficha = document.createElement("img");
-
-        ficha.src = "img/ficha.jpg";
-        ficha.alt = "Ficha de Peg Solitaire";
-        ficha.classList.add("ficha");
-
-        ficha.style.left = (columna * tamañoCelda + 15) + "px";
-        ficha.style.top = (fila * tamañoCelda + 15) + "px";
-
-        tableroJuego.appendChild(ficha);
-    });
-}
 });
