@@ -16,11 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let records = JSON.parse(localStorage.getItem("blockaRecords")) || {};
 
     let iconosListos = false;
-    const fuenteIconos = new FontFace(
-        "Font Awesome 6 Free",
-        'url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2)',
-        { weight: "900" }
-    );
+    const fuenteIconos = new FontFace("Font Awesome 6 Free", 'url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2)', { weight: "900" });
 
     fuenteIconos.load().then(fuente => {
         document.fonts.add(fuente);
@@ -92,10 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function dibujarBoton(texto, x, y, ancho, alto, seleccionado = true, tamano = 16, icono = null) {
-        dibujarRectanguloRedondeado(
-            x, y, ancho, alto, 12,
-            seleccionado ? "#39FF78" : "#17251B"
-        );
+        dibujarRectanguloRedondeado(x, y, ancho, alto, 12,seleccionado ? "#39FF78" : "#17251B");
 
         ctx.strokeStyle = seleccionado ? "#72FFA0" : "#31583C";
         ctx.lineWidth = 1.5;
@@ -116,19 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const anchoTotal = anchoIcono + separacion + anchoTexto;
             const inicioX = x + (ancho - anchoTotal) / 2;
 
-            dibujarIcono(
-                icono,
-                inicioX + anchoIcono / 2,
-                y + alto / 2,
-                anchoIcono,
-                colorTexto
-            );
+            dibujarIcono(icono,inicioX + anchoIcono / 2,y + alto / 2,anchoIcono, colorTexto);
 
-            ctx.fillText(
-                texto,
-                inicioX + anchoIcono + separacion + anchoTexto / 2,
-                y + alto / 2
-            );
+            ctx.fillText(texto,inicioX + anchoIcono + separacion + anchoTexto / 2,y + alto / 2);
         } else {
             ctx.fillText(texto, x + ancho / 2, y + alto / 2);
         }
@@ -153,10 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function dibujarTarjeta(x, y, ancho, alto, activa = false) {
-        dibujarRectanguloRedondeado(
-            x, y, ancho, alto, 14,
-            activa ? "#183522" : "#111B14"
-        );
+        dibujarRectanguloRedondeado(x, y, ancho, alto, 14,activa ? "#183522" : "#111B14");
 
         ctx.strokeStyle = activa ? "#39FF78" : "#294331";
         ctx.lineWidth = activa ? 2.5 : 1.3;
@@ -199,17 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const contextoPieza = canvasPieza.getContext("2d");
             contextoPieza.filter = pieza.filtro;
 
-            contextoPieza.drawImage(
-                imagen,
-                pieza.columna * anchoOrigen,
-                pieza.fila * altoOrigen,
-                anchoOrigen,
-                altoOrigen,
-                0,
-                0,
-                canvasPieza.width,
-                canvasPieza.height
-            );
+            contextoPieza.drawImage(imagen,pieza.columna * anchoOrigen,pieza.fila * altoOrigen,anchoOrigen,altoOrigen,0,0,canvasPieza.width,canvasPieza.height);
 
             pieza.imagenFiltrada = canvasPieza;
         }
@@ -237,9 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function obtenerTextoRecord() {
-        return records[nivel] === undefined
-            ? "Récord: --"
-            : "Récord: " + records[nivel] + " s";
+        return records[nivel] === undefined ? "Récord: --" : "Récord: " + records[nivel] + " s";
     }
 
     function mostrarInicio() {
@@ -252,14 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         dibujarFondo();
 
-        dibujarRectanguloRedondeado(
-            canvas.width / 2 - 260,
-            72,
-            520,
-            290,
-            24,
-            "#0E1911"
-        );
+        dibujarRectanguloRedondeado(canvas.width / 2 - 260, 72, 520,290,24, "#0E1911");
 
         ctx.strokeStyle = "#294331";
         ctx.lineWidth = 2;
@@ -277,41 +238,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "23px 'Asap Condensed'";
-        ctx.fillText(
-            "Reconstruí la imagen girando sus piezas",
-            canvas.width / 2,
-            205
-        );
+        ctx.fillText("Reconstruí la imagen girando sus piezas",canvas.width / 2, 205);
 
         ctx.fillStyle = "#91A999";
         ctx.font = "16px 'Asap Condensed'";
-        ctx.fillText(
-            "Elegí un nivel, girá las piezas y completá el desafío",
-            canvas.width / 2,
-            235
-        );
+        ctx.fillText("Elegí un nivel, girá las piezas y completá el desafío", canvas.width / 2,235);
 
-        dibujarBoton(
-            "COMENZAR",
-            canvas.width / 2 - 120,
-            270,
-            240,
-            58,
-            true,
-            20,
-            "\uf04b"
-        );
+        dibujarBoton("COMENZAR", canvas.width / 2 - 120, 270, 240, 58, true, 20, "\uf04b");
 
         canvas.oncontextmenu = event => event.preventDefault();
 
         canvas.onclick = event => {
             const { x, y } = obtenerCoordenadas(event);
 
-            if (
-                x >= canvas.width / 2 - 120 &&
-                x <= canvas.width / 2 + 120 &&
-                y >= 270 &&
-                y <= 328
+            if (x >= canvas.width / 2 - 120 && x <= canvas.width / 2 + 120 &&
+                y >= 270 && y <= 328
             ) {
                 tiempo = 0;
                 mostrarSeleccionNivel();
@@ -345,18 +286,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.fillStyle = "#FFFFFF";
             ctx.textAlign = "center";
             ctx.font = "22px 'Asap Condensed'";
-            ctx.fillText(
-                "No se pudieron cargar las imágenes.",
-                canvas.width / 2,
-                canvas.height / 2
-            );
+            ctx.fillText("No se pudieron cargar las imágenes.",canvas.width / 2,canvas.height / 2);
             return;
         }
 
-        const imagenFinal =
-            imagenesDisponibles[
-                Math.floor(Math.random() * imagenesDisponibles.length)
-            ];
+        const imagenFinal = imagenesDisponibles[Math.floor(Math.random() * imagenesDisponibles.length)];
 
         let posicion = 0;
         let pasos = 0;
@@ -366,12 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         function dibujarSeleccion(zoom = 1, brillo = 0) {
             dibujarFondo();
 
-            dibujarEncabezado(
-                brillo > 0 ? "¡IMAGEN SELECCIONADA!" : "ELIGIENDO IMAGEN",
-                brillo > 0
-                    ? "Preparando el desafío..."
-                    : "Buscando tu próximo desafío..."
-            );
+            dibujarEncabezado(brillo > 0 ? "¡IMAGEN SELECCIONADA!" : "ELIGIENDO IMAGEN", brillo > 0 ? "Preparando el desafío..." : "Buscando tu próximo desafío...");
 
             const imagen = imagenesCargadas[posicion];
             const ancho = 360 * zoom;
@@ -391,13 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.restore();
             }
 
-            dibujarTarjeta(
-                x - 10,
-                y - 10,
-                ancho + 20,
-                alto + 20,
-                true
-            );
+            dibujarTarjeta(x - 10, y - 10, ancho + 20, alto + 20, true);
 
             if (imagen && imagen.complete && imagen.naturalWidth > 0) {
                 ctx.save();
@@ -417,13 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.textAlign = "center";
             ctx.fillStyle = brillo > 0 ? "#FFFFFF" : "#39FF78";
             ctx.font = "bold 16px Orbitron";
-            ctx.fillText(
-                brillo > 0
-                    ? "✓ IMAGEN " + (posicion + 1)
-                    : "IMAGEN " + (posicion + 1),
-                canvas.width / 2,
-                425
-            );
+            ctx.fillText(brillo > 0 ? "✓ IMAGEN " + (posicion + 1) : "IMAGEN " + (posicion + 1), canvas.width / 2, 425);
         }
 
         dibujarSeleccion();
@@ -491,10 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
         juegoTerminado = true;
 
         dibujarFondo();
-        dibujarEncabezado(
-            "ELEGÍ UN NIVEL",
-            "Superá cada desafío para desbloquear el siguiente"
-        );
+        dibujarEncabezado("ELEGÍ UN NIVEL", "Superá cada desafío para desbloquear el siguiente");
 
         const niveles = [
             { numero: 1, x: 90, y: 120 },
@@ -508,49 +422,25 @@ document.addEventListener("DOMContentLoaded", () => {
         niveles.forEach(opcion => {
             const desbloqueado = opcion.numero <= nivelesDesbloqueados;
 
-            dibujarTarjeta(
-                opcion.x,
-                opcion.y,
-                200,
-                130,
-                desbloqueado
-            );
+            dibujarTarjeta(opcion.x, opcion.y, 200, 130, desbloqueado);
 
             ctx.textAlign = "center";
             ctx.fillStyle = desbloqueado ? "#39FF78" : "#758078";
             ctx.font = "bold 22px Orbitron";
-            ctx.fillText(
-                "NIVEL " + opcion.numero,
-                opcion.x + 100,
-                opcion.y + 42
-            );
+            ctx.fillText("NIVEL " + opcion.numero,opcion.x + 100,opcion.y + 42);
 
             if (desbloqueado) {
                 if (records[opcion.numero] !== undefined) {
                     ctx.fillStyle = "#91FFA9";
                     ctx.font = "14px 'Asap Condensed'";
-                    ctx.fillText(
-                        "Récord: " + records[opcion.numero] + " s",
-                        opcion.x + 100,
-                        opcion.y + 105
-                    );
+                    ctx.fillText("Récord: " + records[opcion.numero] + " s", opcion.x + 100, opcion.y + 105);
                 }
             } else {
-                dibujarIcono(
-                    "\uf023",
-                    opcion.x + 100,
-                    opcion.y + 68,
-                    24,
-                    "#758078"
-                );
+                dibujarIcono("\uf023",opcion.x + 100, opcion.y + 68, 24, "#758078");
 
                 ctx.fillStyle = "#8A938D";
                 ctx.font = "14px 'Asap Condensed'";
-                ctx.fillText(
-                    "BLOQUEADO",
-                    opcion.x + 100,
-                    opcion.y + 100
-                );
+                ctx.fillText("BLOQUEADO",opcion.x + 100, opcion.y + 100);
             }
         });
 
@@ -558,11 +448,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const { x, y } = obtenerCoordenadas(event);
 
             for (const opcion of niveles) {
-                if (
-                    x >= opcion.x &&
-                    x <= opcion.x + 200 &&
-                    y >= opcion.y &&
-                    y <= opcion.y + 130
+                if (x >= opcion.x && x <= opcion.x + 200 &&
+                    y >= opcion.y && y <= opcion.y + 130
                 ) {
                     if (opcion.numero > nivelesDesbloqueados) return;
 
@@ -582,37 +469,22 @@ document.addEventListener("DOMContentLoaded", () => {
         animacion = null;
 
         dibujarFondo();
-        dibujarEncabezado(
-            "CANTIDAD DE PIEZAS",
-            "Elegí la dificultad para este desafío"
-        );
+        dibujarEncabezado("CANTIDAD DE PIEZAS", "Elegí la dificultad para este desafío");
 
         const cantidades = [4, 6, 8];
         const ancho = 150;
         const alto = 70;
         const separacion = 25;
-        const inicioX = (
-            canvas.width -
-            (cantidades.length * ancho +
-                (cantidades.length - 1) * separacion)
-        ) / 2;
+        const inicioX = (canvas.width - (cantidades.length * ancho + (cantidades.length - 1) * separacion)) / 2;
 
         cantidades.forEach((cantidad, i) => {
             const x = inicioX + i * (ancho + separacion);
             const y = 220;
 
-            dibujarTarjeta(
-                x,
-                y,
-                ancho,
-                alto,
-                cantidadPiezas === cantidad
-            );
+            dibujarTarjeta(x, y, ancho, alto, cantidadPiezas === cantidad);
 
             ctx.textAlign = "center";
-            ctx.fillStyle = cantidadPiezas === cantidad
-                ? "#39FF78"
-                : "#E6F3E9";
+            ctx.fillStyle = cantidadPiezas === cantidad ? "#39FF78" : "#E6F3E9";
             ctx.font = "bold 30px Orbitron";
             ctx.fillText(cantidad, x + ancho / 2, y + 43);
         });
@@ -622,16 +494,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const botonAncho = 200;
         const botonAlto = 60;
 
-        dibujarBoton(
-            "COMENZAR",
-            botonX,
-            botonY,
-            botonAncho,
-            botonAlto,
-            true,
-            18,
-            "\uf04b"
-        );
+        dibujarBoton("COMENZAR", botonX, botonY, botonAncho, botonAlto, true, 18, "\uf04b");
 
         canvas.onclick = event => {
             const { x, y } = obtenerCoordenadas(event);
@@ -640,21 +503,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 cantidades.forEach((cantidad, i) => {
                     const xBoton = inicioX + i * (ancho + separacion);
 
-                    if (
-                        x >= xBoton &&
-                        x <= xBoton + ancho
-                    ) {
+                    if (x >= xBoton && x <= xBoton + ancho) {
                         cantidadPiezas = cantidad;
                         mostrarSeleccionCantidad();
                     }
                 });
             }
 
-            if (
-                x >= botonX &&
-                x <= botonX + botonAncho &&
-                y >= botonY &&
-                y <= botonY + botonAlto
+            if (x >= botonX && x <= botonX + botonAncho &&
+                y >= botonY && y <= botonY + botonAlto
             ) {
                 iniciarPuzzle();
             }
@@ -677,9 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 piezas.push({
                     fila,
                     columna,
-                    rotacion: rotaciones[
-                        Math.floor(Math.random() * rotaciones.length)
-                    ],
+                    rotacion: rotaciones[Math.floor(Math.random() * rotaciones.length)],
                     filtro: obtenerFiltro(nivel),
                     fija: false
                 });
@@ -728,15 +583,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function usarAyudita() {
         if (juegoTerminado || nivel < 4) return;
 
-        const piezasDisponibles = piezas.filter(
-            pieza => !pieza.fija && pieza.rotacion !== 0
-        );
+        const piezasDisponibles = piezas.filter(pieza => !pieza.fija && pieza.rotacion !== 0);
 
         if (piezasDisponibles.length === 0) return;
 
-        const pieza = piezasDisponibles[
-            Math.floor(Math.random() * piezasDisponibles.length)
-        ];
+        const pieza = piezasDisponibles[Math.floor(Math.random() * piezasDisponibles.length)];
 
         pieza.rotacion = 0;
         pieza.fija = true;
@@ -768,53 +619,24 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "#B7C9BC";
         ctx.textAlign = "center";
         ctx.font = "17px 'Asap Condensed'";
-        ctx.fillText(
-            "Hace clic izquierdo o derecho para girar las piezas",
-            canvas.width / 2,
-            91
-        );
+        ctx.fillText("Hace clic izquierdo o derecho para girar las piezas", canvas.width / 2, 91);
 
-        dibujarBoton(
-            "NIVELES",
-            25,
-            20,
-            180,
-            40,
-            false,
-            14,
-            "\uf060"
-        );
+        dibujarBoton("NIVELES", 25, 20, 180, 40, false, 14, "\uf060");
 
         const panelX = canvas.width - 215;
         const panelY = 20;
         const panelAncho = 185;
         const panelAlto = 42;
 
-        dibujarRectanguloRedondeado(
-            panelX,
-            panelY,
-            panelAncho,
-            panelAlto,
-            12,
-            "#111B14"
-        );
+        dibujarRectanguloRedondeado(panelX, panelY, panelAncho, panelAlto, 12, "#111B14");
 
         ctx.strokeStyle = "#31583C";
         ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.roundRect(
-            panelX,
-            panelY,
-            panelAncho,
-            panelAlto,
-            12
-        );
+        ctx.roundRect(panelX, panelY, panelAncho, panelAlto, 12);
         ctx.stroke();
 
-        const colorTiempo =
-            tiempoMaximo !== null && tiempoMaximo - tiempo <= 10
-                ? "#FF7474"
-                : "#39FF78";
+        const colorTiempo = tiempoMaximo !== null && tiempoMaximo - tiempo <= 10 ? "#FF7474" : "#39FF78";
 
         const textoTiempo = "TIEMPO " + tiempo + " s";
         ctx.font = "bold 15px Orbitron";
@@ -822,46 +644,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const anchoTextoTiempo = ctx.measureText(textoTiempo).width;
         const anchoIconoTiempo = 17;
         const separacionTiempo = 7;
-        const anchoTotalTiempo =
-            anchoIconoTiempo +
-            separacionTiempo +
-            anchoTextoTiempo;
+        const anchoTotalTiempo = anchoIconoTiempo + separacionTiempo + anchoTextoTiempo;
 
-        const inicioTiempo =
-            panelX + (panelAncho - anchoTotalTiempo) / 2;
+        const inicioTiempo = panelX + (panelAncho - anchoTotalTiempo) / 2;
 
-        dibujarIcono(
-            "\uf017",
-            inicioTiempo + anchoIconoTiempo / 2,
-            panelY + panelAlto / 2,
-            anchoIconoTiempo,
-            colorTiempo
-        );
+        dibujarIcono("\uf017", inicioTiempo + anchoIconoTiempo / 2, panelY + panelAlto / 2, anchoIconoTiempo, colorTiempo);
 
         ctx.fillStyle = colorTiempo;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(
-            textoTiempo,
-            inicioTiempo +
-                anchoIconoTiempo +
-                separacionTiempo +
-                anchoTextoTiempo / 2,
-            panelY + panelAlto / 2
-        );
+        ctx.fillText(textoTiempo, inicioTiempo + anchoIconoTiempo + separacionTiempo + anchoTextoTiempo / 2, panelY + panelAlto / 2);
         ctx.textBaseline = "alphabetic";
 
         if (nivel >= 4) {
-            dibujarBoton(
-                "AYUDITA +5 s",
-                25,
-                70,
-                180,
-                40,
-                false,
-                13,
-                "\uf0eb"
-            );
+            dibujarBoton("AYUDITA +5 s", 25, 70, 180, 40, false, 13, "\uf0eb");
         }
 
         const columnas = cantidadPiezas / 2;
@@ -870,19 +666,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const altoPieza = 300 / filas;
         const separacionX = anchoPieza + 12;
         const separacionY = altoPieza + 12;
-        const xInicial =
-            canvas.width / 2 -
-            ((columnas - 1) * separacionX) / 2;
+        const xInicial = canvas.width / 2 - ((columnas - 1) * separacionX) / 2;
         const yInicial = 205;
 
-        dibujarRectanguloRedondeado(
-            25,
-            120,
-            850,
-            360,
-            18,
-            "rgba(7, 16, 10, 0.55)"
-        );
+        dibujarRectanguloRedondeado(25,120,850,360,18,"rgba(7, 16, 10, 0.55)");
 
         ctx.strokeStyle = "#203A28";
         ctx.lineWidth = 1.5;
@@ -891,15 +678,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.stroke();
 
         piezas.forEach(pieza => {
-            const centroX =
-                xInicial + pieza.columna * separacionX;
-            const centroY =
-                yInicial + pieza.fila * separacionY;
+            const centroX = xInicial + pieza.columna * separacionX;
+            const centroY = yInicial + pieza.fila * separacionY;
 
-            const origenX =
-                pieza.columna * (imagen.width / columnas);
-            const origenY =
-                pieza.fila * (imagen.height / filas);
+            const origenX = pieza.columna * (imagen.width / columnas);
+            const origenY = pieza.fila * (imagen.height / filas);
 
             const anchoOrigen = imagen.width / columnas;
             const altoOrigen = imagen.height / filas;
@@ -908,41 +691,23 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.translate(centroX, centroY);
             ctx.rotate(pieza.rotacion * Math.PI / 180);
 
-            ctx.drawImage(
-                pieza.imagenFiltrada,
-                -anchoPieza / 2,
-                -altoPieza / 2,
-                anchoPieza,
-                altoPieza
-            );
+            ctx.drawImage(pieza.imagenFiltrada,-anchoPieza / 2,-altoPieza / 2,anchoPieza,altoPieza);
 
             ctx.restore();
 
-            ctx.strokeStyle = pieza.fija
-                ? "#39FF78"
-                : "#4D9B63";
+            ctx.strokeStyle = pieza.fija ? "#39FF78" : "#4D9B63";
             ctx.lineWidth = pieza.fija ? 4 : 2;
 
-            ctx.strokeRect(
-                centroX - anchoPieza / 2,
-                centroY - altoPieza / 2,
-                anchoPieza,
-                altoPieza
-            );
+            ctx.strokeRect(centroX - anchoPieza / 2, centroY - altoPieza / 2, anchoPieza, altoPieza);
         });
 
         function buscarPieza(x, y) {
             for (const pieza of piezas) {
-                const centroX =
-                    xInicial + pieza.columna * separacionX;
-                const centroY =
-                    yInicial + pieza.fila * separacionY;
+                const centroX = xInicial + pieza.columna * separacionX;
+                const centroY = yInicial + pieza.fila * separacionY;
 
-                if (
-                    x >= centroX - anchoPieza / 2 &&
-                    x <= centroX + anchoPieza / 2 &&
-                    y >= centroY - altoPieza / 2 &&
-                    y <= centroY + altoPieza / 2
+                if (x >= centroX - anchoPieza / 2 && x <= centroX + anchoPieza / 2 &&
+                    y >= centroY - altoPieza / 2 && y <= centroY + altoPieza / 2
                 ) {
                     return pieza;
                 }
@@ -956,22 +721,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const { x, y } = obtenerCoordenadas(event);
 
-            if (
-                nivel >= 4 &&
-                x >= 25 &&
-                x <= 205 &&
-                y >= 70 &&
-                y <= 110
+            if (nivel >= 4 &&
+                x >= 25 && x <= 205 &&
+                y >= 70 && y <= 110
             ) {
                 usarAyudita();
                 return;
             }
 
-            if (
-                x >= 25 &&
-                x <= 205 &&
-                y >= 20 &&
-                y <= 60
+            if (x >= 25 && x <= 205 &&
+                y >= 20 && y <= 60
             ) {
                 clearInterval(temporizador);
                 temporizador = null;
@@ -998,14 +757,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const { x, y } = obtenerCoordenadas(event);
 
-            if (
-                (x >= 25 && x <= 205 && y >= 20 && y <= 60) ||
-                (
-                    nivel >= 4 &&
-                    x >= 25 &&
-                    x <= 205 &&
-                    y >= 70 &&
-                    y <= 110
+            if ((x >= 25 && x <= 205 && y >= 20 && y <= 60) ||
+                (nivel >= 4 &&
+                    x >= 25 && x <= 205 &&
+                    y >= 70 && y <= 110
                 )
             ) {
                 return false;
@@ -1039,10 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const nuevoRecord = guardarRecord();
 
-        if (
-            nivel === nivelesDesbloqueados &&
-            nivelesDesbloqueados < 6
-        ) {
+        if (nivel === nivelesDesbloqueados && nivelesDesbloqueados < 6) {
             nivelesDesbloqueados++;
         }
 
@@ -1074,29 +826,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "19px 'Asap Condensed'";
-        ctx.fillText(
-            "¡Muy bien! Reconstruiste la imagen",
-            canvas.width / 2,
-            342
-        );
+        ctx.fillText("¡Muy bien! Reconstruiste la imagen", canvas.width / 2, 342);
 
         ctx.fillStyle = "#B7C9BC";
         ctx.font = "17px Orbitron";
-        ctx.fillText(
-            "TIEMPO: " + tiempo + " s",
-            canvas.width / 2,
-            373
-        );
+        ctx.fillText("TIEMPO: " + tiempo + " s", canvas.width / 2, 373);
 
         ctx.fillStyle = nuevoRecord ? "#39FF78" : "#D7E7DB";
         ctx.font = "16px 'Asap Condensed'";
-        ctx.fillText(
-            nuevoRecord
-                ? "✦ ¡NUEVO RÉCORD! ✦"
-                : obtenerTextoRecord(),
-            canvas.width / 2,
-            398
-        );
+        ctx.fillText(nuevoRecord ? "✦ ¡NUEVO RÉCORD! ✦" : obtenerTextoRecord(), canvas.width / 2, 398);
 
         const botones = [
             {
@@ -1132,27 +870,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         botones.forEach(boton => {
-            dibujarBoton(
-                boton.texto,
-                boton.x,
-                425,
-                boton.ancho,
-                45,
-                true,
-                13,
-                boton.icono
-            );
+            dibujarBoton(boton.texto,boton.x,425,boton.ancho,45,true,13,boton.icono);
         });
 
         canvas.onclick = event => {
             const { x, y } = obtenerCoordenadas(event);
 
             for (const boton of botones) {
-                if (
-                    x >= boton.x &&
-                    x <= boton.x + boton.ancho &&
-                    y >= 425 &&
-                    y <= 470
+                if (x >= boton.x && x <= boton.x + boton.ancho &&
+                    y >= 425 && y <= 470
                 ) {
                     boton.accion();
                     return;
@@ -1174,65 +900,29 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textAlign = "center";
         ctx.fillStyle = "#FF7777";
         ctx.font = "bold 34px Orbitron";
-        ctx.fillText(
-            "¡TIEMPO AGOTADO!",
-            canvas.width / 2,
-            175
-        );
+        ctx.fillText("¡TIEMPO AGOTADO!", canvas.width / 2, 175);
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "20px 'Asap Condensed'";
-        ctx.fillText(
-            "No lograste reconstruir la imagen a tiempo",
-            canvas.width / 2,
-            220
-        );
+        ctx.fillText("No lograste reconstruir la imagen a tiempo", canvas.width / 2, 220);
 
         ctx.fillStyle = "#A9BDAE";
         ctx.font = "18px Orbitron";
-        ctx.fillText(
-            "NIVEL " + nivel,
-            canvas.width / 2,
-            265
-        );
+        ctx.fillText("NIVEL " + nivel, canvas.width / 2, 265);
 
-        dibujarBoton(
-            "VOLVER A NIVELES",
-            300,
-            305,
-            300,
-            55,
-            true,
-            16,
-            "\uf060"
-        );
+        dibujarBoton("VOLVER A NIVELES",300,305,300,55,true,16,"\uf060");
 
-        dibujarBoton(
-            "VOLVER AL INICIO",
-            300,
-            375,
-            300,
-            50,
-            false,
-            15,
-            "\uf015"
-        );
+        dibujarBoton("VOLVER AL INICIO",300,375,300,50,false,15,"\uf015");
 
         canvas.onclick = event => {
             const { x, y } = obtenerCoordenadas(event);
 
-            if (
-                x >= 300 &&
-                x <= 600 &&
-                y >= 305 &&
-                y <= 360
+            if (x >= 300 && x <= 600 &&
+                y >= 305 && y <= 360
             ) {
                 mostrarSeleccionNivel();
-            } else if (
-                x >= 300 &&
-                x <= 600 &&
-                y >= 375 &&
-                y <= 425
+            } else if (x >= 300 && x <= 600 &&
+                y >= 375 && y <= 425
             ) {
                 mostrarInicio();
             }
@@ -1242,7 +932,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     mostrarInicio();
-
+  //video tutorial
     const video = document.querySelector(".video-imagen video");
     const overlay = document.querySelector(".video-overlay");
     const iconoVideo = overlay?.querySelector("i");
