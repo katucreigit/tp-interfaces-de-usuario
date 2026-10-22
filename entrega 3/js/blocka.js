@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "img/blocka/imagen3.jpg",
         "img/blocka/imagen4.jpg",
         "img/blocka/imagen5.jpg",
-        "img/blocka/imagen6.jpg"
+        "img/blocka/imagen6.png"
     ];
 
     const imagenesCargadas = imagenes.map(ruta => {
@@ -53,14 +53,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function dibujarFondo() {
-        const degradado = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        degradado.addColorStop(0, "#080D0A");
-        degradado.addColorStop(0.55, "#0D1710");
-        degradado.addColorStop(1, "#101F15");
+        const width = canvas.width;
+        const height = canvas.height;
 
-        ctx.fillStyle = degradado;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const imageData = ctx.createImageData(width, height);
 
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const r = 0;
+                const g = 40 * (1 - y / (height - 1));
+                const b = 0;
+
+                setPixel(imageData, x, y, r, g, b, 255);
+            }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+    }
+
+    function setPixel(imageData, x, y, r, g, b, a) {
+        const index = (x + y * imageData.width) * 4;
+
+        imageData.data[index] = r;
+        imageData.data[index + 1] = g;
+        imageData.data[index + 2] = b;
+        imageData.data[index + 3] = a;
     }
 
     function dibujarRectanguloRedondeado(x, y, ancho, alto, radio, color) {
@@ -186,45 +203,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     data[i] = 255 - data[i];
                     data[i + 1] = 255 - data[i + 1];
                     data[i + 2] = 255 - data[i + 2];
-                }else if (filtro === "blur") {
-                    const K = 2;
-                    const origen = new Uint8ClampedArray(data);
-                    const destino = new Uint8ClampedArray(data);
-
-                    for (let y = 0; y < alto; y++) {
-                        for (let x = 0; x < ancho; x++) {
-                            let r = 0, g = 0, b = 0, n = 0;
-
-                            for (let dy = -K; dy <= K; dy++) {
-                                for (let dx = -K; dx <= K; dx++) {
-                                    const nx = x + dx;
-                                    const ny = y + dy;
-
-                                    if (nx < 0 || ny < 0 || nx >= ancho || ny >= alto) continue;
-                                    const j = (nx + ny * ancho) * 4;
-
-                                    r += origen[j];
-                                    g += origen[j + 1];
-                                    b += origen[j + 2];
-                                    n++;
-                                }
-                            }
-
-                            const i = (x + y * ancho) * 4;
-
-                            destino[i] = r / n;
-                            destino[i + 1] = g / n;
-                            destino[i + 2] = b / n;
-                        }
-                    }
-
-                    imageData.data.set(destino);
-                    ctxPieza.putImageData(imageData, 0, 0);
-                    return;
                 }
             }
         }
+        if (filtro === "blur") {
+            const K = 2; //vecinos
+            const origen = new Uint8ClampedArray(data); //color og
+            const destino = new Uint8ClampedArray(data);
 
+                for (let y = 0; y < alto; y++) {
+                    for (let x = 0; x < ancho; x++) {
+                        let r = 0, g = 0, b = 0, n = 0;
+
+                        for (let dy = -K; dy <= K; dy++) {
+                            for (let dx = -K; dx <= K; dx++) {
+                                const nx = x + dx;
+                                const ny = y + dy;
+
+                                if (nx < 0 || ny < 0 || nx >= ancho || ny >= alto) continue; //si es un vecino valido
+                                const j = (nx + ny * ancho) * 4;
+
+                                r += origen[j];
+                                g += origen[j + 1];
+                                b += origen[j + 2];
+                                n++;
+                            }
+                        }
+                        const i = (x + y * ancho) * 4;
+
+                        destino[i] = r / n;
+                        destino[i + 1] = g / n;
+                        destino[i + 2] = b / n;
+                    }
+                }
+
+                imageData.data.set(destino);
+                ctxPieza.putImageData(imageData, 0, 0);
+                return;
+            }
         ctxPieza.putImageData(imageData, 0, 0);
     }
 
