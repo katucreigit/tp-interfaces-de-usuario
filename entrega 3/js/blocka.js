@@ -913,24 +913,20 @@ document.addEventListener("DOMContentLoaded", () => {
         dibujarFondo();
 
         if (imagen && imagen.complete && imagen.naturalWidth > 0) {
-    const alto = 220;
-    const ancho = alto * (cantidadPiezas / 4);
-    const x = (canvas.width - ancho) / 2;
-    const y = 25;
+            const alto = 220;
+            const ancho = alto * (cantidadPiezas / 4);
+            const x = (canvas.width - ancho) / 2;
+            const y = 25;
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect(x, y, ancho, alto, 14);
-    ctx.clip();
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(x, y, ancho, alto, 14);
+            ctx.clip();
 
-    ctx.drawImage(
-        imagen,
-        recorteX, recorteY, recorteAncho, recorteAlto,
-        x, y, ancho, alto
-    );
+            ctx.drawImage(imagen, recorteX, recorteY, recorteAncho, recorteAlto, x, y, ancho, alto);
 
-    ctx.restore();
-}
+            ctx.restore();
+        }
 
         dibujarTarjeta(100, 265, 700, 225, true);
 
