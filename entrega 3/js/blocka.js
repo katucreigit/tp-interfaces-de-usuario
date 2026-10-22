@@ -57,15 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = degradado;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "rgba(57, 255, 120, 0.035)";
-
-        for (let x = 20; x < canvas.width; x += 40) {
-            for (let y = 20; y < canvas.height; y += 40) {
-                ctx.beginPath();
-                ctx.arc(x, y, 1.2, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
     }
 
     function dibujarRectanguloRedondeado(x, y, ancho, alto, radio, color) {
@@ -145,18 +136,92 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.stroke();
     }
 
-    function obtenerFiltro(nivel) {
-        if (nivel === 1) return "grayscale(100%)";
-        if (nivel === 2) return "brightness(30%)";
-        if (nivel === 3) return "invert(100%)";
+    function dibujarImagenProporcional(imagen, x, y, anchoMaximo, altoMaximo) {
+        const proporcion = Math.min(anchoMaximo / imagen.naturalWidth, altoMaximo / imagen.naturalHeight);
 
-        const filtros = [
-            "grayscale(100%)",
-            "brightness(30%)",
-            "invert(100%)"
-        ];
+        const ancho = imagen.naturalWidth * proporcion;
+        const alto = imagen.naturalHeight * proporcion;
+
+        const xCentrado = x + (anchoMaximo - ancho) / 2;
+        const yCentrado = y + (altoMaximo - alto) / 2;
+
+        ctx.drawImage(imagen, xCentrado, yCentrado, ancho, alto);
+    }
+
+    function obtenerFiltro(nivel) {
+        if (nivel === 1) return "blur";
+        if (nivel === 2) return "gris";
+        if (nivel === 3) return "brillo";
+        if (nivel === 4) return "negativo";
+
+        const filtros = ["blur","gris", "brillo", "negativo"];
 
         return filtros[Math.floor(Math.random() * filtros.length)];
+    }
+
+    function aplicarFiltroPixel(ctxPieza, ancho, alto, filtro) {
+        const imageData = ctxPieza.getImageData(0, 0, ancho, alto);
+        const data = imageData.data;
+
+        for (let y = 0; y < alto; y++) {
+            for (let x = 0; x < ancho; x++) {
+                const i = (x + y * ancho) * 4;
+
+                if (filtro === "gris") {
+                    const gris = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                    data[i] = gris;
+                    data[i + 1] = gris;
+                    data[i + 2] = gris;
+
+                } else if (filtro === "brillo") {
+                    data[i] = data[i] * 0.3;
+                    data[i + 1] = data[i + 1] * 0.3;
+                    data[i + 2] = data[i + 2] * 0.3;
+
+                } else if (filtro === "negativo") {
+                    data[i] = 255 - data[i];
+                    data[i + 1] = 255 - data[i + 1];
+                    data[i + 2] = 255 - data[i + 2];
+                }else if (filtro === "blur") {
+                    const K = 2;
+                    const origen = new Uint8ClampedArray(data);
+                    const destino = new Uint8ClampedArray(data);
+
+                    for (let y = 0; y < alto; y++) {
+                        for (let x = 0; x < ancho; x++) {
+                            let r = 0, g = 0, b = 0, n = 0;
+
+                            for (let dy = -K; dy <= K; dy++) {
+                                for (let dx = -K; dx <= K; dx++) {
+                                    const nx = x + dx;
+                                    const ny = y + dy;
+
+                                    if (nx < 0 || ny < 0 || nx >= ancho || ny >= alto) continue;
+                                    const j = (nx + ny * ancho) * 4;
+
+                                    r += origen[j];
+                                    g += origen[j + 1];
+                                    b += origen[j + 2];
+                                    n++;
+                                }
+                            }
+
+                            const i = (x + y * ancho) * 4;
+
+                            destino[i] = r / n;
+                            destino[i + 1] = g / n;
+                            destino[i + 2] = b / n;
+                        }
+                    }
+
+                    imageData.data.set(destino);
+                    ctxPieza.putImageData(imageData, 0, 0);
+                    return;
+                }
+            }
+        }
+
+        ctxPieza.putImageData(imageData, 0, 0);
     }
 
     function prepararImagenesFiltradas() {
@@ -168,18 +233,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const columnas = cantidadPiezas / 2;
         const filas = 2;
-        const anchoOrigen = imagen.naturalWidth / columnas;
-        const altoOrigen = imagen.naturalHeight / filas;
+
+        const ladoPieza = 150;
+        const proporcion = columnas / filas;
+
+        const anchoImagen = imagen.naturalWidth;
+        const altoImagen = imagen.naturalHeight;
+        const proporcionImagen = anchoImagen / altoImagen;
+
+        let sx = 0;
+        let sy = 0;
+        let anchoRecorte = anchoImagen;
+        let altoRecorte = altoImagen;
+
+        if (proporcionImagen > proporcion) {
+            anchoRecorte = altoImagen * proporcion;
+            sx = (anchoImagen - anchoRecorte) / 2;
+        } else {
+            altoRecorte = anchoImagen / proporcion;
+            sy = (altoImagen - altoRecorte) / 2;
+        }
+
+        const anchoOrigen = anchoRecorte / columnas;
+        const altoOrigen = altoRecorte / filas;
 
         for (const pieza of piezas) {
             const canvasPieza = document.createElement("canvas");
-            canvasPieza.width = Math.ceil(anchoOrigen);
-            canvasPieza.height = Math.ceil(altoOrigen);
+            canvasPieza.width = ladoPieza;
+            canvasPieza.height = ladoPieza;
 
             const contextoPieza = canvasPieza.getContext("2d");
-            contextoPieza.filter = pieza.filtro;
 
-            contextoPieza.drawImage(imagen,pieza.columna * anchoOrigen,pieza.fila * altoOrigen,anchoOrigen,altoOrigen,0,0,canvasPieza.width,canvasPieza.height);
+            const xOrigen = sx + pieza.columna * anchoOrigen;
+            const yOrigen = sy + pieza.fila * altoOrigen;
+
+            contextoPieza.drawImage(imagen, xOrigen, yOrigen, anchoOrigen, altoOrigen, 0, 0, ladoPieza, ladoPieza);
+
+            // Aplicamos el filtro recorriendo todos los píxeles.
+            aplicarFiltroPixel(contextoPieza, ladoPieza, ladoPieza, pieza.filtro);
 
             pieza.imagenFiltrada = canvasPieza;
         }
@@ -272,11 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const imagenesDisponibles = [];
 
         for (let i = 0; i < imagenesCargadas.length; i++) {
-            if (
-                i !== imagenAnterior &&
-                imagenesCargadas[i].complete &&
-                imagenesCargadas[i].naturalWidth > 0
-            ) {
+            if (i !== imagenAnterior && imagenesCargadas[i].complete && imagenesCargadas[i].naturalWidth > 0) {
                 imagenesDisponibles.push(i);
             }
         }
@@ -333,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.beginPath();
                 ctx.roundRect(x, y, ancho, alto, 12);
                 ctx.clip();
-                ctx.drawImage(imagen, x, y, ancho, alto);
+                dibujarImagenProporcional(imagen, x, y, ancho, alto);
                 ctx.restore();
             }
 
@@ -499,6 +586,28 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.onclick = event => {
             const { x, y } = obtenerCoordenadas(event);
 
+            const botonX = canvas.width / 2 - 100;
+            const botonY = 340;
+            const botonAncho = 200;
+            const botonAlto = 60;
+
+            // Comprobar si se hizo clic en COMENZAR
+            if (x >= botonX && x <= botonX + botonAncho &&
+                y >= botonY && y <= botonY + botonAlto
+            ) {
+                console.log("Clic en COMENZAR");
+                console.log("Imagen seleccionada:", imagenSeleccionada);
+                console.log("Cantidad de piezas:", cantidadPiezas);
+
+                try {
+                    iniciarPuzzle();
+                } catch (error) {
+                    console.error("Error al iniciar el juego:", error);
+                }
+
+                return;
+            }
+
             if (y >= 220 && y <= 290) {
                 cantidades.forEach((cantidad, i) => {
                     const xBoton = inicioX + i * (ancho + separacion);
@@ -509,15 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
             }
-
-            if (x >= botonX && x <= botonX + botonAncho &&
-                y >= botonY && y <= botonY + botonAlto
-            ) {
-                iniciarPuzzle();
-            }
         };
-
-        canvas.oncontextmenu = event => event.preventDefault();
     }
 
     function iniciarPuzzle() {
@@ -661,13 +762,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const columnas = cantidadPiezas / 2;
-        const filas = 2;
-        const anchoPieza = 400 / columnas;
-        const altoPieza = 300 / filas;
-        const separacionX = anchoPieza + 12;
-        const separacionY = altoPieza + 12;
+
+        const anchoPieza = 150;
+        const altoPieza = 150;
+
+        const separacionX = anchoPieza;
+        const separacionY = altoPieza;
+
         const xInicial = canvas.width / 2 - ((columnas - 1) * separacionX) / 2;
-        const yInicial = 205;
+
+        const yInicial = 220;
 
         dibujarRectanguloRedondeado(25,120,850,360,18,"rgba(7, 16, 10, 0.55)");
 
@@ -680,12 +784,6 @@ document.addEventListener("DOMContentLoaded", () => {
         piezas.forEach(pieza => {
             const centroX = xInicial + pieza.columna * separacionX;
             const centroY = yInicial + pieza.fila * separacionY;
-
-            const origenX = pieza.columna * (imagen.width / columnas);
-            const origenY = pieza.fila * (imagen.height / filas);
-
-            const anchoOrigen = imagen.width / columnas;
-            const altoOrigen = imagen.height / filas;
 
             ctx.save();
             ctx.translate(centroX, centroY);
@@ -721,17 +819,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const { x, y } = obtenerCoordenadas(event);
 
-            if (nivel >= 4 &&
-                x >= 25 && x <= 205 &&
-                y >= 70 && y <= 110
-            ) {
+            if (nivel >= 4 && x >= 25 && x <= 205 && y >= 70 && y <= 110) {
                 usarAyudita();
                 return;
             }
 
-            if (x >= 25 && x <= 205 &&
-                y >= 20 && y <= 60
-            ) {
+            if (x >= 25 && x <= 205 && y >= 20 && y <= 60) {
                 clearInterval(temporizador);
                 temporizador = null;
                 mostrarSeleccionNivel();
@@ -758,10 +851,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const { x, y } = obtenerCoordenadas(event);
 
             if ((x >= 25 && x <= 205 && y >= 20 && y <= 60) ||
-                (nivel >= 4 &&
-                    x >= 25 && x <= 205 &&
-                    y >= 70 && y <= 110
-                )
+                (nivel >= 4 && x >= 25 && x <= 205 && y >= 70 && y <= 110)
             ) {
                 return false;
             }
@@ -807,7 +897,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.beginPath();
             ctx.roundRect(250, 35, 400, 220, 14);
             ctx.clip();
-            ctx.drawImage(imagen, 250, 35, 400, 220);
+
+            dibujarImagenProporcional(imagen, 250, 35, 400, 220);
+
             ctx.restore();
         }
 
@@ -816,13 +908,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.textAlign = "center";
         ctx.fillStyle = "#39FF78";
         ctx.font = "bold 27px Orbitron";
-        ctx.fillText(
-            nivel < 6
-                ? "¡NIVEL COMPLETADO!"
-                : "¡JUEGO COMPLETADO!",
-            canvas.width / 2,
-            310
-        );
+        ctx.fillText(nivel < 6 ? "¡NIVEL COMPLETADO!" : "¡JUEGO COMPLETADO!", canvas.width / 2, 310);
 
         ctx.fillStyle = "#E6F3E9";
         ctx.font = "19px 'Asap Condensed'";
@@ -932,6 +1018,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     mostrarInicio();
+
   //video tutorial
     const video = document.querySelector(".video-imagen video");
     const overlay = document.querySelector(".video-overlay");
