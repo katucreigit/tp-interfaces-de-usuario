@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let cantidadPiezas = 4;
     let juegoTerminado = false;
     let records = JSON.parse(localStorage.getItem("blockaRecords")) || {};
+    let recorteX = 0;
+    let recorteY = 0;
+    let recorteAncho = 0;
+    let recorteAlto = 0;
 
     let iconosListos = false;
     const fuenteIconos = new FontFace("Font Awesome 6 Free", 'url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2)', { weight: "900" });
@@ -253,6 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
             altoRecorte = anchoImagen / proporcion;
             sy = (altoImagen - altoRecorte) / 2;
         }
+        recorteX = sx;
+        recorteY = sy;
+        recorteAncho = anchoRecorte;
+        recorteAlto = altoRecorte;
 
         const anchoOrigen = anchoRecorte / columnas;
         const altoOrigen = altoRecorte / filas;
@@ -595,10 +603,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (x >= botonX && x <= botonX + botonAncho &&
                 y >= botonY && y <= botonY + botonAlto
             ) {
-                console.log("Clic en COMENZAR");
-                console.log("Imagen seleccionada:", imagenSeleccionada);
-                console.log("Cantidad de piezas:", cantidadPiezas);
-
                 try {
                     iniciarPuzzle();
                 } catch (error) {
@@ -893,15 +897,24 @@ document.addEventListener("DOMContentLoaded", () => {
         dibujarFondo();
 
         if (imagen && imagen.complete && imagen.naturalWidth > 0) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.roundRect(250, 35, 400, 220, 14);
-            ctx.clip();
+    const alto = 220;
+    const ancho = alto * (cantidadPiezas / 4);
+    const x = (canvas.width - ancho) / 2;
+    const y = 25;
 
-            dibujarImagenProporcional(imagen, 250, 35, 400, 220);
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(x, y, ancho, alto, 14);
+    ctx.clip();
 
-            ctx.restore();
-        }
+    ctx.drawImage(
+        imagen,
+        recorteX, recorteY, recorteAncho, recorteAlto,
+        x, y, ancho, alto
+    );
+
+    ctx.restore();
+}
 
         dibujarTarjeta(100, 265, 700, 225, true);
 
