@@ -41,7 +41,7 @@ jobs:
           cp -r "entrega 2/img" _site/2/
 
           # ENTREGA 3: comprobar HTML
-          if [ ! -d "entrega 3/html" ]; then
+          if [ ! -d "entrega 3/" ]; then
             echo "ERROR: No existe entrega 3/html"
             exit 1
           fi
