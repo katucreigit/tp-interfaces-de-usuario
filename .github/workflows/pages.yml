@@ -47,7 +47,7 @@ jobs:
           fi
 
           # ENTREGA 3: copiar HTML
-          cp -r "entrega 3/html/." _site/3/
+          cp -r "entrega 3/." _site/3/
 
           # ENTREGA 3: copiar recursos si existen
           for carpeta in css js img; do
