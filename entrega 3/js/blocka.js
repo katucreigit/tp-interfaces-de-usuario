@@ -58,15 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const imageData = ctx.createImageData(width, height);
 
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const r = 0;
-                const g = 40 * (1 - y / (height - 1));
-                const b = 0;
+        for (let x = 0; x < width; x++) {
+    const t = x / (width - 1);
+    const r = 255 * t;
 
-                setPixel(imageData, x, y, r, g, b, 255);
-            }
-        }
+    ctx.fillStyle = `rgb(${r}, 0, 0)`;
+    ctx.fillRect(x, 0, 1, canvas.height);
+}
+
 
         ctx.putImageData(imageData, 0, 0);
     }

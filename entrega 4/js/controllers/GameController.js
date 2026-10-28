@@ -2,18 +2,16 @@
  * Controlador principal que conecta los eventos del usuario con los modelos y vistas.
  */
 class GameController {
-    constructor(canvasId, bgImg, spriteImg) {
-        this.view = new GameView(canvasId);
-        this.board = new Board();
-        this.bgImg = bgImg;
-        this.spriteImg = spriteImg;
+    constructor(canvasId, spriteImg) {
+	    this.view = new GameView(canvasId);
+	    this.board = new Board();
+	    this.spriteImg = spriteImg;
 
         this.cellSize = 0;
         this.offsetX = 0;
         this.offsetY = 0;
 
         this.pegs = [];
-        this.activeHints = [];
         this.currentValidMoves = [];
         this.selectedPeg = null;
         this.dragOffset = { x: 0, y: 0 };
@@ -34,21 +32,19 @@ class GameController {
         this.loop(0);
     }
 
-    calcularDimensionesTablero() {
-        const boardSize = this.view.canvas.height; // 500px (alto total del tablero)
-        const boardX = (this.view.canvas.width - boardSize) / 2; // Centrado horizontal
-        const boardY = 0; 
+    
+	calcularDimensionesTablero() {
+	    const anchoGrilla = 480;
 
-        // 🎯 Agrandamos la grilla para que ocupe más espacio en el tablero
-        const anchoGrilla = 480; // 👈 Agrandado (de 370 a 420px). Si querés un pelín más, probá 430 o 440.
+	    this.cellSize = anchoGrilla / 7;
 
-        this.cellSize = anchoGrilla / 7;
+	    // Centrar el tablero horizontalmente
+	    this.offsetX = (this.view.canvas.width - anchoGrilla) / 2;
 
-        // Centrado exacto del marco 7x7 dentro de los 500px
-        const margen = (boardSize - anchoGrilla) / 2;
-        this.offsetX = boardX + margen;
-        this.offsetY = boardY + margen;
-    }
+	    // Centrar el tablero verticalmente
+	    this.offsetY = (this.view.canvas.height - anchoGrilla) / 2;
+	}
+
 
     createPegs() {
         this.pegs = [];
@@ -80,13 +76,16 @@ class GameController {
         canvas.addEventListener('mouseup', e => this.handleMouseUp(e));
     }
 
-    getCanvasCoords(e) {
-        const rect = this.view.canvas.getBoundingClientRect();
-        return {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
-        };
-    }
+    
+	getCanvasCoords(e) {
+	    const rect = this.view.canvas.getBoundingClientRect();
+
+	    return {
+		x: (e.clientX - rect.left) * (this.view.canvas.width / rect.width),
+		y: (e.clientY - rect.top) * (this.view.canvas.height / rect.height)
+	    };
+	}
+
 
     handleMouseDown(e) {
         if (this.gameOver) return;
@@ -96,11 +95,15 @@ class GameController {
             if (this.pegs[i].isPointInside(coords.x, coords.y)) {
                 this.selectedPeg = this.pegs[i];
                 this.selectedPeg.isDragging = true;
-                this.dragOffset.x = coords.x - this.selectedPeg.x;
-                this.dragOffset.y = coords.y - this.selectedPeg.y;
+                this.dragOffset.x = 0;
+this.dragOffset.y = 0;
 
                 const validMoves = this.board.getValidMoves(this.selectedPeg, this.offsetX, this.offsetY, this.cellSize);
-                this.hints = validMoves.map(m => new Hint(m.toRow, m.toCol, m.x, m.y, this.cellSize * 0.35));
+                this.hints = validMoves.map(m => ({
+    x: m.x,
+    y: m.y,
+    radius: this.cellSize * 0.35
+}));
                 this.currentValidMoves = validMoves;
                 break;
             }
@@ -108,97 +111,129 @@ class GameController {
     }
 
     handleMouseMove(e) {
-        if (this.selectedPeg && this.selectedPeg.isDragging) {
-            const coords = this.getCanvasCoords(e);
-            this.selectedPeg.x = coords.x - this.dragOffset.x;
-            this.selectedPeg.y = coords.y - this.dragOffset.y;
-        }
-    }
-
-    handleMouseUp(e) {
-        if (!this.selectedPeg) return;
+    if (this.selectedPeg && this.selectedPeg.isDragging) {
         const coords = this.getCanvasCoords(e);
 
-        let targetMove = null;
-        for (const move of this.currentValidMoves) {
-            const dist = Math.hypot(coords.x - move.x, coords.y - move.y);
-            if (dist < this.cellSize * 0.4) {
-                targetMove = move;
-                break;
-            }
-        }
-
-        if (targetMove) {
-            this.executeMove(this.selectedPeg, targetMove);
-        } else {
-            this.selectedPeg.resetPosition();
-        }
-
-        this.selectedPeg.isDragging = false;
-        this.selectedPeg = null;
-        this.hints = [];
-        this.currentValidMoves = [];
-
-        this.checkGameStatus();
+        this.selectedPeg.x = coords.x;
+        this.selectedPeg.y = coords.y;
     }
+}
 
-    executeMove(peg, move) {
-        // 1. Actualizar la matriz lógica del tablero (vaciar origen y medio, ocupar destino)
-        this.board.grid[peg.row][peg.col] = 0;
-        this.board.grid[move.midRow][move.midCol] = 0;
-        this.board.grid[move.toRow][move.toCol] = 1;
+    
+	
+handleMouseUp(e) {
+    if (!this.selectedPeg) return;
 
-        // 2. Eliminar la ficha intermedia del arreglo visual 'this.pegs'
-        this.pegs = this.pegs.filter(p => 
-            !(Number(p.row) === Number(move.midRow) && Number(p.col) === Number(move.midCol))
+    const peg = this.selectedPeg;
+    const coords = this.getCanvasCoords(e);
+    let targetMove = null;
+
+    for (const move of this.currentValidMoves) {
+        const dist = Math.hypot(
+            coords.x - move.x,
+            coords.y - move.y
         );
 
-        // 3. Actualizar la posición de la ficha que realizó el salto
-        peg.row = move.toRow;
-        peg.col = move.toCol;
-        peg.x = move.x;
-        peg.y = move.y;
-        peg.originalX = move.x;
-        peg.originalY = move.y;
-    }
-
-    checkGameStatus() {
-        let hasMoves = false;
-        for (const peg of this.pegs) {
-            if (this.board.getValidMoves(peg, this.offsetX, this.offsetY, this.cellSize).length > 0) {
-                hasMoves = true;
-                break;
-            }
-        }
-
-        if (!hasMoves || this.timeLeft <= 0) {
-            this.gameOver = true;
-            clearInterval(this.timerInterval);
+        if (dist < this.cellSize * 0.4) {
+            targetMove = move;
+            break;
         }
     }
 
-    startTimer() {
-        this.timerInterval = setInterval(() => {
-            if (this.timeLeft > 0) {
-                this.timeLeft--;
-            } else {
-                this.checkGameStatus();
-            }
-        }, 1000);
+    if (targetMove) {
+        this.executeMove(peg, targetMove);
+    } else {
+        peg.resetPosition();
     }
+
+    peg.isDragging = false;
+    this.selectedPeg = null;
+    this.hints = [];
+    this.currentValidMoves = [];
+
+    this.checkGameStatus();
+}
+
+
+
+executeMove(peg, move) {
+    // 1. Actualizar la matriz del tablero
+    this.board.grid[peg.row][peg.col] = 0;
+    this.board.grid[move.midRow][move.midCol] = 0;
+    this.board.grid[move.toRow][move.toCol] = 1;
+
+    // 2. Eliminar la ficha que fue saltada
+    this.pegs = this.pegs.filter(p =>
+        !(p.row === move.midRow && p.col === move.midCol)
+    );
+
+    // 3. Actualizar la ficha que se movió
+    peg.row = move.toRow;
+    peg.col = move.toCol;
+
+    peg.x = move.x;
+    peg.y = move.y;
+
+    peg.originalX = move.x;
+    peg.originalY = move.y;
+}
+
+    
+	
+	checkGameStatus() {
+	    const totalPegs = this.countTotalPegs();
+
+	    // Victoria completa: queda una ficha en el centro
+	    const ganoCompletamente = totalPegs === 1 && this.board.grid[3][3] === 1;
+
+	    // Comprobar si queda algún movimiento posible
+	    let hasMoves = false;
+
+	    for (const peg of this.pegs) {
+		if (this.board.getValidMoves(peg, this.offsetX, this.offsetY, this.cellSize).length > 0) {
+		    hasMoves = true;
+		    break;
+		}
+	    }
+
+	    // Termina si ganó, no quedan movimientos o se acabó el tiempo
+	    if (ganoCompletamente || !hasMoves || this.timeLeft <= 0) {
+		this.gameOver = true;
+		clearInterval(this.timerInterval);
+	    }
+	}
+
+
+
+    
+	startTimer() {
+	    this.timerInterval = setInterval(() => {
+		if (this.timeLeft > 0) {
+		    this.timeLeft--;
+		}
+
+		if (this.timeLeft <= 0) {
+		    this.checkGameStatus();
+		}
+	    }, 1000);
+	}
+
 
     countTotalPegs() {
         return this.pegs.length;
     }
 
-    loop(timestamp) {
-        this.view.clear();
-        this.view.drawBoardBackground(this.bgImg);
+    
+	loop(timestamp) {
+	    this.view.clear();
 
-        this.view.drawPegs(this.pegs, this.selectedPeg);
-        this.view.drawHints(this.hints, timestamp);
-        this.view.drawUI(this.timeLeft, this.gameOver, this.countTotalPegs());
+	    this.board.draw(this.view.ctx, this.offsetX, this.offsetY, this.cellSize);
 
-        requestAnimationFrame((t) => this.loop(t));
-    }
+	    this.view.drawPegs(this.pegs, this.selectedPeg);
+	    this.view.drawHints(this.hints, timestamp);
+	    this.view.drawUI(this.timeLeft, this.gameOver, this.countTotalPegs());
+
+	    requestAnimationFrame((t) => this.loop(t));
+	}
+
 }

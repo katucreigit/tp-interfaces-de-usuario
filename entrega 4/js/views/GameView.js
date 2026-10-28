@@ -14,25 +14,46 @@ class GameView {
     /**
      * Dibuja el tablero cuadrado pegado a los bordes superior e inferior.
      */
-    drawBoardBackground(bgImage) {
-        if (bgImage) {
-            const boardSize = this.canvas.height; 
 
-            this.boardSize = boardSize;
-            this.boardX = (this.canvas.width - boardSize) / 2; 
-            this.boardY = 0; 
+    
+drawHints(hints, time) {
+    const ctx = this.ctx;
 
-            this.ctx.drawImage(bgImage, this.boardX, this.boardY, this.boardSize, this.boardSize);
-        }
+    for (const hint of hints) {
+        ctx.save();
+
+        const pulse = Math.sin(time * 0.006) * 4;
+        const currentRadius = hint.radius + pulse;
+
+        // Círculo exterior animado
+        ctx.beginPath();
+        ctx.arc(
+            hint.x,
+            hint.y,
+            Math.max(2, currentRadius),
+            0,
+            Math.PI * 2
+        );
+
+        ctx.strokeStyle = '#00ffcc';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+
+        // Flecha animada
+        const offsetY = Math.sin(time * 0.01) * 6;
+
+        ctx.fillStyle = '#00ffcc';
+        ctx.beginPath();
+        ctx.moveTo(hint.x, hint.y - 12 + offsetY);
+        ctx.lineTo(hint.x - 7, hint.y - 22 + offsetY);
+        ctx.lineTo(hint.x + 7, hint.y - 22 + offsetY);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
     }
-
-    drawHints(hints, time) {
-        if (!hints || !Array.isArray(hints)) return;
-        hints.forEach(hint => {
-            hint.draw(this.ctx, time);
-        });
-    }
-
+}
     drawPegs(pegs, selectedPeg) {
         pegs.forEach(peg => {
             if (peg !== selectedPeg) {
