@@ -26,19 +26,31 @@ class Board {
                     const y = offsetY + row * cellSize;
                     const radio = cellSize * 0.3;
 
-                    // Superficie de la casilla
-                    ctx.fillStyle = '#8B5A2B';
+                    // Superficie azul de la casilla
+                    ctx.fillStyle = '#0e1e2a';
                     ctx.fillRect(x, y, cellSize, cellSize);
 
-                    // Borde de la casilla
-                    ctx.strokeStyle = '#5C351A';
+                    // Borde azul claro
+                    ctx.strokeStyle = '#64B5F6';
+                    ctx.lineWidth = 2;
                     ctx.strokeRect(x, y, cellSize, cellSize);
 
-                    // Hueco circular
+                    // Hueco circular rojo
                     ctx.beginPath();
-                    ctx.arc(x + cellSize / 2, y + cellSize / 2, radio, 0, Math.PI * 2);
-                    ctx.fillStyle = '#4A2B16';
+                    ctx.arc(
+                        x + cellSize / 2,
+                        y + cellSize / 2,
+                        radio,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fillStyle = '#B71C1C';
                     ctx.fill();
+
+                    // Borde sutil del hueco
+                    ctx.strokeStyle = '#7F1010';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
                 }
             }
         }
@@ -61,15 +73,20 @@ class Board {
             const midR = peg.row + dir.midR;
             const midC = peg.col + dir.midC;
 
-            // Comprobar que el destino y la posición intermedia
-            // estén dentro de los límites de la matriz.
-            if (targetR >= 0 && targetR < 7 && targetC >= 0 && targetC < 7 &&
-                midR >= 0 && midR < 7 && midC >= 0 && midC < 7 &&
-                this.grid[targetR][targetC] === 0 && this.grid[midR][midC] === 1
+            // Comprobar los límites y las condiciones del movimiento
+            if (
+                targetR >= 0 && targetR < 7 &&
+                targetC >= 0 && targetC < 7 &&
+                midR >= 0 && midR < 7 &&
+                midC >= 0 && midC < 7 &&
+                this.grid[targetR][targetC] === 0 &&
+                this.grid[midR][midC] === 1
             ) {
-                const hintX = offsetX + targetC * cellSize + cellSize / 2;
+                const hintX =
+                    offsetX + targetC * cellSize + cellSize / 2;
 
-                const hintY = offsetY + targetR * cellSize + cellSize / 2;
+                const hintY =
+                    offsetY + targetR * cellSize + cellSize / 2;
 
                 moves.push({
                     toRow: targetR,
