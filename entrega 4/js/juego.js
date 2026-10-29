@@ -109,31 +109,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const juegosHardcodeados = [
             {
                 name: "PacMan",
-                background_image: "../img/pacman.jpeg"
+                background_image: "img/pacman.jpeg"
             },
             {
                 name: "Uno",
-                background_image: "../img/uno.jpg"
+                background_image: "img/uno.jpg"
             },
             {
                 name: "Dominoes Classic",
-                background_image: "../img/domino.jpeg"
+                background_image: "img/domino.jpeg"
             },
             {
                 name: "Ludo King",
-                background_image: "../img/ludo.jpeg"
+                background_image: "img/ludo.jpeg"
             },
             {
                 name: "Spider Solitarie",
-                background_image: "../img/spidersolitarie.jpeg"
+                background_image: "img/spidersolitarie.jpeg"
             },
             {
                 name: "Monopoly",
-                background_image: "../img/monopoly.jpeg"
+                background_image: "img/monopoly.jpeg"
             },
             {
                 name: "Block Puzzle",
-                background_image: "../img/blockpuzzle.jpeg"
+                background_image: "img/blockpuzzle.jpeg"
             }
         ];
 
