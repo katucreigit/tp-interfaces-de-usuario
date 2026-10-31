@@ -378,6 +378,12 @@ button{
 .pantalla-carga img {
     filter: blur(3px) brightness(0.45);
 }
+
+#canvasJuego {
+    margin-top: 20px;
+    display: block;
+}
+
 .pantallaJuego {
     display: none;
 }
