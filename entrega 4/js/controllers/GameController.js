@@ -63,33 +63,7 @@ class GameController {
 	}
 
 
-    drawStartScreen() {
-    const ctx = this.view.ctx;
-
-    ctx.save();
-
-    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-    ctx.fillRect(0, 0, this.view.canvas.width, this.view.canvas.height);
-
-    ctx.fillStyle = "#FFC035";
-    ctx.font = "bold 32px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(
-        "PEG SOLITAIRE",
-        this.view.canvas.width / 2,
-        180
-    );
-
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "bold 22px sans-serif";
-    ctx.fillText(
-        "Presioná para comenzar",
-        this.view.canvas.width / 2,
-        250
-    );
-
-    ctx.restore();
-    }
+  
 
     createPegs() {
         this.pegs = [];
@@ -132,8 +106,26 @@ class GameController {
 	}
 
     handleMouseDown(e) {
+    
     const coords = this.getCanvasCoords(e);
 
+// Comenzar partida (Solo si hacen clic dentro del botón de la pantalla inicial)
+    if (!this.gameStarted) {
+        const btnWidth = 240;
+        const btnHeight = 55;
+        const btnX = (this.view.canvas.width - btnWidth) / 2;
+        const btnY = 250;
+
+        if (
+            coords.x >= btnX &&
+            coords.x <= btnX + btnWidth &&
+            coords.y >= btnY &&
+            coords.y <= btnY + btnHeight
+        ) {
+            this.initGame();
+        }
+        return;
+    }
     // Boton para reiniciar la partida
     const botonX = this.view.canvas.width - 193;
     const botonY = 15;
@@ -155,14 +147,22 @@ class GameController {
     }
 
     // Si la partida termino, permitir reiniciar
+    // Si la partida terminó, permitir reiniciar en el botón central de game over
     if (this.gameOver) {
-        const centerX = this.view.canvas.width / 2;
+        const btnWidth = 220;
+        const btnHeight = 48;
+        const btnX = (this.view.canvas.width - btnWidth) / 2;
+        
+        // Calculamos la misma posición 'Y' centrada que usamos en la vista
+        const panelHeight = 200;
+        const panelY = (this.view.canvas.height - panelHeight) / 2 - 20;
+        const btnY = panelY + 105;
 
         if (
-            coords.x >= centerX - 110 &&
-            coords.x <= centerX + 110 &&
-            coords.y >= 285 &&
-            coords.y <= 340
+            coords.x >= btnX &&
+            coords.x <= btnX + btnWidth &&
+            coords.y >= btnY &&
+            coords.y <= btnY + btnHeight
         ) {
             this.restartGame();
         }
@@ -365,8 +365,8 @@ executeMove(peg, move) {
     );
 
     if (!this.gameStarted) {
-        this.drawStartScreen();
-    }
+    this.view.drawStartScreen();
+}
 
     requestAnimationFrame((t) => this.loop(t));
 }

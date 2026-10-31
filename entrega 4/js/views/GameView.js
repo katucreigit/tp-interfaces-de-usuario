@@ -11,8 +11,55 @@ class GameView {
     clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.ctx.fillStyle = "#be1e1e";
+    this.ctx.fillStyle = "#82ACD9";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+}
+drawStartScreen() {
+    const ctx = this.ctx; // Usamos el ctx de la vista
+    ctx.save();
+    ctx.fillStyle = "rgba(13, 27, 42, 0.88)";
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    ctx.font = "100px 'Bangers'";
+ctx.textAlign = "center";
+
+ctx.lineWidth = 8;             // Grosor del borde (puedes ajustarlo)
+ctx.strokeStyle = "#ECF3F9";   // Color del borde (Negro cómic)
+ctx.strokeText("PEG SOLITARIE", this.canvas.width / 2, 150);
+ctx.strokeText("SPIDERMAN", this.canvas.width / 2, 250);
+
+// 2. DIBUJAR EL RELLENO (Fill) ENCIMA DEL CONTORNO
+ctx.fillStyle = "#B71C1C";     // Color principal (Rojo Spider-Man)
+ctx.fillText("PEG SOLITARIE", this.canvas.width / 2, 150);
+ctx.fillText("SPIDERMAN", this.canvas.width / 2, 250);
+
+    const btnWidth = 240;
+        const btnHeight = 55;
+        const btnX = (this.canvas.width - btnWidth) / 2;
+        const btnY = 280;
+
+        // Sombra brillante estilo neón/energía para el botón
+        ctx.shadowColor = "rgba(217, 4, 41, 0.5)";
+        ctx.shadowBlur = 20;
+
+        // Fondo del botón (Rojo Spider-Man)
+        ctx.fillStyle = "#B71C1C";
+        ctx.beginPath();
+        ctx.roundRect(btnX, btnY, btnWidth, btnHeight, 28);
+        ctx.fill();
+
+        // Borde del botón
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Texto del botón
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 18px sans-serif";
+        ctx.fillText("COMENZAR", this.canvas.width / 2, btnY + 34);
+
+        ctx.restore();
 }
 
     drawHints(hints, time) {
@@ -34,7 +81,7 @@ class GameView {
                 Math.PI * 2
             );
 
-            ctx.strokeStyle = '#80DEEA';
+            ctx.strokeStyle = '#82ACD9';
             ctx.lineWidth = 3;
             ctx.setLineDash([5, 5]);
             ctx.stroke();
@@ -42,7 +89,7 @@ class GameView {
             // Flecha animada
             const offsetY = Math.sin(time * 0.01) * 6;
 
-            ctx.fillStyle = '#80DEEA';
+            ctx.fillStyle = '#82ACD9';
             ctx.beginPath();
             ctx.moveTo(hint.x, hint.y - 12 + offsetY);
             ctx.lineTo(hint.x - 7, hint.y - 22 + offsetY);
@@ -76,7 +123,8 @@ drawUI(timeLeft, gameOver, totalPegs, endMessage, availableMoves) {
     const secs = timeLeft % 60;
     const secsStr = secs < 10 ? "0" + secs : secs;
 
-    ctx.textAlign = "left";
+    // Cambiamos a "center" para que fillText se alinee al medio de la coordenada X
+    ctx.textAlign = "center";
 
     // Estilo de las tarjetas
     const dibujarTarjeta = (x, y, ancho, alto) => {
@@ -86,42 +134,48 @@ drawUI(timeLeft, gameOver, totalPegs, endMessage, availableMoves) {
         ctx.fill();
 
         ctx.strokeStyle = "rgba(14,30,42, 0.75)";
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
     };
 
-    // Tarjeta del tiempo
+    // Coordenada X central de las tarjetas (x=8 + ancho=185 / 2 = 100.5)
+    const centroX = 8 + 185 / 2;
+
+    // Tarjeta del tiempo (Altura: 48)
     dibujarTarjeta(8, 15, 185, 48);
 
     ctx.fillStyle = "#B9CBE3";
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText("TIEMPO", 18, 33);
+    ctx.fillText("TIEMPO", centroX, 33); // Título arriba
 
     ctx.fillStyle = "#F1F5F9";
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText(mins + ":" + secsStr, 18, 54);
+    ctx.fillText(mins + ":" + secsStr, centroX, 54); // Valor abajo (puedes ajustar si prefieres)
 
-    // Tarjeta de fichas
+    // Tarjeta de fichas (Altura: 48)
     dibujarTarjeta(8, 72, 185, 48);
 
     ctx.fillStyle = "#B9CBE3";
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText("FICHAS RESTANTES", 18, 90);
+    ctx.fillText("FICHAS RESTANTES", centroX, 90);
 
     ctx.fillStyle = "#F1F5F9";
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText(totalPegs.toString(), 18, 111);
+    ctx.fillText(totalPegs.toString(), centroX, 111);
 
-    // Tarjeta de movimientos
-    dibujarTarjeta(8, 129, 185, 55);
+    // Tarjeta de movimientos (Altura: 55)
+    dibujarTarjeta(8, 129, 185, 52);
 
     ctx.fillStyle = "#B9CBE3";
-    ctx.font = "bold 12px sans-serif";
-    ctx.fillText("MOVIMIENTOS", 18, 148);
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText("MOVIMIENTOS", centroX, 149);
 
     ctx.fillStyle = "#F1F5F9";
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText(availableMoves.toString(), 18, 173);
+    ctx.fillText(availableMoves.toString(), centroX, 173);
+
+    ctx.restore();
+
 
     // Botón de reiniciar
     const botonX = this.canvas.width - 193;
@@ -139,56 +193,78 @@ drawUI(timeLeft, gameOver, totalPegs, endMessage, availableMoves) {
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 15px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("↻  REINICIAR", botonX + 92.5, 44);
+    ctx.fillText("⟲ REINICIAR", botonX + 92.5, 44);
 
     ctx.restore();
 
         // Pantalla final
+        // Pantalla final (Game Over)
         if (gameOver) {
-            ctx.fillStyle = "rgba(45, 0, 0, 0.90)";
+            ctx.save();
+
+            // Fondo oscuro con tinte rojo/azulado dramático
+            ctx.fillStyle = "rgba(13, 27, 42, 0.92)";
             ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
             ctx.textAlign = "center";
 
-            // Panel central
-            
+            // --- PANEL CENTRAL ---
+            const panelWidth = 400;
+            const panelHeight = 200;
+            const panelX = (this.canvas.width - panelWidth) / 2;
+            const panelY = (this.canvas.height - panelHeight) / 2 - 20;
 
-            ctx.fillStyle = "#80DEEA";
-            ctx.font = "bold 26px sans-serif";
+            // Sombra y fondo del panel
+            ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = "#1B263B"; // Azul noche corporativo/héroe
+            ctx.beginPath();
+            ctx.roundRect(panelX, panelY, panelWidth, panelHeight, 20);
+            ctx.fill();
+
+            // Borde del panel en rojo Spider-Man
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = "#D90429";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // --- MENSAJE DE FIN DE JUEGO ---
+            ctx.fillStyle = "#FFFFFF";
+            ctx.font = "bold 38px 'Smooch Sans'";
             ctx.fillText(
                 endMessage,
                 this.canvas.width / 2,
-                225
+                panelY + 70
             );
 
-            // Botón de reiniciar
-            ctx.fillStyle = "#1565C0";
-            ctx.fillRect(
-                this.canvas.width / 2 - 110,
-                270,
-                220,
-                55
-            );
+            // --- BOTÓN DE REINICIAR (Dentro del panel) ---
+            const btnWidth = 220;
+            const btnHeight = 48;
+            const btnX = (this.canvas.width - btnWidth) / 2;
+            const btnY = panelY + 105;
 
-            ctx.strokeStyle = "#80DEEA";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(
-                this.canvas.width / 2 - 110,
-                270,
-                220,
-                55
-            );
+            // Sombra del botón principal
+            ctx.shadowColor = "rgba(217, 4, 41, 0.4)";
+            ctx.shadowBlur = 12;
 
+            // Fondo del botón (Rojo Spider-Man)
+            ctx.fillStyle = "#D90429";
+            ctx.beginPath();
+            ctx.roundRect(btnX, btnY, btnWidth, btnHeight, 24);
+            ctx.fill();
+
+            // Texto del botón
+            ctx.shadowBlur = 0;
             ctx.fillStyle = "#FFFFFF";
-            ctx.font = "bold 20px sans-serif";
+            ctx.font = "bold 17px sans-serif";
             ctx.fillText(
-                "REINICIAR",
+                "REINICIAR PARTIDA",
                 this.canvas.width / 2,
-                305
+                btnY + 30
             );
-        }
 
-        ctx.restore();
+            ctx.restore();
+        }
     }
 }
 
