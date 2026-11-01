@@ -253,10 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // MODAL IMAGEN DEL JUEGO
     const imagenInstrucciones = document.querySelector(".video-imagen"),
         modalImagen = document.getElementById("modalImagen"),
-        botonCerrarImagen = document.getElementById("cerrarModalImagen"),
-        botonPantallaCompleta = document.querySelector(
-            '.btn-barra[data-tooltip="Agrandar pantalla"]'
-        );
+        botonCerrarImagen = document.getElementById("cerrarModalImagen")
+        
 
     function abrirModalImagen() {
         if (modalImagen) {
@@ -273,14 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Abrir al tocar la imagen
     if (imagenInstrucciones) {
         imagenInstrucciones.addEventListener("click", abrirModalImagen);
-    }
-
-    // Abrir al tocar agrandar pantalla
-    if (botonPantallaCompleta) {
-        botonPantallaCompleta.addEventListener("click", event => {
-            event.preventDefault();
-            abrirModalImagen();
-        });
     }
 
     // Cerrar con la cruz
@@ -306,6 +296,23 @@ document.addEventListener("DOMContentLoaded", () => {
             cerrarModalImagen();
         }
     });
+
+     // PANTALLA COMPLETA DEL JUEGO
+    const botonPantallaCompleta = document.querySelector(
+        '.btn-barra[data-tooltip="Agrandar pantalla"]'
+    );
+
+    const contenedorJuegoCompleto = document.getElementById("contenedorJuegoCompleto");
+
+    if (botonPantallaCompleta && contenedorJuegoCompleto) {
+        botonPantallaCompleta.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                contenedorJuegoCompleto.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    }
 
     // LIKES
     document.querySelectorAll(".likes").forEach(contenedorLikes => {
