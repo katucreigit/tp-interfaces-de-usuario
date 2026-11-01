@@ -614,18 +614,21 @@ button{
     display: flex;
     justify-content: center;
 }
+
 .video-imagen {
     position: relative;
     overflow: hidden;
     border-radius: 15px;
     width: 700px;
     height: 400px;
+    cursor: pointer;
 }
-.video-imagen video {
+
+.video-imagen img {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.5s ease, filter 0.5s ease;
 }
 .video-overlay {
@@ -658,13 +661,34 @@ button{
     color: white;
     font-weight: 600;
 }
-.video-imagen:hover video {
+
+.modal-imagen-contenido {
+    position: relative;
+    width: 85vw;
+    max-width: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-imagen-contenido img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.video-imagen:hover img {
     transform: scale(1.05);
     filter: brightness(0.5);
 }
+
 .video-imagen:hover .video-overlay {
     opacity: 1;
 }
+
 .video-imagen:hover .video-overlay i {
     transform: scale(1);
 }

@@ -250,6 +250,63 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+        // MODAL IMAGEN DEL JUEGO
+    const imagenInstrucciones = document.querySelector(".video-imagen"),
+        modalImagen = document.getElementById("modalImagen"),
+        botonCerrarImagen = document.getElementById("cerrarModalImagen"),
+        botonPantallaCompleta = document.querySelector(
+            '.btn-barra[data-tooltip="Agrandar pantalla"]'
+        );
+
+    function abrirModalImagen() {
+        if (modalImagen) {
+            modalImagen.style.display = "flex";
+        }
+    }
+
+    function cerrarModalImagen() {
+        if (modalImagen) {
+            modalImagen.style.display = "none";
+        }
+    }
+
+    // Abrir al tocar la imagen
+    if (imagenInstrucciones) {
+        imagenInstrucciones.addEventListener("click", abrirModalImagen);
+    }
+
+    // Abrir al tocar agrandar pantalla
+    if (botonPantallaCompleta) {
+        botonPantallaCompleta.addEventListener("click", event => {
+            event.preventDefault();
+            abrirModalImagen();
+        });
+    }
+
+    // Cerrar con la cruz
+    if (botonCerrarImagen) {
+        botonCerrarImagen.addEventListener("click", event => {
+            event.stopPropagation();
+            cerrarModalImagen();
+        });
+    }
+
+    // Cerrar al tocar el fondo
+    if (modalImagen) {
+        modalImagen.addEventListener("click", event => {
+            if (event.target === modalImagen) {
+                cerrarModalImagen();
+            }
+        });
+    }
+
+    // Cerrar con Escape
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            cerrarModalImagen();
+        }
+    });
+
     // LIKES
     document.querySelectorAll(".likes").forEach(contenedorLikes => {
         const likes = contenedorLikes.querySelectorAll("i");
