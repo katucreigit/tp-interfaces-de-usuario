@@ -17,7 +17,6 @@ class GameController {
         this.timeLeft = 300;
         this.gameOver = false;
         this.gameStarted = false;
-        this.timerInterval = null;
         this.endMessage = "";
         this.hints = [];
 
@@ -27,7 +26,6 @@ class GameController {
     }
 
     initGame() {
-		clearInterval(this.timerInterval);
 
 		this.board = new Board();
 		this.pegs = [];
@@ -39,7 +37,9 @@ class GameController {
 		this.gameOver = false;
 		this.gameStarted = true;
 		this.endMessage = "";
-
+		
+		this.inicio = null;
+		
 		this.createPegs();
 		this.startTimer();
 	}
@@ -123,12 +123,6 @@ class GameController {
 		    coords.y >= botonY && coords.y <= botonY + 48
 		) {
 		    this.restartGame();
-		    return;
-		}
-
-		// Comenzar partida
-		if (!this.gameStarted) {
-		    this.initGame();
 		    return;
 		}
 
@@ -261,22 +255,9 @@ class GameController {
 		this.gameOver = true;
 		this.endMessage = message;
 
-		clearInterval(this.timerInterval);
 	}
     
-	startTimer() {
-        clearInterval(this.timerInterval);
 
-	    this.timerInterval = setInterval(() => {
-			if (this.timeLeft > 0) {
-				this.timeLeft--;
-			}
-
-			if (this.timeLeft <= 0) {
-				this.checkGameStatus();
-			}
-	    }, 1000);
-	}
 
     countTotalPegs() {
         return this.pegs.length;
@@ -292,19 +273,43 @@ class GameController {
 	    return totalMoves;
     }
 
-	loop(timestamp) {
-		this.view.clear();
+loop(ahora) {
+    // Si el juego ya empezó, manejamos el cronómetro
+    if (this.gameStarted && !this.gameOver) {
+        if (!this.inicio) {
+            this.inicio = ahora; // Registramos el tiempo exacto cuando el usuario hace clic en Comenzar
+        }
 
-		this.board.draw(this.view.ctx,this.offsetX,this.offsetY,this.cellSize);
+        const transcurrido = (ahora - this.inicio) / 1000;
+        const tiempoLimite = 300;
+        const restantes = Math.max(0, tiempoLimite - transcurrido);
 
-		this.view.drawPegs(this.pegs, this.selectedPeg, this.spriteImg);
-		this.view.drawHints(this.hints, timestamp);
-		this.view.drawUI(this.timeLeft,this.gameOver,this.countTotalPegs(),this.endMessage,this.countAvailableMoves());
+        this.timeLeft = Math.ceil(restantes);
 
-	    if (!this.gameStarted) {
-		    this.view.drawStartScreen();
-		}
+        if (this.timeLeft <= 0) {
+            this.endGame("¡SE ACABÓ EL TIEMPO!");
+        }
+    } else if (!this.gameStarted) {
+        this.inicio = null; // Mientras esté en la pantalla de inicio, se mantiene limpio
+    }
 
-	    requestAnimationFrame((t) => this.loop(t));
-	}
+    // 1. Limpiar pantalla
+    this.view.clear();
+
+    // 2. Dibujar elementos del juego
+    this.view.drawBoard(this.board.grid, this.offsetX, this.offsetY, this.cellSize);
+    this.view.drawPegs(this.pegs, this.selectedPeg, this.spriteImg);
+    this.view.drawHints(this.hints, ahora);
+    
+    // 3. Dibujar interfaz (UI)
+    this.view.drawUI(this.timeLeft, this.gameOver, this.countTotalPegs(), this.endMessage, this.countAvailableMoves());
+
+    // 4. Pantalla de inicio si no arrancó
+    if (!this.gameStarted) {
+        this.view.drawStartScreen();
+    }
+
+    // Llamada recursiva
+    requestAnimationFrame((t) => this.loop(t));
+}
 }
