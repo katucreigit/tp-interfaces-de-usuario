@@ -1,11 +1,9 @@
-/**
- * Controlador principal que conecta los eventos del usuario con los modelos y vistas.
- */
+/** Controlador principal que conecta los eventos del usuario con los modelos y vistas. */
 class GameController {
     constructor(canvasId, spriteImg) {
-	    this.view = new GameView(canvasId);
-	    this.board = new Board();
-	    this.spriteImg = spriteImg;
+	this.view = new GameView(canvasId);
+	this.board = new Board();
+	this.spriteImg = spriteImg;
 
         this.cellSize = 0;
         this.offsetX = 0;
@@ -29,41 +27,35 @@ class GameController {
     }
 
     initGame() {
-    clearInterval(this.timerInterval);
+		clearInterval(this.timerInterval);
 
-    this.board = new Board();
-    this.pegs = [];
-    this.currentValidMoves = [];
-    this.selectedPeg = null;
-    this.hints = [];
+		this.board = new Board();
+		this.pegs = [];
+		this.currentValidMoves = [];
+		this.selectedPeg = null;
+		this.hints = [];
 
-    this.timeLeft = 300;
-    this.gameOver = false;
-    this.gameStarted = true;
-    this.endMessage = "";
+		this.timeLeft = 300;
+		this.gameOver = false;
+		this.gameStarted = true;
+		this.endMessage = "";
 
-    this.createPegs();
-    this.startTimer();
-}
+		this.createPegs();
+		this.startTimer();
+	}
 
     restartGame() {
-    this.initGame();
-}    
+	    this.initGame();
+	}    
 
 	calcularDimensionesTablero() {
 	    const anchoGrilla = 480;
 
 	    this.cellSize = anchoGrilla / 7;
 
-	    // Centrar el tablero horizontalmente
 	    this.offsetX = (this.view.canvas.width - anchoGrilla) / 2;
-
-	    // Centrar el tablero verticalmente
 	    this.offsetY = (this.view.canvas.height - anchoGrilla) / 2;
 	}
-
-
-  
 
     createPegs() {
         this.pegs = [];
@@ -94,7 +86,6 @@ class GameController {
         canvas.addEventListener('mousemove', e => this.handleMouseMove(e));
         canvas.addEventListener('mouseup', e => this.handleMouseUp(e));
     }
-
     
 	getCanvasCoords(e) {
 	    const rect = this.view.canvas.getBoundingClientRect();
@@ -105,269 +96,215 @@ class GameController {
 	    };
 	}
 
-    handleMouseDown(e) {
-    
-    const coords = this.getCanvasCoords(e);
+    handleMouseDown(e) {    
+	    const coords = this.getCanvasCoords(e);
 
-// Comenzar partida (Solo si hacen clic dentro del botón de la pantalla inicial)
-    if (!this.gameStarted) {
-        const btnWidth = 240;
-        const btnHeight = 55;
-        const btnX = (this.view.canvas.width - btnWidth) / 2;
-        const btnY = 250;
+	    if (!this.gameStarted) {
+	        const btnWidth = 240;
+		    const btnHeight = 55;
+		    const btnX = (this.view.canvas.width - btnWidth) / 2;
+		    const btnY = 250;
 
-        if (
-            coords.x >= btnX &&
-            coords.x <= btnX + btnWidth &&
-            coords.y >= btnY &&
-            coords.y <= btnY + btnHeight
-        ) {
-            this.initGame();
-        }
-        return;
-    }
-    // Boton para reiniciar la partida
-    const botonX = this.view.canvas.width - 193;
-    const botonY = 15;
+		    if (
+		        coords.x >= btnX &&
+		        coords.x <= btnX + btnWidth &&
+		        coords.y >= btnY &&
+		        coords.y <= btnY + btnHeight
+		    ) {
+		        this.initGame();
+		    }
+		    return;
+		}
+	    // Boton para reiniciar la partida
+	    const botonX = this.view.canvas.width - 193;
+	    const botonY = 15;
 
-    if (
-        coords.x >= botonX &&
-        coords.x <= botonX + 185 &&
-        coords.y >= botonY &&
-        coords.y <= botonY + 48
-    ) {
-        this.restartGame();
-        return;
-    }
+		if (coords.x >= botonX && coords.x <= botonX + 185 &&
+		    coords.y >= botonY && coords.y <= botonY + 48
+		) {
+		    this.restartGame();
+		    return;
+		}
 
-    // Comenzar partida
-    if (!this.gameStarted) {
-        this.initGame();
-        return;
-    }
+		// Comenzar partida
+		if (!this.gameStarted) {
+		    this.initGame();
+		    return;
+		}
 
-    // Si la partida termino, permitir reiniciar
-    // Si la partida terminó, permitir reiniciar en el botón central de game over
-    if (this.gameOver) {
-        const btnWidth = 220;
-        const btnHeight = 48;
-        const btnX = (this.view.canvas.width - btnWidth) / 2;
-        
-        // Calculamos la misma posición 'Y' centrada que usamos en la vista
-        const panelHeight = 200;
-        const panelY = (this.view.canvas.height - panelHeight) / 2 - 20;
-        const btnY = panelY + 105;
+		if (this.gameOver) {
+		    const btnWidth = 220;
+		    const btnHeight = 48;
+		    const btnX = (this.view.canvas.width - btnWidth) / 2;		  
+		    const panelHeight = 200;
+		    const panelY = (this.view.canvas.height - panelHeight) / 2 - 20;
+		    const btnY = panelY + 105;
 
-        if (
-            coords.x >= btnX &&
-            coords.x <= btnX + btnWidth &&
-            coords.y >= btnY &&
-            coords.y <= btnY + btnHeight
-        ) {
-            this.restartGame();
-        }
+	        if (coords.x >= btnX && coords.x <= btnX + btnWidth &&
+            	coords.y >= btnY && coords.y <= btnY + btnHeight
+		        ) {
+        		    this.restartGame();
+	        }
+	        return;
+	    }
 
-        return;
-    }
+		// Buscar la ficha seleccionada
+		for (let i = this.pegs.length - 1; i >= 0; i--) {
+		    if (this.pegs[i].isPointInside(coords.x, coords.y)) {
+		        this.selectedPeg = this.pegs[i];
+		        this.selectedPeg.isDragging = true;
 
-    // Buscar la ficha seleccionada
-    for (let i = this.pegs.length - 1; i >= 0; i--) {
-        if (this.pegs[i].isPointInside(coords.x, coords.y)) {
-            this.selectedPeg = this.pegs[i];
-            this.selectedPeg.isDragging = true;
+		        this.dragOffset.x = 0;
+		        this.dragOffset.y = 0;
 
-            this.dragOffset.x = 0;
-            this.dragOffset.y = 0;
+		        // Obtener movimientos validos de la ficha
+		        const validMoves = this.board.getValidMoves(this.selectedPeg, this.offsetX, this.offsetY, this.cellSize);
 
-            // Obtener movimientos validos de la ficha
-            const validMoves = this.board.getValidMoves(
-                this.selectedPeg,
-                this.offsetX,
-                this.offsetY,
-                this.cellSize
-            );
+		        this.hints = validMoves.map(m => ({
+		            x: m.x,
+		            y: m.y,
+		            radius: this.cellSize * 0.35
+		        }));
 
-            this.hints = validMoves.map(m => ({
-                x: m.x,
-                y: m.y,
-                radius: this.cellSize * 0.35
-            }));
-
-            this.currentValidMoves = validMoves;
-            break;
-        }
-    }
-}
+		        this.currentValidMoves = validMoves;
+		        break;
+		    }
+		}
+	}
 
     handleMouseMove(e) {
-    if (this.selectedPeg && this.selectedPeg.isDragging) {
-        const coords = this.getCanvasCoords(e);
+    	if (this.selectedPeg && this.selectedPeg.isDragging) {
+    	    const coords = this.getCanvasCoords(e);
 
-        this.selectedPeg.x = coords.x;
-        this.selectedPeg.y = coords.y;
-    }
-}
-
-    
+		    this.selectedPeg.x = coords.x;
+		    this.selectedPeg.y = coords.y;
+		}
+	}
 	
-handleMouseUp(e) {
-    if (!this.selectedPeg) return;
+	handleMouseUp(e) {
+	    if (!this.selectedPeg) return;
 
-    const peg = this.selectedPeg;
-    const coords = this.getCanvasCoords(e);
-    let targetMove = null;
+			const peg = this.selectedPeg;
+			const coords = this.getCanvasCoords(e);
+			let targetMove = null;
 
-    for (const move of this.currentValidMoves) {
-        const dist = Math.hypot(
-            coords.x - move.x,
-            coords.y - move.y
-        );
+			for (const move of this.currentValidMoves) {
+				const dist = Math.hypot(coords.x - move.x, coords.y - move.y);
 
-        if (dist < this.cellSize * 0.4) {
-            targetMove = move;
-            break;
-        }
-    }
+				if (dist < this.cellSize * 0.4) {
+				    targetMove = move;
+				    break;
+				}
+			}
 
-    if (targetMove) {
-        this.executeMove(peg, targetMove);
-    } else {
-        peg.resetPosition();
-    }
+	    if (targetMove) {
+	        this.executeMove(peg, targetMove);
+	    } else {
+	        peg.resetPosition();
+	    }
 
-    peg.isDragging = false;
-    this.selectedPeg = null;
-    this.hints = [];
-    this.currentValidMoves = [];
+	    peg.isDragging = false;
+	    this.selectedPeg = null;
+		this.hints = [];
+		this.currentValidMoves = [];
 
-    this.checkGameStatus();
-}
+		this.checkGameStatus();
+	}
 
+	executeMove(peg, move) {
+		// 1. Actualizar la matriz del tablero
+		this.board.grid[peg.row][peg.col] = 0;
+		this.board.grid[move.midRow][move.midCol] = 0;
+		this.board.grid[move.toRow][move.toCol] = 1;
 
+		// 2. Eliminar la ficha que fue saltada
+		this.pegs = this.pegs.filter(p =>
+		    !(p.row === move.midRow && p.col === move.midCol)
+		);
 
-executeMove(peg, move) {
-    // 1. Actualizar la matriz del tablero
-    this.board.grid[peg.row][peg.col] = 0;
-    this.board.grid[move.midRow][move.midCol] = 0;
-    this.board.grid[move.toRow][move.toCol] = 1;
+		// 3. Actualizar la ficha que se movió
+		peg.row = move.toRow;
+		peg.col = move.toCol;
 
-    // 2. Eliminar la ficha que fue saltada
-    this.pegs = this.pegs.filter(p =>
-        !(p.row === move.midRow && p.col === move.midCol)
-    );
+		peg.x = move.x;
+		peg.y = move.y;
 
-    // 3. Actualizar la ficha que se movió
-    peg.row = move.toRow;
-    peg.col = move.toCol;
-
-    peg.x = move.x;
-    peg.y = move.y;
-
-    peg.originalX = move.x;
-    peg.originalY = move.y;
-}
-
-    
+		peg.originalX = move.x;
+		peg.originalY = move.y;
+	}
 	
 	checkGameStatus() {
-    if (this.gameOver || !this.gameStarted) return;
+	    if (this.gameOver || !this.gameStarted) return;
 
-    const totalPegs = this.countTotalPegs();
-    const ganoCompletamente =
-        totalPegs === 1 && this.board.grid[3][3] === 1;
+			const totalPegs = this.countTotalPegs();
+			const ganoCompletamente = totalPegs === 1 && this.board.grid[3][3] === 1;
 
-    let hasMoves = false;
+			let hasMoves = false;
 
-    for (const peg of this.pegs) {
-        if (
-            this.board.getValidMoves(
-                peg,
-                this.offsetX,
-                this.offsetY,
-                this.cellSize
-            ).length > 0
-        ) {
-            hasMoves = true;
-            break;
-        }
-    }
+			for (const peg of this.pegs) {
+				if (this.board.getValidMoves(peg, this.offsetX, this.offsetY, this.cellSize).length > 0) {
+				    hasMoves = true;
+				    break;
+				}
+			}
 
-    if (ganoCompletamente) {
-        this.endGame("¡GANASTE!");
-    } else if (this.timeLeft <= 0) {
-        this.endGame("¡SE ACABÓ EL TIEMPO!");
-    } else if (!hasMoves) {
-        this.endGame("¡NO HAY MÁS MOVIMIENTOS!");
-    }
-}
-
+		if (ganoCompletamente) {
+		    this.endGame("¡GANASTE!");
+		} else if (this.timeLeft <= 0) {
+		    this.endGame("¡SE ACABÓ EL TIEMPO!");
+		} else if (!hasMoves) {
+		    this.endGame("¡NO HAY MÁS MOVIMIENTOS!");
+		}
+	}
 
     endGame(message) {
-    this.gameOver = true;
-    this.endMessage = message;
+		this.gameOver = true;
+		this.endMessage = message;
 
-    clearInterval(this.timerInterval);
-}
+		clearInterval(this.timerInterval);
+	}
     
 	startTimer() {
         clearInterval(this.timerInterval);
 
 	    this.timerInterval = setInterval(() => {
-		if (this.timeLeft > 0) {
-		    this.timeLeft--;
-		}
+			if (this.timeLeft > 0) {
+				this.timeLeft--;
+			}
 
-		if (this.timeLeft <= 0) {
-		    this.checkGameStatus();
-		}
+			if (this.timeLeft <= 0) {
+				this.checkGameStatus();
+			}
 	    }, 1000);
 	}
-
 
     countTotalPegs() {
         return this.pegs.length;
     }
 
     countAvailableMoves() {
-    let totalMoves = 0;
+		let totalMoves = 0;
 
-    for (const peg of this.pegs) {
-        totalMoves += this.board.getValidMoves(
-            peg,
-            this.offsetX,
-            this.offsetY,
-            this.cellSize
-        ).length;
+		for (const peg of this.pegs) {
+		    totalMoves += this.board.getValidMoves(peg,this.offsetX,this.offsetY,this.cellSize).length;
+    	}
+
+	    return totalMoves;
     }
 
-    return totalMoves;
-    }
-
-    
 	loop(timestamp) {
-    this.view.clear();
+		this.view.clear();
 
-    this.board.draw(
-        this.view.ctx,
-        this.offsetX,
-        this.offsetY,
-        this.cellSize
-    );
+		this.board.draw(this.view.ctx,this.offsetX,this.offsetY,this.cellSize);
 
-    this.view.drawPegs(this.pegs, this.selectedPeg);
-    this.view.drawHints(this.hints, timestamp);
-    this.view.drawUI(
-        this.timeLeft,
-        this.gameOver,
-        this.countTotalPegs(),
-        this.endMessage,
-        this.countAvailableMoves()
-    );
+		this.view.drawPegs(this.pegs, this.selectedPeg, this.spriteImg);
+		this.view.drawHints(this.hints, timestamp);
+		this.view.drawUI(this.timeLeft,this.gameOver,this.countTotalPegs(),this.endMessage,this.countAvailableMoves());
 
-    if (!this.gameStarted) {
-    this.view.drawStartScreen();
-}
+	    if (!this.gameStarted) {
+		    this.view.drawStartScreen();
+		}
 
-    requestAnimationFrame((t) => this.loop(t));
-}
+	    requestAnimationFrame((t) => this.loop(t));
+	}
 }
