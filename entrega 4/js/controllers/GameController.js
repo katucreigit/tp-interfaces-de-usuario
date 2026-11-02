@@ -1,9 +1,11 @@
 /** Controlador principal que conecta los eventos del usuario con los modelos y vistas. */
 class GameController {
-    constructor(canvasId, spriteImg) {
+    constructor(canvasId, sprites) {
 	this.view = new GameView(canvasId);
 	this.board = new Board();
-	this.spriteImg = spriteImg;
+	this.sprites = sprites; // Guardamos el array de dos imágenes
+    this.selectedSpriteIndex = 0; // Por defecto la primera opción
+    this.spriteImg = this.sprites[this.selectedSpriteIndex];
 
         this.cellSize = 0;
         this.offsetX = 0;
@@ -17,6 +19,7 @@ class GameController {
         this.timeLeft = 300;
         this.gameOver = false;
         this.gameStarted = false;
+	this.selectingPeg = false;
         this.endMessage = "";
         this.hints = [];
 
@@ -37,11 +40,11 @@ class GameController {
 		this.gameOver = false;
 		this.gameStarted = true;
 		this.endMessage = "";
-		
 		this.inicio = null;
 		
+		this.spriteImg = this.sprites[this.selectedSpriteIndex];
+		
 		this.createPegs();
-		this.startTimer();
 	}
 
     restartGame() {
@@ -96,25 +99,48 @@ class GameController {
 	    };
 	}
 
-    handleMouseDown(e) {    
-	    const coords = this.getCanvasCoords(e);
+handleMouseDown(e) {    
+        const coords = this.getCanvasCoords(e);
 
-	    if (!this.gameStarted) {
-	        const btnWidth = 240;
-		    const btnHeight = 55;
-		    const btnX = (this.view.canvas.width - btnWidth) / 2;
-		    const btnY = 250;
+        if (!this.gameStarted) {
+            if (!this.selectingPeg) {
+                // --- PASO 1: Clic en el botón COMENZAR ---
+                const btnWidth = 240;
+                const btnHeight = 55;
+                const btnX = (this.view.canvas.width - btnWidth) / 2;
+                const btnY = 280; // (Alineado con el Y que usa la vista)
 
-		    if (
-		        coords.x >= btnX &&
-		        coords.x <= btnX + btnWidth &&
-		        coords.y >= btnY &&
-		        coords.y <= btnY + btnHeight
-		    ) {
-		        this.initGame();
-		    }
-		    return;
-		}
+                if (
+                    coords.x >= btnX &&
+                    coords.x <= btnX + btnWidth &&
+                    coords.y >= btnY &&
+                    coords.y <= btnY + btnHeight
+                ) {
+                    this.selectingPeg = true;
+                }
+            } else {
+                // --- PASO 2: Clic en las fichas para elegir ---
+                const opt1X = this.view.canvas.width / 2 - 60;
+                const opt2X = this.view.canvas.width / 2 + 60;
+                const optY = 370; // Coordenadas exactas que usás en drawStartScreen
+                const radius = 35;
+
+                if (Math.hypot(coords.x - opt1X, coords.y - optY) <= radius) {
+                    this.selectedSpriteIndex = 0;
+                    this.spriteImg = this.sprites[0];
+                    this.initGame(); // ¡Arranca el juego!
+                    return;
+                }
+                if (Math.hypot(coords.x - opt2X, coords.y - optY) <= radius) {
+                    this.selectedSpriteIndex = 1;
+                    this.spriteImg = this.sprites[1];
+                    this.initGame(); // ¡Arranca el juego!
+                    return;
+                }
+            }
+            return;
+        }
+
 	    // Boton para reiniciar la partida
 	    const botonX = this.view.canvas.width - 193;
 	    const botonY = 15;
@@ -206,26 +232,24 @@ class GameController {
 	}
 
 	executeMove(peg, move) {
-		// 1. Actualizar la matriz del tablero
-		this.board.grid[peg.row][peg.col] = 0;
-		this.board.grid[move.midRow][move.midCol] = 0;
-		this.board.grid[move.toRow][move.toCol] = 1;
+        // 1. Actualizamos la matriz del tablero
+        this.board.grid[peg.row][peg.col] = 0;
+        this.board.grid[move.midRow][move.midCol] = 0;
+        this.board.grid[move.toRow][move.toCol] = 1;
 
-		// 2. Eliminar la ficha que fue saltada
-		this.pegs = this.pegs.filter(p =>
-		    !(p.row === move.midRow && p.col === move.midCol)
-		);
+        // 2. Eliminamos del array de fichas la que estaba en medio (la que fue comida)
+        this.pegs = this.pegs.filter(p => 
+            !(p.row === move.midRow && p.col === move.midCol)
+        );
 
-		// 3. Actualizar la ficha que se movió
-		peg.row = move.toRow;
-		peg.col = move.toCol;
-
-		peg.x = move.x;
-		peg.y = move.y;
-
-		peg.originalX = move.x;
-		peg.originalY = move.y;
-	}
+        // 3. Actualizamos la posición de la ficha que se movió
+        peg.row = move.toRow;
+        peg.col = move.toCol;
+        peg.x = move.x;
+        peg.y = move.y;
+        peg.originalX = move.x;
+        peg.originalY = move.y;
+    }
 	
 	checkGameStatus() {
 	    if (this.gameOver || !this.gameStarted) return;
@@ -296,18 +320,20 @@ loop(ahora) {
     // 1. Limpiar pantalla
     this.view.clear();
 
-    // 2. Dibujar elementos del juego
-    this.view.drawBoard(this.board.grid, this.offsetX, this.offsetY, this.cellSize);
-    this.view.drawPegs(this.pegs, this.selectedPeg, this.spriteImg);
-    this.view.drawHints(this.hints, ahora);
+// 2. Dibujar elementos del juego
+this.view.drawBoard(this.board.grid, this.offsetX, this.offsetY, this.cellSize);
+this.view.drawPegs(this.pegs, this.selectedPeg, this.spriteImg, this.selectedSpriteIndex); 
+this.view.drawHints(this.hints, ahora);
     
     // 3. Dibujar interfaz (UI)
     this.view.drawUI(this.timeLeft, this.gameOver, this.countTotalPegs(), this.endMessage, this.countAvailableMoves());
 
     // 4. Pantalla de inicio si no arrancó
-    if (!this.gameStarted) {
-        this.view.drawStartScreen();
-    }
+if (!this.gameStarted) {
+    this.view.drawStartScreen(this.sprites, this.selectingPeg);
+    requestAnimationFrame((t) => this.loop(t));
+    return;
+}
 
     // Llamada recursiva
     requestAnimationFrame((t) => this.loop(t));

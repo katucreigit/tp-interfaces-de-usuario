@@ -4,10 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Usamos Promise.all para esperar a que la(s) imagen(es) estén listas
     Promise.all([
-        cargarImagen("img/peg/ficha.jpg") // Podés agregar más si manejas varias imágenes
-    ]).then(([spriteImg]) => {
+        cargarImagen("img/peg/ficha.jpg"), 
+        cargarImagen("img/peg/ficha2.jpg")
+    ]).then(([spriteImg1, spriteImg2]) => {
         // Una vez que cargó la imagen, recién ahí instanciamos el controlador del juego
-        const juego = new GameController("canvasJuego", spriteImg);
+        const juego = new GameController("canvasJuego", [spriteImg1, spriteImg2]);
     }).catch(error => {
         console.error("No se pudo cargar la imagen de la ficha:", error);
     });

@@ -39,7 +39,7 @@ class Board {
                     toRow: targetR,
                     toCol: targetC,
                     midRow: midR,
-                    midC: midC,
+                    midCol: midC,
                     x: hintX,
                     y: hintY
                 });
