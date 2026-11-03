@@ -467,7 +467,7 @@ button{
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 0;
 }
 
 /* CANVAS EN PANTALLA COMPLETA */
@@ -476,24 +476,31 @@ button{
     justify-content: center;
     align-items: center;
     width: 100%;
-    flex: 1;
-    min-height: 0;
+    flex: none;
 }
 
+/* CANVAS */
 #contenedorJuegoCompleto:fullscreen #canvasJuego {
     width: min(100%, calc((100vh - 130px) * 1.8));
     height: auto;
     max-height: calc(100vh - 130px);
     display: block;
-    margin: auto;
+    margin: 0 auto;
 }
 
-/* BARRA DE HERRAMIENTAS EN PANTALLA COMPLETA */
+/* BARRA EN PANTALLA COMPLETA */
 #contenedorJuegoCompleto:fullscreen .barra-juego {
     width: 100%;
     max-width: none;
     box-sizing: border-box;
-    align-self: stretch;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+#contenedorJuegoCompleto:fullscreen #botonPantallaCompleta[data-tooltip="Achicar pantalla"]::after {
+    right: 0;
+    left: auto;
+    transform: translateX(-20px);
 }
 
 /*descripcion*/

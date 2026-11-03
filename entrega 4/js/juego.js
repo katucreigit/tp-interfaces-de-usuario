@@ -297,21 +297,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-     // PANTALLA COMPLETA DEL JUEGO
-    const botonPantallaCompleta = document.querySelector(
-        '.btn-barra[data-tooltip="Agrandar pantalla"]'
-    );
-
-    const contenedorJuegoCompleto = document.getElementById("contenedorJuegoCompleto");
+    // PANTALLA COMPLETA DEL JUEGO
+    const botonPantallaCompleta = document.getElementById("botonPantallaCompleta"),
+    contenedorJuegoCompleto = document.getElementById("contenedorJuegoCompleto");
 
     if (botonPantallaCompleta && contenedorJuegoCompleto) {
-        botonPantallaCompleta.addEventListener("click", () => {
-            if (!document.fullscreenElement) {
-                contenedorJuegoCompleto.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        });
+
+    botonPantallaCompleta.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+            contenedorJuegoCompleto.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+        const icono = botonPantallaCompleta.querySelector("i");
+
+        if (document.fullscreenElement) {
+            // Estamos en pantalla completa
+            icono.className = "fa-solid fa-down-left-and-up-right-to-center";
+            botonPantallaCompleta.setAttribute("data-tooltip", "Achicar pantalla");
+        } else {
+            // Volvimos a pantalla normal
+            icono.className = "fa-solid fa-up-right-and-down-left-from-center";
+            botonPantallaCompleta.setAttribute("data-tooltip", "Agrandar pantalla");
+        }
+    });
     }
 
     // LIKES
