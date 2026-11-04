@@ -1,17 +1,16 @@
-/** Clase encargada exclusivamente del renderizado en el Canvas. */
 class GameView {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
     }
-
+	//limpia el canvas y vuelve a dibujar el fondo
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.fillStyle = "#82ACD9";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
-
+	//dibuja la pantalla inicial y el selector de fichas
     drawStartScreen(sprites, selectingPeg) {
         const ctx = this.ctx;
         ctx.save();
@@ -101,7 +100,6 @@ class GameView {
                 }
                 ctx.restore();
 
-                // Borde personalizado
                 ctx.save();
                 ctx.beginPath();
                 ctx.arc(optX, optY, radius, 0, Math.PI * 2);
@@ -114,7 +112,7 @@ class GameView {
 
         ctx.restore();
     }
-
+	//dibujar visualmente el tablero de juego
     drawBoard(grid, offsetX, offsetY, cellSize) {
         const ctx = this.ctx;
         for (let row = 0; row < 7; row++) {
@@ -143,16 +141,10 @@ class GameView {
             }
         }
     }
-
+	//dibuja cada ficha individual
     dibujarFicha(peg, spriteImg, selectedSpriteIndex = 0) {
         const ctx = this.ctx;
         ctx.save();
-
-        if (peg.isDragging) {
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetY = 10;
-        }
 
         // Crear el recorte circular
         ctx.beginPath();
@@ -160,13 +152,8 @@ class GameView {
         ctx.closePath();
         ctx.clip();
 
-        // Dibujar la imagen dentro del círculo o un color plano de respaldo
         if (spriteImg && spriteImg.complete && spriteImg.naturalWidth > 0) {
-            ctx.drawImage(
-                spriteImg, 
-                peg.crop.sx, peg.crop.sy, peg.crop.sWidth, peg.crop.sHeight, 
-                peg.x - peg.radius, peg.y - peg.radius, peg.radius * 2, peg.radius * 2
-            );
+            ctx.drawImage(spriteImg,  peg.crop.sx, peg.crop.sy, peg.crop.sWidth, peg.crop.sHeight,  peg.x - peg.radius, peg.y - peg.radius, peg.radius * 2, peg.radius * 2);
         } else {
             ctx.fillStyle = '#E2231A';
             ctx.fillRect(peg.x - peg.radius, peg.y - peg.radius, peg.radius * 2, peg.radius * 2);
@@ -178,7 +165,6 @@ class GameView {
         const borderColors = ['#64B5F6', '#B71C1C'];
         const borderColor = borderColors[selectedSpriteIndex] || '#64B5F6';
 
-        // Dibujar el borde de la ficha con su color correspondiente
         ctx.save();
         ctx.beginPath();
         ctx.arc(peg.x, peg.y, peg.radius, 0, Math.PI * 2);
@@ -187,19 +173,19 @@ class GameView {
         ctx.stroke();
         ctx.restore();
     }
-
+	//se encarga de dibujar todas las fichas que hay en el tablero
     drawPegs(pegs, selectedPeg, spriteImg, selectedSpriteIndex = 0) {
         pegs.forEach(peg => {
             if (peg !== selectedPeg) {
                 this.dibujarFicha(peg, spriteImg, selectedSpriteIndex);
             }
         });
-
+		//si esta seleccionada la dibuja al final, para que quede por encima de las demas
         if (selectedPeg) {
             this.dibujarFicha(selectedPeg, spriteImg, selectedSpriteIndex);
         }
     }
-
+	//dibuja las sugerencias de movimientos disponibles
     drawHints(hints, time) {
         const ctx = this.ctx;
 
@@ -230,17 +216,18 @@ class GameView {
             ctx.restore();
         }
     }
-
+	//se encarga de dibujar toda la interfaz durante la partida
     drawUI(timeLeft, gameOver, totalPegs, endMessage, availableMoves) {
         const ctx = this.ctx;
         ctx.save();
 
+		//convierte seg a minutos
         const mins = Math.floor(timeLeft / 60);
         const secs = timeLeft % 60;
         const secsStr = secs < 10 ? "0" + secs : secs;
 
         ctx.textAlign = "center";
-
+		//evita repetir el mismo código cada vez que necesitamos dibujar una tarjeta
         const dibujarTarjeta = (x, y, ancho, alto) => {
             ctx.fillStyle = "rgba(14,30,42, 0.75)";
             ctx.beginPath();
