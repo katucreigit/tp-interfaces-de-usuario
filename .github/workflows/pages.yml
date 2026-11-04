@@ -30,6 +30,7 @@ jobs:
           mkdir -p _site/1
           mkdir -p _site/2
           mkdir -p _site/3
+          mkdir -p _site/4
 
           # ENTREGA 1
           cp "entrega 1/index.html" _site/1/index.html
@@ -40,27 +41,28 @@ jobs:
           cp -r "entrega 2/js" _site/2/
           cp -r "entrega 2/img" _site/2/
 
-          # ENTREGA 3: comprobar HTML
-          if [ ! -d "entrega 3/" ]; then
-            echo "ERROR: No existe entrega 3/html"
+          # ENTREGA 3
+          if [ ! -d "entrega 3" ]; then
+            echo "ERROR: No existe entrega 3"
             exit 1
           fi
 
-          # ENTREGA 3: copiar HTML
           cp -r "entrega 3/." _site/3/
 
-          # ENTREGA 3: copiar recursos si existen
-          for carpeta in css js img; do
-            if [ -d "entrega 3/$carpeta" ]; then
-              cp -r "entrega 3/$carpeta" _site/3/
-            else
-              echo "AVISO: No existe entrega 3/$carpeta"
-            fi
-          done
+          # ENTREGA 4
+          if [ ! -d "entrega 4" ]; then
+            echo "ERROR: No existe entrega 4"
+            exit 1
+          fi
 
-          # Mostrar archivos publicados para verificar
+          cp -r "entrega 4/." _site/4/
+
+          # Verificar archivos publicados
           echo "Archivos de la entrega 3:"
           find _site/3 -type f
+
+          echo "Archivos de la entrega 4:"
+          find _site/4 -type f
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
