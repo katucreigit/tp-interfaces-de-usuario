@@ -160,13 +160,14 @@ class GameController {
 			    return;
 			}
 
+		
 			//Buscar la ficha seleccionada
 			for (let i = this.pegs.length - 1; i >= 0; i--) {
 				if (this.pegs[i].isPointInside(coords.x, coords.y)) {
 				    this.selectedPeg = this.pegs[i];
 				    this.selectedPeg.isDragging = true;
 				  
-				    const validMoves = this.board.getValidMoves(this.selectedPeg, this.offsetX, this.offsetY, this.cellSize);
+				    const validMoves = this.board.getValidMoves(this.selectedPeg.col, this.selectedPeg.row, this.offsetX, this.offsetY, this.cellSize, [], []);
 
 				    this.hints = validMoves.map(m => ({
 				        x: m.x,
@@ -206,7 +207,10 @@ class GameController {
 			}
 
 	    if (targetMove) {
-	        this.executeMove(peg, targetMove);
+			for(let t of targetMove.prevMoves){
+				this.executeMove(peg, t);
+			}
+	        
 	    } else {
 	        peg.resetPosition();
 	    }
@@ -246,7 +250,7 @@ class GameController {
 			let hasMoves = false;
 
 			for (const peg of this.pegs) {
-				if (this.board.getValidMoves(peg, this.offsetX, this.offsetY, this.cellSize).length > 0) {
+				if (this.board.getValidMoves(peg.col, peg.row, this.offsetX, this.offsetY, this.cellSize, [], []).length > 0) {
 				    hasMoves = true;
 				    break;
 				}
@@ -275,7 +279,7 @@ class GameController {
 		let totalMoves = 0;
 
 		for (const peg of this.pegs) {
-		    totalMoves += this.board.getValidMoves(peg,this.offsetX,this.offsetY,this.cellSize).length;
+		    totalMoves += this.board.getValidMoves(peg.col, peg.row,this.offsetX,this.offsetY,this.cellSize, [], []).length;
     	}
 
 	    return totalMoves;
