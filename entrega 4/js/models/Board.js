@@ -5,7 +5,7 @@ class Board {
             [-1, -1,  1,  1,  1, -1, -1],
             [-1, -1,  1,  1,  1, -1, -1],
             [ 1,  1,  1,  1,  1,  1,  1],
-            [ 1,  1,  0,  1,  0,  1,  1],
+            [ 1,  1,  0,  1,  0,  1,  0],
             [ 1,  1,  1,  1,  1,  1,  1],
             [-1, -1,  1,  1,  1, -1, -1],
             [-1, -1,  1,  1,  1, -1, -1]
@@ -19,7 +19,7 @@ class Board {
         return false;
     }
 	//recibe una ficha y calcula cuántos y cuáles movimientos válidos puede hacer(saltando sobre otra ficha hacia un espacio vacío)
-    getValidMoves(col, row, offsetX, offsetY, cellSize, prevMoves, posicionesVisitadas) {
+    getValidMoves(col, row, prevMoves, posicionesVisitadas) {
         posicionesVisitadas.push({c: col,
                                 r: row}
                             );
@@ -41,27 +41,26 @@ class Board {
             if (targetR >= 0 && targetR < 7 && targetC >= 0 && targetC < 7 &&
                 midR >= 0 && midR < 7 && midC >= 0 && midC < 7 &&
                 this.grid[targetR][targetC] === 0 && this.grid[midR][midC] === 1 &&
-                !this.isVisited(posicionesVisitadas, targetC, targetR)) {
-                
-                const hintX = offsetX + targetC * cellSize + cellSize / 2;
-                const hintY = offsetY + targetR * cellSize + cellSize / 2;
+                !this.isVisited(posicionesVisitadas, targetC, targetR)) {                
 
                 const currentMove={
                     toRow: targetR,
                     toCol: targetC,
                     midRow: midR,
                     midCol: midC,
-                    x: hintX,
-                    y: hintY,
                     prevMoves: prevMoves
                 };
                 moves.push(currentMove);
                 const prevMovesCopy= [...prevMoves];
                 prevMovesCopy.push(currentMove);
 
-                this.getValidMoves(targetC, targetR, hintX , hintY , cellSize, prevMovesCopy, posicionesVisitadas);
+                const subMoves = this.getValidMoves(targetC, targetR, prevMovesCopy, posicionesVisitadas);
+                for (let j = 0; j < subMoves.length; j++) {
+                    moves.push(subMoves[j]);
+                }
             }
         }
+        posicionesVisitadas.pop();
         return moves;
     }
 }

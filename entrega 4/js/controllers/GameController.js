@@ -167,15 +167,15 @@ class GameController {
 				    this.selectedPeg = this.pegs[i];
 				    this.selectedPeg.isDragging = true;
 				  
-				    const validMoves = this.board.getValidMoves(this.selectedPeg.col, this.selectedPeg.row, this.offsetX, this.offsetY, this.cellSize, [], []);
-
+				    const validMoves = this.board.getValidMoves(this.selectedPeg.col, this.selectedPeg.row, [], []);
+this.currentValidMoves = validMoves;
 				    this.hints = validMoves.map(m => ({
-				        x: m.x,
-				        y: m.y,
+				        x: this.offsetX + m.toCol * this.cellSize + this.cellSize / 2,
+    y: this.offsetY + m.toRow * this.cellSize + this.cellSize / 2,
 				        radius: this.cellSize * 0.35
 				    }));
 
-				    this.currentValidMoves = validMoves;
+				    
 				    break;
 				}
 			}
@@ -197,19 +197,29 @@ class GameController {
 			const coords = this.getCanvasCoords(e);
 			let targetMove = null;
 
-			for (const move of this.currentValidMoves) {
-				const dist = Math.hypot(coords.x - move.x, coords.y - move.y); //por cada movimiento calculamos la distancia entre el lugar donde soltamos el mouse y el destino
+			for (let i = 0; i < this.currentValidMoves.length; i++) {
+    let move = this.currentValidMoves[i];
+            
+        // Usamos move.x y move.y directamente sin vueltas
+        const dist = Math.hypot(coords.x - move.x, coords.y - move.y); 
 
-				if (dist < this.cellSize * 0.4) {
-				    targetMove = move;
-				    break;
-				}
+        if (dist < this.cellSize * 0.4) {
+            targetMove = move;
+            break;
+        }
 			}
 
 	    if (targetMove) {
-			for(let t of targetMove.prevMoves){
-				this.executeMove(peg, t);
-			}
+			let camino = [];
+            for (let i = 0; i < targetMove.prevMoves.length; i++) {
+                camino.push(targetMove.prevMoves[i]);
+            }
+            camino.push(targetMove);
+
+            // Ejecutamos cada salto uno por uno para que se coman todas las fichas del camino
+            for (let i = 0; i < camino.length; i++) {
+                this.executeMove(peg, camino[i]);
+            }
 	        
 	    } else {
 	        peg.resetPosition();
@@ -250,7 +260,7 @@ class GameController {
 			let hasMoves = false;
 
 			for (const peg of this.pegs) {
-				if (this.board.getValidMoves(peg.col, peg.row, this.offsetX, this.offsetY, this.cellSize, [], []).length > 0) {
+				if (this.board.getValidMoves(peg.col, peg.row, [], []).length > 0) {
 				    hasMoves = true;
 				    break;
 				}
@@ -279,7 +289,7 @@ class GameController {
 		let totalMoves = 0;
 
 		for (const peg of this.pegs) {
-		    totalMoves += this.board.getValidMoves(peg.col, peg.row,this.offsetX,this.offsetY,this.cellSize, [], []).length;
+		    totalMoves += this.board.getValidMoves(peg.col, peg.row, [], []).length;
     	}
 
 	    return totalMoves;
