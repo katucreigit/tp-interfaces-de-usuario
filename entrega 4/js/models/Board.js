@@ -54,6 +54,7 @@ class Board {
                 const prevMovesCopy= [...prevMoves];
                 prevMovesCopy.push(currentMove);
 
+                //guarda los movimientos posibles que se encuentran a partir del movimiento actual
                 const siguientesMovimientos = this.getValidMoves(targetC, targetR, prevMovesCopy, posicionesVisitadas);
                 for (let j = 0; j < siguientesMovimientos.length; j++) {
                     moves.push(siguientesMovimientos[j]);

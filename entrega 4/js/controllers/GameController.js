@@ -202,6 +202,7 @@ class GameController {
 			const coords = this.getCanvasCoords(e);
 			let targetMove = null;
 
+			//busca si el mouse fue soltado cerca de alguna posición de destino válida
 			for (let i = 0; i < this.currentValidMoves.length; i++) {
 				let move = this.currentValidMoves[i];
 				const pos = this.getPixelCoords(move.toRow, move.toCol); 
@@ -215,6 +216,7 @@ class GameController {
 			}
 
 	    if (targetMove) {
+			//reconstruye la secuencia completa de movimientos hasta llegar al destino seleccionado
 			const camino = [...targetMove.prevMoves];
 		    camino.push(targetMove);
 
