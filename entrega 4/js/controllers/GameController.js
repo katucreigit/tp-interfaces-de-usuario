@@ -167,31 +167,23 @@ class GameController {
 				this.selectedPeg = this.pegs[i];
 				this.selectedPeg.isDragging = true;
 			  
-				const validMoves = this.board.getValidMoves(
-            this.selectedPeg.col,
-            this.selectedPeg.row,
-            [],
-            []
-        );
+				const validMoves = this.board.getValidMoves(this.selectedPeg.col, this.selectedPeg.row, [], []);
 
-        this.currentValidMoves = validMoves;
+		        this.currentValidMoves = validMoves;
 				
-						this.hints = validMoves.map(m => {
-            const pos = this.getPixelCoords(m.toRow, m.toCol);
+				this.hints = validMoves.map(m => {
+					const pos = this.getPixelCoords(m.toRow, m.toCol);
 
-            return {
-                x: pos.x,
-                y: pos.y,
-                radius: this.cellSize * 0.35
-            };
-        });
-
-						
-						break;
-					}
-				   }
-		  }
-
+		            return {
+        		        x: pos.x,
+        		        y: pos.y,
+        		        radius: this.cellSize * 0.35
+        		    };
+        		});
+				break;
+			}
+		}
+	}
 		
 	//se ejecuta cuando el mouse se mueve
     handleMouseMove(e) {
@@ -211,31 +203,25 @@ class GameController {
 			let targetMove = null;
 
 			for (let i = 0; i < this.currentValidMoves.length; i++) {
-        let move = this.currentValidMoves[i];
-        
-        // Calculamos la posición en píxeles del destino al vuelo con la función helper
-        const pos = this.getPixelCoords(move.toRow, move.toCol);
-        
-        const dist = Math.hypot(coords.x - pos.x, coords.y - pos.y); 
+				let move = this.currentValidMoves[i];
+				const pos = this.getPixelCoords(move.toRow, move.toCol); 
+				
+				const dist = Math.hypot(coords.x - pos.x, coords.y - pos.y); 
 
-        if (dist < this.cellSize * 0.4) {
-            targetMove = move;
-            break;
-        }
-    }
+				if (dist < this.cellSize * 0.4) {
+				    targetMove = move;
+				    break;
+				}
+			}
 
 	    if (targetMove) {
-			let camino = [];
-            for (let i = 0; i < targetMove.prevMoves.length; i++) {
-                camino.push(targetMove.prevMoves[i]);
-            }
-            camino.push(targetMove);
+			const camino = [...targetMove.prevMoves];
+		    camino.push(targetMove);
 
-            // Ejecutamos cada salto uno por uno para que se coman todas las fichas del camino
-            for (let i = 0; i < camino.length; i++) {
-                this.executeMove(peg, camino[i]);
-            }
-	        
+		    for (const move of camino) {
+		        this.executeMove(peg, move);
+		    }
+		    	        
 	    } else {
 	        peg.resetPosition();
 	    }
@@ -248,11 +234,11 @@ class GameController {
 		this.checkGameStatus();
 	}
 	getPixelCoords(row, col) {
-    return {
-        x: this.offsetX + col * this.cellSize + this.cellSize / 2,
-        y: this.offsetY + row * this.cellSize + this.cellSize / 2
-    };
-}
+		return {
+		    x: this.offsetX + col * this.cellSize + this.cellSize / 2,
+		    y: this.offsetY + row * this.cellSize + this.cellSize / 2
+		};
+	}
 	//realiza el movimiento cuando el jugador soltó la ficha en una posición válida, actualiza el tablero y el arreglo de fichas
 	executeMove(peg, move) {
         this.board.grid[peg.row][peg.col] = 0;
@@ -265,14 +251,14 @@ class GameController {
         );
 
         peg.row = move.toRow;
-    peg.col = move.toCol;
+	    peg.col = move.toCol;
 
-    const pos = this.getPixelCoords(move.toRow, move.toCol);
+	    const pos = this.getPixelCoords(move.toRow, move.toCol);
 
-    peg.x = pos.x;
-    peg.y = pos.y;
-    peg.originalX = pos.x;
-    peg.originalY = pos.y;
+	    peg.x = pos.x;
+	    peg.y = pos.y;
+	    peg.originalX = pos.x;
+	    peg.originalY = pos.y;
     }
 	//comprueba si la partida terminó
 	checkGameStatus() {
