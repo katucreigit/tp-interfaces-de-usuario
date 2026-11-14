@@ -54,9 +54,9 @@ class Board {
                 const prevMovesCopy= [...prevMoves];
                 prevMovesCopy.push(currentMove);
 
-                const subMoves = this.getValidMoves(targetC, targetR, prevMovesCopy, posicionesVisitadas);
-                for (let j = 0; j < subMoves.length; j++) {
-                    moves.push(subMoves[j]);
+                const siguientesMovimientos = this.getValidMoves(targetC, targetR, prevMovesCopy, posicionesVisitadas);
+                for (let j = 0; j < siguientesMovimientos.length; j++) {
+                    moves.push(siguientesMovimientos[j]);
                 }
             }
         }

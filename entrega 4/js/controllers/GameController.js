@@ -162,24 +162,37 @@ class GameController {
 
 		
 			//Buscar la ficha seleccionada
-			for (let i = this.pegs.length - 1; i >= 0; i--) {
-				if (this.pegs[i].isPointInside(coords.x, coords.y)) {
-				    this.selectedPeg = this.pegs[i];
-				    this.selectedPeg.isDragging = true;
-				  
-				    const validMoves = this.board.getValidMoves(this.selectedPeg.col, this.selectedPeg.row, [], []);
-this.currentValidMoves = validMoves;
-				    this.hints = validMoves.map(m => ({
-				        x: this.offsetX + m.toCol * this.cellSize + this.cellSize / 2,
-    y: this.offsetY + m.toRow * this.cellSize + this.cellSize / 2,
-				        radius: this.cellSize * 0.35
-				    }));
+		   for (let i = this.pegs.length - 1; i >= 0; i--) {
+			if (this.pegs[i].isPointInside(coords.x, coords.y)) {
+				this.selectedPeg = this.pegs[i];
+				this.selectedPeg.isDragging = true;
+			  
+				const validMoves = this.board.getValidMoves(
+            this.selectedPeg.col,
+            this.selectedPeg.row,
+            [],
+            []
+        );
 
-				    
-				    break;
-				}
-			}
-		}
+        this.currentValidMoves = validMoves;
+				
+						this.hints = validMoves.map(m => {
+            const pos = this.getPixelCoords(m.toRow, m.toCol);
+
+            return {
+                x: pos.x,
+                y: pos.y,
+                radius: this.cellSize * 0.35
+            };
+        });
+
+						
+						break;
+					}
+				   }
+		  }
+
+		
 	//se ejecuta cuando el mouse se mueve
     handleMouseMove(e) {
     	if (this.selectedPeg && this.selectedPeg.isDragging) {
@@ -198,16 +211,18 @@ this.currentValidMoves = validMoves;
 			let targetMove = null;
 
 			for (let i = 0; i < this.currentValidMoves.length; i++) {
-    let move = this.currentValidMoves[i];
-            
-        // Usamos move.x y move.y directamente sin vueltas
-        const dist = Math.hypot(coords.x - move.x, coords.y - move.y); 
+        let move = this.currentValidMoves[i];
+        
+        // Calculamos la posición en píxeles del destino al vuelo con la función helper
+        const pos = this.getPixelCoords(move.toRow, move.toCol);
+        
+        const dist = Math.hypot(coords.x - pos.x, coords.y - pos.y); 
 
         if (dist < this.cellSize * 0.4) {
             targetMove = move;
             break;
         }
-			}
+    }
 
 	    if (targetMove) {
 			let camino = [];
@@ -232,6 +247,12 @@ this.currentValidMoves = validMoves;
 
 		this.checkGameStatus();
 	}
+	getPixelCoords(row, col) {
+    return {
+        x: this.offsetX + col * this.cellSize + this.cellSize / 2,
+        y: this.offsetY + row * this.cellSize + this.cellSize / 2
+    };
+}
 	//realiza el movimiento cuando el jugador soltó la ficha en una posición válida, actualiza el tablero y el arreglo de fichas
 	executeMove(peg, move) {
         this.board.grid[peg.row][peg.col] = 0;
@@ -244,11 +265,14 @@ this.currentValidMoves = validMoves;
         );
 
         peg.row = move.toRow;
-        peg.col = move.toCol;
-        peg.x = move.x;
-        peg.y = move.y;
-        peg.originalX = move.x;
-        peg.originalY = move.y;
+    peg.col = move.toCol;
+
+    const pos = this.getPixelCoords(move.toRow, move.toCol);
+
+    peg.x = pos.x;
+    peg.y = pos.y;
+    peg.originalX = pos.x;
+    peg.originalY = pos.y;
     }
 	//comprueba si la partida terminó
 	checkGameStatus() {
