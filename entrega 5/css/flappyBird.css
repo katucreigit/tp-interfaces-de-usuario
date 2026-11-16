@@ -1,0 +1,87 @@
+/* --- CONTENEDOR PRINCIPAL DEL JUEGO (¡OBLIGATORIO!) --- */
+#juego {
+  position: relative;
+  width: 900px;  /* Ancho de tu área de juego */
+  height: 500px; /* Alto de tu área de juego */
+  overflow: hidden;
+}
+
+/* --- ESTILOS DEL PÁJARO --- */
+#pato {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 34px;
+  background-color: #ffbe0b; /* Color temporal por si el sprite aún no está */
+  border-radius: 50%;
+  z-index: 15;
+  will-change: transform;
+}
+
+/* --- ESTILOS DE LAS TUBERÍAS --- */
+.tubo {
+  position: absolute;
+  width: 65px;
+  background-color: #2b9348;
+  border: 3px solid #004b23;
+  z-index: 5;
+}
+
+/* --- HUD / PUNTAJE --- */
+#hud {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 20;
+}
+.capa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: auto;
+}
+
+/* 1. Fondo (Cielo / lejanía absoluta) */
+.capa-fondo {
+  background-image: url("../img/flappy/fondo.png");
+  background-position-y: top;
+  z-index: 1;
+}
+
+/* 2. Nubes (Muy lentas) */
+.capa-nubes {
+  background-image: url("../img/flappy/nubes.png");
+  background-position-y: top;
+  z-index: 2;
+}
+
+/* 3. Cerca (Velocidad media-baja) */
+.capa-cerca {
+  background-image: url("../img/flappy/cerca.png");
+  background-position-y: bottom;
+  z-index: 3;
+}
+
+/* 4. Arbustos (Velocidad media-alta) */
+.capa-arbustos {
+  background-image: url("../img/flappy/arbustos.png");
+  background-position-y: bottom;
+  height: calc(100% + 15px);
+  z-index: 4;
+}
+
+/* 5. Piso (Al frente de todo, MISMA velocidad que los tubos) */
+.capa-piso {
+  background-image: url("../img/flappy/piso.png");
+  background-position-y: bottom;
+  height: calc(100% + 120px);
+  z-index: 10;
+}
