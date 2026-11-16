@@ -7,16 +7,23 @@
 }
 
 /* --- ESTILOS DEL PÁJARO --- */
+/* Reemplaza el estilo temporal del círculo amarillo por este */
 #pato {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 44px;
-  height: 34px;
-  background-color: #ffbe0b; /* Color temporal por si el sprite aún no está */
-  border-radius: 50%;
-  z-index: 15;
-  will-change: transform;
+    position: absolute;
+    left: 100px;
+    top: 250px;
+    width: 60px;
+    height: 60px;
+    background-image: url("img/flappy/pato-sprite.png");
+    background-repeat: no-repeat;
+    background-size: 600px 60px;
+    animation: volar 0.45s steps(10) infinite;
+    z-index: 20;
+}
+
+@keyframes volar {
+    from { background-position-x: 0px; }
+    to   { background-position-x: -600px; }
 }
 
 /* --- ESTILOS DE LAS TUBERÍAS --- */
@@ -46,7 +53,7 @@
   width: 100%;
   height: 100%;
   background-repeat: repeat-x;
-  background-size: auto;
+background-size: 900px auto;
 }
 
 /* 1. Fondo (Cielo / lejanía absoluta) */
@@ -74,14 +81,12 @@
 .capa-arbustos {
   background-image: url("../img/flappy/arbustos.png");
   background-position-y: bottom;
-  height: calc(100% + 15px);
   z-index: 4;
 }
 
 /* 5. Piso (Al frente de todo, MISMA velocidad que los tubos) */
 .capa-piso {
   background-image: url("../img/flappy/piso.png");
-  background-position-y: bottom;
-  height: calc(100% + 120px);
+    background-position-y: bottom;
   z-index: 10;
 }
