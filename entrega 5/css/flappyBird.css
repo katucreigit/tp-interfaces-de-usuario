@@ -8,36 +8,42 @@
 
 /* --- ESTILOS DEL PÁJARO --- */
 #pato {
-    position: absolute;
-    left: 100px;
-    top: 0;
-    width: 200px;
-    height: 200px;
-    background-image: url("../img/flappy/pato-volando.png");
-    background-repeat: no-repeat;
-    background-size: 2000px 200px;
-    animation: volar 0.75s steps(10) infinite;
-    z-index: 20;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  background-image: url("../img/flappy/pato-volando.png");
+  background-repeat: no-repeat;
+  background-size: 2000px 200px;
+  animation: volar 0.75s steps(10) infinite;
+  z-index: 20;
 }
-
 
 #pato.impulso {
-    background-image: url("../img/flappy/pato-impulso.png");
-}
-#pato.choque {
-    background-image: url("../img/flappy/pato-choque.png");
-    background-size: 4000px 200px;
-    animation: choque 1.5s steps(20) forwards;
+  background-image: url("../img/flappy/pato-impulso.png");
+  animation: impulso 0.5s steps(10) infinite;
 }
 
-@keyframes choque {
-    from { background-position-x: 0px; }
-    to   { background-position-x: -4000px; }
+#pato.choque {
+  background-image: url("../img/flappy/pato-choque.png");
+  background-size: 4000px 200px;
+  animation: choque 1.5s steps(20) forwards;
 }
 
 @keyframes volar {
-    from { background-position-x: 0px; }
-    to   { background-position-x: -2000px; }
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+@keyframes impulso {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+@keyframes choque {
+  from { background-position-x: 0px; }
+  to { background-position-x: -4000px; }
 }
 
 /* --- ESTILOS DE LAS TUBERÍAS --- */

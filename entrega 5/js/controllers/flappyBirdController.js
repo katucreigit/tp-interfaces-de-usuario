@@ -4,7 +4,7 @@ class GameController {
         this.vista = vista;
         this.ultimoTiempo = 0;
         this.maxDt = 0.05; // Capping de seguridad para evitar saltos al cambiar de pestaña
-        
+        this.configurarChoque();
         this.configurarControles();
     }
     
@@ -23,6 +23,15 @@ class GameController {
             });
         }
     }
+
+    configurarChoque() {
+        this.vista.pato.addEventListener('animationend', (e) => {
+            if (e.animationName === 'choque' && this.modelo.gameOver) {
+                this.modelo.reiniciar();
+            }
+        });
+    }
+
     iniciar() {
         requestAnimationFrame((tiempoActual) => this.bucle(tiempoActual));
     }

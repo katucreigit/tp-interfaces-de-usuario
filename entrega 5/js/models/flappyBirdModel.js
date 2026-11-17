@@ -37,39 +37,47 @@ class flappyBirdModel {
             this.reiniciar();
             return;
         }
+    
         if (!this.enJuego) {
-            this.enJuego = true; // Arranca la gravedad en el primer salto/clic
+            this.enJuego = true;
         }
+    
         this.pato.velocidadY = this.impulsoSalto;
     }
 
-    actualizar(dt) {        
-    if (this.gameOver) return;
-
-        // 1. Parallax
+    actualizar(dt) {
+        if (this.gameOver) return;
+    
+        // 1. Parallax: el fondo sigue moviéndose
         const ANCHO_TILE = 900;
+    
         for (const capa of this.capas) {
             capa.x = (capa.x - this.velocidad * capa.factor * dt) % ANCHO_TILE;
         }
-
-        // 2. Gravedad y desplazamiento vertical
+    
+        // 2. Si todavía no empezó, no aplicar gravedad
+        if (!this.enJuego) {
+            return;
+        }
+    
+        // 3. Gravedad y desplazamiento vertical
         this.pato.velocidadY += this.gravedad * dt;
         this.pato.y += this.pato.velocidadY * dt;
-
-        // 3. Rotación visual según si sube o cae
+    
+        // 4. Rotación visual
         if (this.pato.velocidadY < 0) {
             this.pato.rotacion = -25;
         } else {
             this.pato.rotacion = Math.min(35, (this.pato.velocidadY / 600) * 35);
         }
-
-        // 4. Límite con el techo
+    
+        // 5. Límite con el techo
         if (this.pato.y < 0) {
             this.pato.y = 0;
             this.pato.velocidadY = 0;
         }
-
-        // 5. Colisión con el piso
+    
+        // 6. Colisión con el piso
         if (this.pato.y + this.pato.alto >= this.pisoY) {
             this.pato.y = this.pisoY - this.pato.alto;
             this.gameOver = true;
