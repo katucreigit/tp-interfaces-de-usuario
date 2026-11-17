@@ -4,8 +4,25 @@ class GameController {
         this.vista = vista;
         this.ultimoTiempo = 0;
         this.maxDt = 0.05; // Capping de seguridad para evitar saltos al cambiar de pestaña
+        
+        this.configurarControles();
     }
+    
+    configurarControles() {
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                e.preventDefault();
+                this.modelo.saltar();
+            }
+        });
 
+        const juegoEl = document.getElementById('juego');
+        if (juegoEl) {
+            juegoEl.addEventListener('mousedown', () => {
+                this.modelo.saltar();
+            });
+        }
+    }
     iniciar() {
         requestAnimationFrame((tiempoActual) => this.bucle(tiempoActual));
     }

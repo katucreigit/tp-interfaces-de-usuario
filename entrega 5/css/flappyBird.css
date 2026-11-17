@@ -7,32 +7,57 @@
 }
 
 /* --- ESTILOS DEL PÁJARO --- */
-/* Reemplaza el estilo temporal del círculo amarillo por este */
 #pato {
     position: absolute;
     left: 100px;
-    top: 250px;
-    width: 60px;
-    height: 60px;
-    background-image: url("img/flappy/pato-sprite.png");
+    top: 0;
+    width: 200px;
+    height: 200px;
+    background-image: url("../img/flappy/pato-volando.png");
     background-repeat: no-repeat;
-    background-size: 600px 60px;
-    animation: volar 0.45s steps(10) infinite;
+    background-size: 2000px 200px;
+    animation: volar 0.75s steps(10) infinite;
     z-index: 20;
+}
+
+
+#pato.impulso {
+    background-image: url("../img/flappy/pato-impulso.png");
+}
+#pato.choque {
+    background-image: url("../img/flappy/pato-choque.png");
+    background-size: 4000px 200px;
+    animation: choque 1.5s steps(20) forwards;
+}
+
+@keyframes choque {
+    from { background-position-x: 0px; }
+    to   { background-position-x: -4000px; }
 }
 
 @keyframes volar {
     from { background-position-x: 0px; }
-    to   { background-position-x: -600px; }
+    to   { background-position-x: -2000px; }
 }
 
 /* --- ESTILOS DE LAS TUBERÍAS --- */
-.tubo {
-  position: absolute;
-  width: 65px;
-  background-color: #2b9348;
-  border: 3px solid #004b23;
-  z-index: 5;
+.tronco {
+    position: absolute;
+    width: 80px; /* Ajusta al ancho de tu imagen */
+    background-image: url("../img/flappy/tronco.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+/* El tronco de arriba nace desde el hueco hacia el techo */
+.tronco-arriba {
+    background-position: bottom center;
+    transform: scaleY(-1); /* Lo invierte verticalmente para que el corte quede abajo */
+}
+
+/* El tronco de abajo nace desde el hueco hacia el piso */
+.tronco-abajo {
+    background-position: top center;
 }
 
 /* --- HUD / PUNTAJE --- */
