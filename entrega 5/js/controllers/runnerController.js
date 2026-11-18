@@ -1,4 +1,4 @@
-class GameController {
+class runnerController {
     constructor(modelo, vista) {
         this.modelo = modelo;
         this.vista = vista;
@@ -16,9 +16,9 @@ class GameController {
             }
         });
 
-        const juegoEl = document.getElementById('juego');
-        if (juegoEl) {
-            juegoEl.addEventListener('mousedown', () => {
+        const juego = document.getElementById('juego');
+        if (juego) {
+            juego.addEventListener('mousedown', () => {
                 this.modelo.saltar();
             });
         }

@@ -1,8 +1,9 @@
-class GameView {
+class runnerView {
     constructor() {
         this.elementosCapas = document.querySelectorAll('.capa');
         this.pato = document.getElementById('pato');
         this.contenedorEntidades = document.getElementById('entidades');
+        this.puntajeAnterior = 0;
     }
 
     render(modelo) {
@@ -33,6 +34,7 @@ class GameView {
         } else {
             this.pato.classList.remove('impulso', 'choque');
         }
+        
 
         // --- RENDERIZAR LOS TRONCOS DENTRO DE #entidades ---
         this.contenedorEntidades.innerHTML = ''; 
@@ -71,7 +73,16 @@ class GameView {
 
 	    this.contenedorEntidades.appendChild(divMoneda);
 	});
-	
+	modelo.moscas.forEach(m => {
+            const divMosca = document.createElement('div');
+            divMosca.className = 'mosca';
+            divMosca.style.width = `${m.ancho}px`;
+            divMosca.style.height = `${m.alto}px`;
+            divMosca.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
+            divMosca.style.animationDelay = `-${m.x * 0.01}s`;
+            this.contenedorEntidades.appendChild(divMosca);
+        });
+        
 	if (modelo.puntos > this.puntajeAnterior) {
             const diferencia = modelo.puntos - this.puntajeAnterior;
             // Mostramos el texto a la altura del pato
@@ -89,17 +100,6 @@ class GameView {
             spanPuntos.textContent = modelo.puntos;
         }
 
-        // --- RENDERIZAR LAS MOSCAS ---
-        modelo.moscas.forEach(m => {
-            const divMosca = document.createElement('div');
-            divMosca.className = 'mosca';
-            divMosca.style.width = `${m.ancho}px`;
-            divMosca.style.height = `${m.alto}px`;
-            divMosca.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
-            this.contenedorEntidades.appendChild(divMosca);
-        });
-
-        // (Opcional) Actualizar texto de vidas si tienes un span con id="vidas" en el HUD
         const spanVidas = document.getElementById('vidas');
         if (spanVidas) {
             spanVidas.textContent = modelo.vidas;

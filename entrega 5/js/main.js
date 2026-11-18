@@ -21,9 +21,9 @@ function cargarImagen(src) {
         img.src = src;
     });
 }
-const modelo = new flappyBirdModel(900, 500);
-    const vista = new GameView();
-    const controlador = new GameController(modelo, vista);
+    const modelo = new runnerModel(900, 500);
+    const vista = new runnerView();
+    const controlador = new runnerController(modelo, vista);
 
     // Arrancar el bucle del juego
     controlador.iniciar();

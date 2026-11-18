@@ -1,4 +1,4 @@
-class flappyBirdModel {
+class runnerModel {
     constructor(ancho, alto) {
         this.ancho = ancho;
         this.alto = alto;
@@ -19,11 +19,14 @@ class flappyBirdModel {
 
         this.troncos = [];
         this.monedas = [];
-        this.distanciaSpawn = 0;
-
+	this.moscas = [];
+        
+        this.distanciaSpawnTronco = 300;
+        this.distanciaSpawnMoneda = 500;
+        this.tiempoSpawnMosca = 1.5;
         this.vidas = 5;
-        this.moscas = [];
-        this.tiempoSpawnMosca = 0;
+        
+        this.tiempoTranscurrido = 0;
             
         this.reiniciar();
     }
@@ -33,12 +36,14 @@ class flappyBirdModel {
         this.gameOver = false;
         this.troncos = [];
         this.monedas = [];
-        this.distanciaSpawn = 0;
-        this.distanciaSpawnMoneda = 150;
+        this.moscas= [];
+        this.moscas = []; 
         this.puntos = 0;
         this.vidas = 5;
-        this.moscas = [];
-        this.tiempoSpawnMosca = 0;
+        this.distanciaSpawnTronco = 300;
+        this.distanciaSpawnMoneda = 500;
+        this.tiempoSpawnMosca = 1.5;
+        this.tiempoTranscurrido = 0;
         this.pato = {
             x: 100,
             y: 200,
@@ -80,6 +85,8 @@ class flappyBirdModel {
         // 3. Gravedad y desplazamiento vertical
         this.pato.velocidadY += this.gravedad * dt;
         this.pato.y += this.pato.velocidadY * dt;
+        
+        this.tiempoTranscurrido += dt;
 
         // Mover troncos a la misma velocidad del juego/piso
         for (let t of this.troncos) {
@@ -107,57 +114,61 @@ class flappyBirdModel {
             }
         }
         
-        // Mover moscas hacia la izquierda a la misma velocidad que los troncos
-            for (let m of this.moscas) {
-                m.x -= this.velocidad * dt;
-            }
+       for (let m of this.moscas) {
+            m.x -= this.velocidad * dt;
+        }
 
-            this.tiempoSpawnMosca += dt;
-            if (this.tiempoSpawnMosca >= 3) {
-                this.crearMosca();
-                this.tiempoSpawnMosca = 0;
-            }
+        // Limpiar moscas fuera de pantalla o colisionadas
+        this.moscas = this.moscas.filter(m => !m.colisionada && m.x > -100);
 
-            this.verificarColisionesMoscas();
-
-            // Borrar las moscas que chocaste O que ya salieron por la izquierda
-            this.moscas = this.moscas.filter(m => !m.colisionada && m.x > -100);
-
-        // Generar nuevos troncos por distancia
-        this.distanciaSpawn -= this.velocidad * dt;
-        if (this.distanciaSpawn <= 0) {
+        // --- SPAWNS INDEPENDIENTES (Cada tanto y separados) ---
+        
+        // A. Troncos por distancia
+        this.distanciaSpawnTronco -= this.velocidad * dt;
+        if (this.distanciaSpawnTronco <= 0) {
             this.crearTronco();
-            this.distanciaSpawn = Math.random() * (350 - 220) + 220; // Espaciado aleatorio
+            this.distanciaSpawnTronco = Math.random() * (350 - 250) + 250; 
         }
         
+        // B. Monedas por distancia
         this.distanciaSpawnMoneda -= this.velocidad * dt;
         if (this.distanciaSpawnMoneda <= 0) {
             this.crearMoneda();
-            this.distanciaSpawnMoneda = Math.random() * (400 - 200) + 200; // Rango independiente para monedas
+            this.distanciaSpawnMoneda = Math.random() * (600 - 400) + 400; 
         }
 
-        // Borrar troncos que salen de la pantalla
+        // C. Moscas por tiempo (cada 4 o 5 segundos)
+        if (this.tiempoTranscurrido >= 10) {
+            this.tiempoSpawnMosca += dt;
+            if (this.tiempoSpawnMosca >= 4.5) { // Cada cuánto sale una vez habilitadas
+                this.crearMosca();
+                this.tiempoSpawnMosca = 0;
+            }
+        }
+
+        // Borrar troncos que salen
         while (this.troncos.length > 0 && this.troncos[0].x < -100) {
             this.troncos.shift();
         }
 
-        // 4. Verificar colisiones con los troncos
+        // Colisiones
         this.verificarColisionesTroncos();
+        this.verificarColisionesMoscas();
 
-        // 5. Rotación visual
+        // Rotación visual
         if (this.pato.velocidadY < 0) {
             this.pato.rotacion = -25;
         } else {
             this.pato.rotacion = Math.min(35, (this.pato.velocidadY / 600) * 35);
         }
     
-        // 6. Límite con el techo
+        // Techo
         if (this.pato.y < 0) {
             this.pato.y = 0;
             this.pato.velocidadY = 0;
         }
     
-        // 7. Colisión con el piso
+        // Piso
         if (this.pato.y + this.pato.alto >= this.pisoY) {
             this.pato.y = this.pisoY - this.pato.alto;
             this.gameOver = true;
@@ -186,7 +197,6 @@ class flappyBirdModel {
     
     crearMoneda() {
         const monedaX = this.ancho;
-        // Altura aleatoria garantizando que no aparezca pegada al piso ni al techo
         const monedaY = Math.floor(Math.random() * (this.pisoY - 180 - 80)) + 80;
 
         this.monedas.push({
@@ -195,6 +205,20 @@ class flappyBirdModel {
             ancho: 50,
             alto: 50,
             recolectada: false
+        });
+    }
+    crearMosca() {
+        const moscaX = this.ancho;
+        const alturaMinima = 100;
+        const alturaMaxima = this.pisoY - 200;
+        const posY = Math.floor(Math.random() * (alturaMaxima - alturaMinima)) + alturaMinima;
+
+        this.moscas.push({
+            x: moscaX,
+            y: posY,
+            ancho: 80,
+            alto: 80,
+            colisionada: false
         });
     }
     
@@ -226,22 +250,6 @@ class flappyBirdModel {
         const cajaMoneda = { x: m.x, y: m.y, w: m.ancho, h: m.alto };
         return this.choca(hitboxPato, cajaMoneda);
     }
-    choca(a, b) {
-        return (a.x < b.x + b.w && a.x + a.w > b.x &&
-                a.y < b.y + b.h && a.y + a.h > b.y);
-    }
-
-    crearMosca() {
-        const posY = Math.random() * (this.pisoY - 250 - 80) + 80;
-        this.moscas.push({
-            x: this.ancho, // Nace en el borde derecho y viene hacia vos
-            y: posY,
-            ancho: 80,
-            alto: 80,
-            colisionada: false
-        });
-    }
-    
     verificarColisionesMoscas() {
         const hitboxPato = {
             x: this.pato.x + 75, 
@@ -258,6 +266,8 @@ class flappyBirdModel {
                     this.vidas--; // Resta vida
                     m.colisionada = true; // Marcamos que ya impactó
                     
+                    this.pato.fueGolpeado = true;
+                    
                     if (this.vidas <= 0) {
                         this.gameOver = true; // Si se acaban las vidas, termina el juego
                     }
@@ -265,4 +275,9 @@ class flappyBirdModel {
             }
         }
     }
+    choca(a, b) {
+        return (a.x < b.x + b.w && a.x + a.w > b.x &&
+                a.y < b.y + b.h && a.y + a.h > b.y);
+    }
+
 }
