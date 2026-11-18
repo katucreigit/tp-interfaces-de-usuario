@@ -27,7 +27,7 @@
 
 #pato.choque {
   background-image: url("../img/flappy/pato-choque.png");
-  background-size: 4000px 200px;
+  background-size: 4000px 200px; /* 20 frames de 200px de ancho */
   animation: choque 1.5s steps(20) forwards;
 }
 
@@ -47,23 +47,32 @@
 }
 
 /* --- ESTILOS DE LAS TUBERÍAS --- */
+#entidades {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5; /* Por encima de las capas de fondo (1-4) pero debajo del pato (20) */
+  pointer-events: none;
+}
 .tronco {
-    position: absolute;
-    width: 80px; /* Ajusta al ancho de tu imagen */
-    background-image: url("../img/flappy/tronco.png");
-    background-size: 100% auto;
-    background-repeat: no-repeat;
+  position: absolute;
+  width: 80px; /* Ancho del tronco */
+  background-image: url("../img/flappy/tronco.png");
+  background-size: 100% 100%; /* O cover, para que se adapte al alto de la tubería */
+  background-repeat: no-repeat;
 }
 
-/* El tronco de arriba nace desde el hueco hacia el techo */
+/* El tronco de arriba se invierte para que la punta quede hacia abajo */
 .tronco-arriba {
-    background-position: bottom center;
-    transform: scaleY(-1); /* Lo invierte verticalmente para que el corte quede abajo */
+  background-position: bottom center;
+  transform: scaleY(-1); 
 }
 
-/* El tronco de abajo nace desde el hueco hacia el piso */
+/* El tronco de abajo se queda normal */
 .tronco-abajo {
-    background-position: top center;
+  background-position: top center;
 }
 
 /* --- HUD / PUNTAJE --- */
