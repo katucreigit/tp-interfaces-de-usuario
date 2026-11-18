@@ -88,6 +88,22 @@ class GameView {
         if (spanPuntos) {
             spanPuntos.textContent = modelo.puntos;
         }
+
+        // --- RENDERIZAR LAS MOSCAS ---
+        modelo.moscas.forEach(m => {
+            const divMosca = document.createElement('div');
+            divMosca.className = 'mosca';
+            divMosca.style.width = `${m.ancho}px`;
+            divMosca.style.height = `${m.alto}px`;
+            divMosca.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
+            this.contenedorEntidades.appendChild(divMosca);
+        });
+
+        // (Opcional) Actualizar texto de vidas si tienes un span con id="vidas" en el HUD
+        const spanVidas = document.getElementById('vidas');
+        if (spanVidas) {
+            spanVidas.textContent = modelo.vidas;
+        }
     }
  mostrarFlotante(texto, x, y) {
         const juegoEl = document.getElementById('juego');

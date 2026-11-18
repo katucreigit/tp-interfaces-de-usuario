@@ -20,6 +20,10 @@ class flappyBirdModel {
         this.troncos = [];
         this.monedas = [];
         this.distanciaSpawn = 0;
+
+        this.vidas = 5;
+        this.moscas = [];
+        this.tiempoSpawnMosca = 0;
             
         this.reiniciar();
     }
@@ -32,6 +36,9 @@ class flappyBirdModel {
         this.distanciaSpawn = 0;
         this.distanciaSpawnMoneda = 150;
         this.puntos = 0;
+        this.vidas = 5;
+        this.moscas = [];
+        this.tiempoSpawnMosca = 0;
         this.pato = {
             x: 100,
             y: 200,
@@ -99,6 +106,22 @@ class flappyBirdModel {
                 this.monedas.splice(i, 1);
             }
         }
+        
+        // Mover moscas hacia la izquierda a la misma velocidad que los troncos
+            for (let m of this.moscas) {
+                m.x -= this.velocidad * dt;
+            }
+
+            this.tiempoSpawnMosca += dt;
+            if (this.tiempoSpawnMosca >= 3) {
+                this.crearMosca();
+                this.tiempoSpawnMosca = 0;
+            }
+
+            this.verificarColisionesMoscas();
+
+            // Borrar las moscas que chocaste O que ya salieron por la izquierda
+            this.moscas = this.moscas.filter(m => !m.colisionada && m.x > -100);
 
         // Generar nuevos troncos por distancia
         this.distanciaSpawn -= this.velocidad * dt;
@@ -206,5 +229,40 @@ class flappyBirdModel {
     choca(a, b) {
         return (a.x < b.x + b.w && a.x + a.w > b.x &&
                 a.y < b.y + b.h && a.y + a.h > b.y);
+    }
+
+    crearMosca() {
+        const posY = Math.random() * (this.pisoY - 250 - 80) + 80;
+        this.moscas.push({
+            x: this.ancho, // Nace en el borde derecho y viene hacia vos
+            y: posY,
+            ancho: 80,
+            alto: 80,
+            colisionada: false
+        });
+    }
+    
+    verificarColisionesMoscas() {
+        const hitboxPato = {
+            x: this.pato.x + 75, 
+            y: this.pato.y + 75, 
+            w: this.pato.ancho - 150, 
+            h: this.pato.alto - 150   
+        };
+
+        for (let m of this.moscas) {
+            if (!m.colisionada) {
+                const cajaMosca = { x: m.x, y: m.y, w: m.ancho, h: m.alto };
+
+                if (this.choca(hitboxPato, cajaMosca)) {
+                    this.vidas--; // Resta vida
+                    m.colisionada = true; // Marcamos que ya impactó
+                    
+                    if (this.vidas <= 0) {
+                        this.gameOver = true; // Si se acaban las vidas, termina el juego
+                    }
+                }
+            }
+        }
     }
 }
