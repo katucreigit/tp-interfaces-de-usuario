@@ -15,7 +15,7 @@
   height: 200px;
   background-image: url("../img/flappy/pato-volando.png");
   background-repeat: no-repeat;
-  background-size: 2000px 200px;
+  background-size: 2000px 200px; /* 10 frames de 200px */
   animation: volar 0.75s steps(10) infinite;
   z-index: 20;
 }
@@ -27,8 +27,8 @@
 
 #pato.choque {
   background-image: url("../img/flappy/pato-choque.png");
-  background-size: 4000px 200px; /* 20 frames de 200px de ancho */
-  animation: choque 1.5s steps(20) forwards;
+  background-size: 4000px 200px; 
+  animation: choque 1.2s steps(20) forwards;
 }
 
 @keyframes volar {
@@ -74,17 +74,49 @@
 .tronco-abajo {
   background-position: top center;
 }
+.moneda {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url("../img/flappy/coin-sprite.png");
+  background-size: 400px 50px; /* 8 cuadros de 50px = 400px de ancho total */
+  animation: girarMoneda 0.8s steps(8) infinite;
+  z-index: 12;
+  pointer-events: none;
+}
+
+@keyframes girarMoneda {
+  from { background-position-x: 0px; }
+  to   { background-position-x: -400px; }
+}
 
 /* --- HUD / PUNTAJE --- */
-#hud {
+#puntaje {
   position: absolute;
-  top: 15px;
-  left: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 0 #000;
+  top: 25px;
+  left: 30px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4);
   z-index: 20;
+  align-items: center;
+}
+
+.texto-flotante {
+  position: absolute;
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 30;
+  pointer-events: none;
+  animation: flotar 0.8s ease-out forwards;
+}
+
+@keyframes flotar {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
 }
 .capa {
   position: absolute;

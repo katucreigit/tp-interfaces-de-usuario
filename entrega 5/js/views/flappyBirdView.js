@@ -3,14 +3,6 @@ class GameView {
         this.elementosCapas = document.querySelectorAll('.capa');
         this.pato = document.getElementById('pato');
         this.contenedorEntidades = document.getElementById('entidades');
-
-        // --- MODO DEBUG: Crear cajas visuales para probar hitboxes ---
-        this.debugPato = document.createElement('div');
-        this.debugPato.style.position = 'absolute';
-        this.debugPato.style.border = '2px solid red'; // Cuadrado rojo para el pato
-        this.debugPato.style.pointerEvents = 'none';
-        this.debugPato.style.zIndex = '99';
-        document.getElementById('juego').appendChild(this.debugPato);
     }
 
     render(modelo) {
@@ -62,6 +54,34 @@ class GameView {
             divInf.style.transform = `translate3d(${t.x}px, ${t.inferior.y}px, 0)`;
             this.contenedorEntidades.appendChild(divInf);
         });
+        
+        // 2. Dibujar Monedas usando keyframes de forma estable
+	modelo.monedas.forEach(m => {
+	    const divMoneda = document.createElement('div');
+	    divMoneda.className = 'moneda';
+	    divMoneda.style.width = `${m.ancho}px`;
+	    divMoneda.style.height = `${m.alto}px`;
+	    divMoneda.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
+
+	    // ESTO ES LO QUE SALVA EL KEYFRAME:
+	    // Al usar la posición 'X' de la moneda como un desfase negativo en el delay,
+	    // el navegador calcula exactamente en qué frame del keyframe debe arrancar 
+	    // y la animación nunca se traba ni se reinicia al redibujar el DOM.
+	    divMoneda.style.animationDelay = `-${m.x * 0.005}s`;
+
+	    this.contenedorEntidades.appendChild(divMoneda);
+	});
+	
+	if (modelo.puntos > this.puntajeAnterior) {
+            const diferencia = modelo.puntos - this.puntajeAnterior;
+            // Mostramos el texto a la altura del pato
+            this.mostrarFlotante(`+${diferencia}`, modelo.pato.x + 50, modelo.pato.y);
+            this.puntajeAnterior = modelo.puntos;
+        }
+        
+        if (modelo.puntos === 0) {
+            this.puntajeAnterior = 0;
+        }
 
         // Actualizar HUD de puntos
         const spanPuntos = document.getElementById('puntos');
@@ -69,4 +89,19 @@ class GameView {
             spanPuntos.textContent = modelo.puntos;
         }
     }
+ mostrarFlotante(texto, x, y) {
+        const juegoEl = document.getElementById('juego');
+        if (!juegoEl) return;
+
+        const el = document.createElement('div');
+        el.className = 'texto-flotante';
+        el.textContent = texto;
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+
+        juegoEl.appendChild(el);
+
+        // Se borra solo cuando termina la animación
+        setTimeout(() => el.remove(), 800);
+    }   
 }

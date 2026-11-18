@@ -18,6 +18,7 @@ class flappyBirdModel {
         this.pisoY = this.alto - 15; // Ajusta según el alto visual de tu piso
 
         this.troncos = [];
+        this.monedas = [];
         this.distanciaSpawn = 0;
             
         this.reiniciar();
@@ -27,7 +28,9 @@ class flappyBirdModel {
         this.enJuego = false; // No cae hasta el primer salto
         this.gameOver = false;
         this.troncos = [];
+        this.monedas = [];
         this.distanciaSpawn = 0;
+        this.distanciaSpawnMoneda = 150;
         this.puntos = 0;
         this.pato = {
             x: 100,
@@ -75,10 +78,25 @@ class flappyBirdModel {
         for (let t of this.troncos) {
             t.x -= this.velocidad * dt;
 
-            // Sumar puntos si el pato ya pasó el tronco
-            if (!t.puntosSumados && t.x + t.ancho < this.pato.x) {
-                this.puntos++;
-                t.puntosSumados = true;
+            if (!t.puntosSumados && t.x + (t.ancho / 2) < this.pato.x) {
+		    this.puntos += 10;
+		    t.puntosSumados = true;
+		}
+        }
+        
+       for (let i = this.monedas.length - 1; i >= 0; i--) {
+            let m = this.monedas[i];
+            m.x -= this.velocidad * dt;
+
+            if (!m.recolectada && this.verificarColisionMoneda(m)) {
+                m.recolectada = true;
+                this.puntos += 50; // Puntos extra por moneda
+                this.monedas.splice(i, 1);
+                continue;
+            }
+
+            if (m.x < -50) {
+                this.monedas.splice(i, 1);
             }
         }
 
@@ -87,6 +105,12 @@ class flappyBirdModel {
         if (this.distanciaSpawn <= 0) {
             this.crearTronco();
             this.distanciaSpawn = Math.random() * (350 - 220) + 220; // Espaciado aleatorio
+        }
+        
+        this.distanciaSpawnMoneda -= this.velocidad * dt;
+        if (this.distanciaSpawnMoneda <= 0) {
+            this.crearMoneda();
+            this.distanciaSpawnMoneda = Math.random() * (400 - 200) + 200; // Rango independiente para monedas
         }
 
         // Borrar troncos que salen de la pantalla
@@ -137,6 +161,20 @@ class flappyBirdModel {
         });
     }
     
+    crearMoneda() {
+        const monedaX = this.ancho;
+        // Altura aleatoria garantizando que no aparezca pegada al piso ni al techo
+        const monedaY = Math.floor(Math.random() * (this.pisoY - 180 - 80)) + 80;
+
+        this.monedas.push({
+            x: monedaX,
+            y: monedaY,
+            ancho: 50,
+            alto: 50,
+            recolectada: false
+        });
+    }
+    
     verificarColisionesTroncos() {
         const hitboxPato = {
             x: this.pato.x + 75, 
@@ -154,7 +192,17 @@ class flappyBirdModel {
             }
         }
     }
-    
+    verificarColisionMoneda(m) {
+        const hitboxPato = {
+            x: this.pato.x + 75, 
+            y: this.pato.y + 75, 
+            w: this.pato.ancho - 150, 
+            h: this.pato.alto - 150   
+        };
+
+        const cajaMoneda = { x: m.x, y: m.y, w: m.ancho, h: m.alto };
+        return this.choca(hitboxPato, cajaMoneda);
+    }
     choca(a, b) {
         return (a.x < b.x + b.w && a.x + a.w > b.x &&
                 a.y < b.y + b.h && a.y + a.h > b.y);
