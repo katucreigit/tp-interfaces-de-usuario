@@ -19,18 +19,15 @@ class runnerView {
         // Posición y rotación del pato// Posición y rotación del pato (versión simplificada con top)
         this.pato.style.top = `${modelo.pato.y}px`;
         this.pato.style.transform = `rotate(${modelo.pato.rotacion}deg)`;
-        // Estados del pato
-        if (modelo.gameOver) {
+        // 3. Estados visuales del pato
+        if (modelo.gameOver || modelo.pato.tiempoChoqueVisual > 0) {
             this.pato.classList.remove('impulso');
-        
             if (!this.pato.classList.contains('choque')) {
                 this.pato.classList.add('choque');
             }
-        
         } else if (modelo.enJuego && modelo.pato.velocidadY < 0) {
             this.pato.classList.remove('choque');
             this.pato.classList.add('impulso');
-        
         } else {
             this.pato.classList.remove('impulso', 'choque');
         }
@@ -58,31 +55,16 @@ class runnerView {
         });
         
         // 2. Dibujar Monedas usando keyframes de forma estable
-	modelo.monedas.forEach(m => {
-	    const divMoneda = document.createElement('div');
-	    divMoneda.className = 'moneda';
-	    divMoneda.style.width = `${m.ancho}px`;
-	    divMoneda.style.height = `${m.alto}px`;
-	    divMoneda.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
-
-	    // ESTO ES LO QUE SALVA EL KEYFRAME:
-	    // Al usar la posición 'X' de la moneda como un desfase negativo en el delay,
-	    // el navegador calcula exactamente en qué frame del keyframe debe arrancar 
-	    // y la animación nunca se traba ni se reinicia al redibujar el DOM.
-	    divMoneda.style.animationDelay = `-${m.x * 0.005}s`;
-
-	    this.contenedorEntidades.appendChild(divMoneda);
-	});
-	modelo.moscas.forEach(m => {
-            const divMosca = document.createElement('div');
-            divMosca.className = 'mosca';
-            divMosca.style.width = `${m.ancho}px`;
-            divMosca.style.height = `${m.alto}px`;
-            divMosca.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
-            divMosca.style.animationDelay = `-${m.x * 0.01}s`;
-            this.contenedorEntidades.appendChild(divMosca);
+        modelo.items.forEach(item => {
+            const div = document.createElement('div');
+            div.className = item.tipo; // Se llamará 'moneda' o 'mosca' y tomará su CSS automáticamente
+            div.style.width = `${item.ancho}px`;
+            div.style.height = `${item.alto}px`;
+            div.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
+            if (item.tipo === 'moneda') div.style.animationDelay = `-${item.x * 0.005}s`;
+            if (item.tipo === 'mosca') div.style.animationDelay = `-${item.x * 0.01}s`;
+            this.contenedorEntidades.appendChild(div);
         });
-        
 	if (modelo.puntos > this.puntajeAnterior) {
             const diferencia = modelo.puntos - this.puntajeAnterior;
             // Mostramos el texto a la altura del pato
