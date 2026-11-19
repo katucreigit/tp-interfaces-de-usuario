@@ -182,8 +182,8 @@ class runnerModel {
     }
 
     crearTronco() {
-        const huecoInicial = 180;
-        const huecoMinimo = 100; // Alto real de la hitbox del pato
+        const huecoInicial = 210;
+        const huecoMinimo = 70; 
         const tiempoMaxDificultad = 60; // Segundos que tarda en llegar al hueco mínimo
 
         // Progreso de 0 a 1 según el tiempo transcurrido
@@ -209,7 +209,7 @@ class runnerModel {
 
         // Crear mosca centrada en el hueco si ya pasaron 10 segundos
         if (this.tiempoTranscurrido >= 10 && this.troncos.length > 1) {
-            if (Math.random() < 0.2) {
+            if (Math.random() < 0.1) {
                 const troncoAnterior = this.troncos[this.troncos.length - 2];
                 const xMedio = (troncoAnterior.x + this.ancho) / 2;
                 const posY = Math.floor(Math.random() * (this.pisoY - 200 - 100)) + 100;
