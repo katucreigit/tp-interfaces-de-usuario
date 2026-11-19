@@ -1,12 +1,10 @@
-/* --- CONTENEDOR PRINCIPAL DEL JUEGO (¡OBLIGATORIO!) --- */
 #juego {
   position: relative;
-  width: 900px;  /* Ancho de tu área de juego */
-  height: 500px; /* Alto de tu área de juego */
+  width: 900px;
+  height: 500px;
   overflow: hidden;
 }
 
-/* --- ESTILOS DEL PÁJARO --- */
 #pato {
   position: absolute;
   left: 100px;
@@ -15,7 +13,7 @@
   height: 200px;
   background-image: url("../img/flappy/pato-volando.png");
   background-repeat: no-repeat;
-  background-size: 2000px 200px; /* 10 frames de 200px */
+  background-size: 2000px 200px;
   animation: volar 0.75s steps(10) infinite;
   z-index: 20;
 }
@@ -46,40 +44,38 @@
   to { background-position-x: -4000px; }
 }
 
-/* --- ESTILOS DE LAS TUBERÍAS --- */
-#entidades {
+#troncos {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 5; /* Por encima de las capas de fondo (1-4) pero debajo del pato (20) */
+  z-index: 5;
   pointer-events: none;
 }
 .tronco {
   position: absolute;
-  width: 80px; /* Ancho del tronco */
+  width: 80px;
   background-image: url("../img/flappy/tronco.png");
-  background-size: 100% 100%; /* O cover, para que se adapte al alto de la tubería */
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
-/* El tronco de arriba se invierte para que la punta quede hacia abajo */
 .tronco-arriba {
   background-position: bottom center;
   transform: scaleY(-1); 
 }
 
-/* El tronco de abajo se queda normal */
 .tronco-abajo {
   background-position: top center;
 }
+
 .moneda {
   position: absolute;
   width: 50px;
   height: 50px;
   background-image: url("../img/flappy/coin-sprite.png");
-  background-size: 400px 50px; /* 8 cuadros de 50px = 400px de ancho total */
+  background-size: 400px 50px;
   animation: girarMoneda 0.8s steps(8) infinite;
   z-index: 12;
   pointer-events: none;
@@ -105,7 +101,7 @@
   from { background-position-x: 0px; }
   to { background-position-x: -800px; }
 }
-/* --- HUD / PUNTAJE --- */
+
 #puntaje {
   position: absolute;
   top: 25px;
@@ -133,6 +129,7 @@
   0% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-40px); }
 }
+
 .capa {
   position: absolute;
   top: 0;
@@ -143,39 +140,32 @@
 background-size: 900px auto;
 }
 
-/* 1. Fondo (Cielo / lejanía absoluta) */
 .capa-fondo {
   background-image: url("../img/flappy/fondo.png");
   background-position-y: top;
   z-index: 1;
 }
 
-/* 2. Nubes (Muy lentas) */
 .capa-nubes {
   background-image: url("../img/flappy/nubes.png");
   background-position-y: top;
   z-index: 2;
 }
 
-/* 3. Cerca (Velocidad media-baja) */
 .capa-cerca {
   background-image: url("../img/flappy/cerca.png");
   background-position-y: bottom;
   z-index: 3;
 }
 
-/* 4. Arbustos (Velocidad media-alta) */
 .capa-arbustos {
   background-image: url("../img/flappy/arbustos.png");
   background-position-y: bottom;
   z-index: 4;
 }
 
-/* 5. Piso (Al frente de todo, MISMA velocidad que los tubos) */
 .capa-piso {
   background-image: url("../img/flappy/piso.png");
     background-position-y: bottom;
   z-index: 10;
 }
-
-

@@ -9,7 +9,7 @@ class runnerModel {
             { x: 0, factor: 0.2 }, // Nubes
             { x: 0, factor: 0.4 }, // Cerca
             { x: 0, factor: 0.6 }, // Arbustos
-            { x: 0, factor: 1.0 }  // Piso (¡Asegúrate de que tenga el 'x: 0' inicial!)
+            { x: 0, factor: 1.0 }  // Piso 
         ];
 
         this.gravedad = 850;
@@ -17,7 +17,7 @@ class runnerModel {
         this.pisoY = this.alto - 15; 
 
         this.troncos = [];
-        this.items = []; // <--- Unificamos monedas y moscas aquí como "items"
+        this.items = [];
         
         this.distanciaSpawnTronco = 300;
         this.distanciaSpawnItem = 400;
@@ -60,7 +60,6 @@ class runnerModel {
         this.pato.velocidadY = this.impulsoSalto;
     }
 
-    // Hitbox real del pato (descontando padding transparente del sprite de 200x200)
     obtenerHitboxPato() {
         return {
             x: this.pato.x + 75, 
@@ -95,10 +94,10 @@ class runnerModel {
         // --- 4. MOVIMIENTO DE TRONCOS ---
         for (let t of this.troncos) {
             t.x -= this.velocidad * dt;
-            if (!t.puntosSumados && t.x + (t.ancho / 2) < this.pato.x) {
-                this.puntos += 10;
-                t.puntosSumados = true;
-            }
+            if (!t.puntosSumados && t.x + t.ancho < this.pato.x + 200) {
+				this.puntos += 10;
+				t.puntosSumados = true;
+			}
         }
 
         // --- 5. MANEJADOR UNIFICADO DE ITEMS (Monedas y Moscas) ---
@@ -160,30 +159,26 @@ class runnerModel {
             this.pato.velocidadY = 0;
         }
     
-        // --- COLISIÓN CON EL PISO ---
-    // --- COLISIÓN CON EL PISO ---
-    const limitePisoVisual = this.pisoY - 40; 
-    const hitbox = this.obtenerHitboxPato();
-    
-    if (hitbox.y + hitbox.h >= limitePisoVisual) {
-        // CORRECCIÓN: Alineamos el sprite restando el offset superior (75) + el alto de la hitbox (100) = 175
-        this.pato.y = limitePisoVisual - 175; 
+		// --- COLISIÓN CON EL PISO ---
+		const limitePisoVisual = this.pisoY - 40; 
+		const hitbox = this.obtenerHitboxPato();
+		
+		if (hitbox.y + hitbox.h >= limitePisoVisual) {
+		    this.pato.y = limitePisoVisual - 175; 
 
-        // Si NO está en período de invulnerabilidad (los 3 segundos de gracia)
-        if (this.pato.tiempoInvulnerable <= 0) {
-            this.vidas--;
-            this.pato.tiempoChoqueVisual = 1.2;            // Animación de choque (1.2s)
-            this.pato.velocidadY = this.impulsoSalto;     // ¡Salto completo y fuerte hacia arriba!
-            this.pato.tiempoInvulnerable = 3.0;            // 3 segundos de gracia
+		    if (this.pato.tiempoInvulnerable <= 0) {
+		        this.vidas--;
+		        this.pato.tiempoChoqueVisual = 1.2;
+		        this.pato.velocidadY = this.impulsoSalto;
+		        this.pato.tiempoInvulnerable = 3.0;
 
-            if (this.vidas <= 0) {
-                this.gameOver = true; 
-            }
-        } else {
-            // Si está en período de gracia, lo impulsamos igual para sacarlo del piso sin quitar vida
-            this.pato.velocidadY = this.impulsoSalto;
-        }
-    }
+		        if (this.vidas <= 0) {
+		            this.gameOver = true; 
+		        }
+		    } else {
+		        this.pato.velocidadY = this.impulsoSalto;
+		    }
+		}
     }
 
     crearTronco() {
@@ -224,7 +219,6 @@ class runnerModel {
     }
 
     crearItemAleatorio() {
-        // Creamos una moneda de forma aleatoria en el array unificado de items
         const monedaY = Math.floor(Math.random() * (this.pisoY - 180 - 80)) + 80;
         this.items.push({
             tipo: 'moneda',
