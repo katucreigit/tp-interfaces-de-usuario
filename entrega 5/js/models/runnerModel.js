@@ -33,12 +33,12 @@ class runnerModel {
 
     reiniciar() {
 	    this.estado = 'menu';
-        this.enJuego = false;
-        this.gameOver = false;
-        this.troncos = [];
-        this.items = []; 
-        this.puntos = 0;
-        this.vidas = 5;
+		this.enJuego = false;
+		this.gameOver = false;
+		this.troncos = [];
+		this.items = [];
+		this.puntos = 0;
+		this.vidas = 5;
         this.distanciaSpawnTronco = 50;
         this.distanciaSpawnItem = 400;
         this.tiempoTranscurrido = 0;
@@ -78,13 +78,14 @@ class runnerModel {
     }
 
     actualizar(dt) {
-        if (this.entrada.impulso) {
-			this.saltar();
-			this.entrada.impulso = false;
-		}
-
+        
 		if (this.gameOver) return;
-    
+
+		if (this.entrada.impulso) {
+				this.saltar();
+				this.entrada.impulso = false;
+			}
+
         const ANCHO_TILE = 900;
         
         // --- 1. MOVIMIENTO DE CAPAS Y PISO (PARALLAX) ---
@@ -200,7 +201,7 @@ class runnerModel {
 
     crearTronco() {
         const huecoInicial = 210;
-        const huecoMinimo = 50; 
+        const huecoMinimo = 60; 
         const tiempoMaxDificultad = 60; // Segundos que tarda en llegar al hueco mínimo
 
         // Progreso de 0 a 1 según el tiempo transcurrido

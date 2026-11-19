@@ -28,9 +28,13 @@ class runnerView {
 		} else {
 			this.ponerEstado('volando');
 		}
-             
-       this.dibujarTroncos(modelo);
-		this.dibujarItems(modelo);
+		
+		this.dibujarTroncos(modelo);
+this.dibujarItems(modelo);
+
+if (modelo.estado === 'menu') {
+    return;
+}
 	if (modelo.puntos > this.puntajeAnterior) {
             const diferencia = modelo.puntos - this.puntajeAnterior;
             this.mostrarFlotante(`+${diferencia}`, modelo.pato.x + 50, modelo.pato.y);

@@ -9,25 +9,34 @@ class runnerController {
     }
     
     configurarControles() {
-	    document.addEventListener('keydown', e => {
-		if ((e.code === 'Space' || e.code === 'ArrowUp') && !e.repeat) {
-		    e.preventDefault();
-		    this.modelo.entrada.impulso = true;
-		}
-	    });
+    document.addEventListener('keydown', e => {
+        if ((e.code === 'Space' || e.code === 'ArrowUp') && !e.repeat) {
+            e.preventDefault();
+            this.modelo.entrada.impulso = true;
+        }
+    });
 
-	    document.getElementById('juego').addEventListener('mousedown', () => {
-		this.modelo.entrada.impulso = true;
-	    });
-	}
+    document.getElementById('juego').addEventListener('mousedown', () => {
+        this.modelo.entrada.impulso = true;
+    });
+}
 
     configurarChoque() {
-        this.vista.pato.addEventListener('animationend', (e) => {
-            if (e.animationName === 'choque' && this.modelo.gameOver) {
+    this.vista.pato.addEventListener('animationend', (e) => {
+
+        if (e.animationName === 'choque') {
+
+            if (this.modelo.gameOver) {
                 this.modelo.reiniciar();
+                this.vista.ponerEstado('volando');
+            } else {
+                this.modelo.pato.tiempoChoqueVisual = 0;
+                this.vista.ponerEstado('volando');
             }
-        });
-    }
+
+        }
+    });
+}
 
     iniciar() {
         requestAnimationFrame((tiempoActual) => this.bucle(tiempoActual));
