@@ -4,14 +4,6 @@ class runnerView {
         this.pato = document.getElementById('pato');
         this.contenedorTroncos = document.getElementById('troncos');
         this.puntajeAnterior = 0;
-        this.choqueActivo = false;
-    }
-    activarAnimacionChoque() {
-        this.pato.classList.remove('impulso', 'choque');
-        // Forzar reflow para que CSS vuelva a arrancar la animación desde el frame 0
-        this.pato.offsetWidth;
-        this.pato.classList.add('choque');
-        this.choqueActivo = true;
     }
 
     render(modelo) {
@@ -28,23 +20,16 @@ class runnerView {
         this.pato.style.top = `${modelo.pato.y}px`;
         this.pato.style.transform = `rotate(${modelo.pato.rotacion}deg)`;
         // 3. Estados visuales del pato
-        if (modelo.gameOver) {
-            if (!this.choqueActivo) {
-                this.activarAnimacionChoque();
+        if (modelo.gameOver || modelo.pato.tiempoChoqueVisual > 0) {
+            this.pato.classList.remove('impulso');
+            if (!this.pato.classList.contains('choque')) {
+                this.pato.classList.add('choque');
             }
-        } else if (modelo.pato.tiempoChoqueVisual > 0) {
-            if (!this.choqueActivo) {
-                this.activarAnimacionChoque();
-            }
-        } else {
-            this.choqueActivo = false;
+        } else if (modelo.enJuego && modelo.pato.velocidadY < 0) {
             this.pato.classList.remove('choque');
-
-            if (modelo.enJuego && modelo.pato.velocidadY < 0) {
-                this.pato.classList.add('impulso');
-            } else {
-                this.pato.classList.remove('impulso');
-            }
+            this.pato.classList.add('impulso');
+        } else {
+            this.pato.classList.remove('impulso', 'choque');
         }
              
         this.contenedorTroncos.innerHTML = ''; 
@@ -96,18 +81,18 @@ class runnerView {
             spanVidas.textContent = modelo.vidas;
         }
     }
-	 mostrarFlotante(texto, x, y) {
-		    const juegoEl = document.getElementById('juego');
-		    if (!juegoEl) return;
+ mostrarFlotante(texto, x, y) {
+        const juego = document.getElementById('juego');
+        if (!juego) return;
 
-		    const el = document.createElement('div');
-		    el.className = 'texto-flotante';
-		    el.textContent = texto;
-		    el.style.left = `${x}px`;
-		    el.style.top = `${y}px`;
+        const el = document.createElement('div');
+        el.className = 'texto-flotante';
+        el.textContent = texto;
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
 
-		    juegoEl.appendChild(el);
+        juego.appendChild(el);
 
-		    setTimeout(() => el.remove(), 800);
-		}   
+        setTimeout(() => el.remove(), 800);
+    }   
 }

@@ -25,15 +25,13 @@ class runnerController {
     }
 
     configurarChoque() {
-    this.vista.pato.addEventListener('animationend', (e) => {
-        if (e.animationName === 'choque') {
-            this.vista.choqueActivo = false;
-            if (this.modelo.gameOver) {
+        this.vista.pato.addEventListener('animationend', (e) => {
+            if (e.animationName === 'choque' && this.modelo.gameOver) {
                 this.modelo.reiniciar();
             }
-        }
-    });
-}
+        });
+    }
+
     iniciar() {
         requestAnimationFrame((tiempoActual) => this.bucle(tiempoActual));
     }

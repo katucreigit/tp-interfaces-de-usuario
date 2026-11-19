@@ -40,8 +40,39 @@
 }
 
 @keyframes choque {
-  from { background-position-x: 0px; }
-  to { background-position-x: -4000px; }
+    0% {
+        background-position-x: 0px;
+        opacity: 1;
+    }
+
+    15% {
+        opacity: 0.2;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.2;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        background-position-x: -4000px;
+        opacity: 1;
+    }
 }
 
 #troncos {
