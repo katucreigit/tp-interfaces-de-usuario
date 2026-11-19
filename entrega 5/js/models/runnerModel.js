@@ -19,22 +19,27 @@ class runnerModel {
         this.troncos = [];
         this.items = [];
         
-        this.distanciaSpawnTronco = 300;
+        this.distanciaSpawnTronco = 50;
         this.distanciaSpawnItem = 400;
         this.vidas = 5;
         this.tiempoTranscurrido = 0;
+        
+        this.entrada = {
+			impulso: false
+		};
             
         this.reiniciar();
     }
 
     reiniciar() {
+	    this.estado = 'menu';
         this.enJuego = false;
         this.gameOver = false;
         this.troncos = [];
         this.items = []; 
         this.puntos = 0;
         this.vidas = 5;
-        this.distanciaSpawnTronco = 300;
+        this.distanciaSpawnTronco = 50;
         this.distanciaSpawnItem = 400;
         this.tiempoTranscurrido = 0;
         this.pato = {
@@ -50,15 +55,18 @@ class runnerModel {
     }
     
     saltar() {
-        if (this.gameOver) {
-            this.reiniciar();
-            return;
-        }
-        if (!this.enJuego) {
-            this.enJuego = true;
-        }
-        this.pato.velocidadY = this.impulsoSalto;
-    }
+		if (this.estado === 'fin') {
+		    this.reiniciar();
+		    return;
+		}
+
+		if (this.estado === 'menu') {
+		    this.estado = 'jugando';
+		    this.enJuego = true;
+		}
+
+		this.pato.velocidadY = this.impulsoSalto;
+	}
 
     obtenerHitboxPato() {
         return {
@@ -70,7 +78,12 @@ class runnerModel {
     }
 
     actualizar(dt) {
-        if (this.gameOver) return;
+        if (this.entrada.impulso) {
+			this.saltar();
+			this.entrada.impulso = false;
+		}
+
+		if (this.gameOver) return;
     
         const ANCHO_TILE = 900;
         
@@ -179,11 +192,15 @@ class runnerModel {
 		        this.pato.velocidadY = this.impulsoSalto;
 		    }
 		}
+		
+		if (this.gameOver) {
+			this.estado = 'fin';
+		}
     }
 
     crearTronco() {
         const huecoInicial = 210;
-        const huecoMinimo = 70; 
+        const huecoMinimo = 50; 
         const tiempoMaxDificultad = 60; // Segundos que tarda en llegar al hueco mínimo
 
         // Progreso de 0 a 1 según el tiempo transcurrido
@@ -207,36 +224,57 @@ class runnerModel {
             colisionado: false
         });
 
-        // Crear mosca centrada en el hueco si ya pasaron 10 segundos
-        if (this.tiempoTranscurrido >= 10 && this.troncos.length > 1) {
-            if (Math.random() < 0.1) {
-                const troncoAnterior = this.troncos[this.troncos.length - 2];
-                const xMedio = (troncoAnterior.x + this.ancho) / 2;
-                const posY = Math.floor(Math.random() * (this.pisoY - 200 - 100)) + 100;
-
-                this.items.push({
-                    tipo: 'mosca',
-                    x: xMedio,
-                    y: posY,
-                    ancho: 80,
-                    alto: 80,
-                    tomado: false
-                });
-            }
-        }
     }
 
     crearItemAleatorio() {
-        const monedaY = Math.floor(Math.random() * (this.pisoY - 180 - 80)) + 80;
-        this.items.push({
-            tipo: 'moneda',
-            x: this.ancho,
-            y: monedaY,
-            ancho: 50,
-            alto: 50,
-            tomado: false
-        });
-    }
+		const esMoneda = Math.random() < 0.8;
+
+		const tipo = esMoneda ? 'moneda' : 'mosca';
+		const anchoItem = esMoneda ? 50 : 80;
+		const altoItem = esMoneda ? 50 : 80;
+
+		const espaciosLibres = [];
+
+		for (let i = 0; i < this.troncos.length - 1; i++) {
+		    const troncoActual = this.troncos[i];
+		    const troncoSiguiente = this.troncos[i + 1];
+
+		    const inicio = troncoActual.x + troncoActual.ancho + 10;
+		    const fin = troncoSiguiente.x - 10;
+
+		    const espacioDisponible = fin - inicio;
+
+		    if (inicio >= this.pato.x + this.pato.ancho && espacioDisponible >= anchoItem) {
+		        espaciosLibres.push({
+		            inicio: inicio,
+		            espacio: espacioDisponible
+		        });
+		    }
+		}
+
+		if (espaciosLibres.length === 0) return;
+
+		const espacioElegido = espaciosLibres[Math.floor(Math.random() * espaciosLibres.length)];
+
+		const x = espacioElegido.inicio + Math.random() * (espacioElegido.espacio - anchoItem);
+
+		let y;
+
+		if (tipo === 'moneda') {
+		    y = Math.floor(Math.random() * (this.pisoY - 180 - 80)) + 80;
+		} else {
+		    y = Math.floor(Math.random() * (this.pisoY - 200 - 100)) + 100;
+		}
+
+		this.items.push({
+		    tipo: tipo,
+		    x: x,
+		    y: y,
+		    ancho: anchoItem,
+		    alto: altoItem,
+		    tomado: false
+		});
+	}
     
     verificarColisionesTroncos() {
         const hitboxPato = this.obtenerHitboxPato();
@@ -259,7 +297,6 @@ class runnerModel {
     }
 
     choca(a, b) {
-        return (a.x < b.x + b.w && a.x + a.w > b.x &&
-                a.y < b.y + b.h && a.y + a.h > b.y);
+        return (a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
     }
 }

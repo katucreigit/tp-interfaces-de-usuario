@@ -4,6 +4,8 @@ class runnerView {
         this.pato = document.getElementById('pato');
         this.contenedorTroncos = document.getElementById('troncos');
         this.puntajeAnterior = 0;
+        this.elementosTroncos = new Map();
+		this.elementosItems = new Map();
     }
 
     render(modelo) {
@@ -17,50 +19,18 @@ class runnerView {
         });
     
         // Posición y rotación del pato
-        this.pato.style.top = `${modelo.pato.y}px`;
-        this.pato.style.transform = `rotate(${modelo.pato.rotacion}deg)`;
+        this.pato.style.transform = `translate(${modelo.pato.x}px, ${modelo.pato.y}px) rotate(${modelo.pato.rotacion}deg)`;
         // 3. Estados visuales del pato
         if (modelo.gameOver || modelo.pato.tiempoChoqueVisual > 0) {
-            this.pato.classList.remove('impulso');
-            if (!this.pato.classList.contains('choque')) {
-                this.pato.classList.add('choque');
-            }
-        } else if (modelo.enJuego && modelo.pato.velocidadY < 0) {
-            this.pato.classList.remove('choque');
-            this.pato.classList.add('impulso');
-        } else {
-            this.pato.classList.remove('impulso', 'choque');
-        }
+			this.ponerEstado('choque');
+		} else if (modelo.enJuego && modelo.pato.velocidadY < 0) {
+			this.ponerEstado('impulso');
+		} else {
+			this.ponerEstado('volando');
+		}
              
-        this.contenedorTroncos.innerHTML = ''; 
-
-        modelo.troncos.forEach(t => {      
-            const divSup = document.createElement('div');
-            divSup.className = 'tronco tronco-arriba';
-            divSup.style.width = `${t.ancho}px`;
-            divSup.style.height = `${t.superior.alto}px`;
-            divSup.style.transform = `translate3d(${t.x}px, ${t.superior.y}px, 0)`;
-            this.contenedorTroncos.appendChild(divSup);
-
-            const divInf = document.createElement('div');
-            divInf.className = 'tronco tronco-abajo';
-            divInf.style.width = `${t.ancho}px`;
-            divInf.style.height = `${t.inferior.alto}px`;
-            divInf.style.transform = `translate3d(${t.x}px, ${t.inferior.y}px, 0)`;
-            this.contenedorTroncos.appendChild(divInf);
-        });
-        
-        // 2. Dibujar Monedas usando keyframes de forma estable
-        modelo.items.forEach(item => {
-            const div = document.createElement('div');
-            div.className = item.tipo;
-            div.style.width = `${item.ancho}px`;
-            div.style.height = `${item.alto}px`;
-            div.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
-            if (item.tipo === 'moneda') div.style.animationDelay = `-${item.x * 0.005}s`;
-            if (item.tipo === 'mosca') div.style.animationDelay = `-${item.x * 0.01}s`;
-            this.contenedorTroncos.appendChild(div);
-        });
+       this.dibujarTroncos(modelo);
+		this.dibujarItems(modelo);
 	if (modelo.puntos > this.puntajeAnterior) {
             const diferencia = modelo.puntos - this.puntajeAnterior;
             this.mostrarFlotante(`+${diferencia}`, modelo.pato.x + 50, modelo.pato.y);
@@ -81,6 +51,110 @@ class runnerView {
             spanVidas.textContent = modelo.vidas;
         }
     }
+    
+    ponerEstado(estado) {
+	    if (this.pato.classList.contains(estado)) return;
+
+	    this.pato.classList.remove('volando', 'impulso', 'choque');
+
+	    void this.pato.offsetWidth;
+
+	    this.pato.classList.add(estado);
+	}
+	
+	dibujarTroncos(modelo) {
+    modelo.troncos.forEach(t => {
+
+        // Si el tronco todavía no tiene elementos, los creamos
+        if (!this.elementosTroncos.has(t)) {
+
+            const divSup = document.createElement('div');
+            divSup.className = 'tronco tronco-arriba';
+
+            const divInf = document.createElement('div');
+            divInf.className = 'tronco tronco-abajo';
+
+            this.contenedorTroncos.appendChild(divSup);
+            this.contenedorTroncos.appendChild(divInf);
+
+            this.elementosTroncos.set(t, {
+                superior: divSup,
+                inferior: divInf
+            });
+        }
+
+        // Recuperamos los elementos que ya existen
+        const elementos = this.elementosTroncos.get(t);
+
+        // Actualizamos sus tamaños y posiciones
+        elementos.superior.style.width = `${t.ancho}px`;
+        elementos.superior.style.height = `${t.superior.alto}px`;
+        elementos.superior.style.transform =
+            `translate3d(${t.x}px, ${t.superior.y}px, 0)`;
+
+        elementos.inferior.style.width = `${t.ancho}px`;
+        elementos.inferior.style.height = `${t.inferior.alto}px`;
+        elementos.inferior.style.transform =
+            `translate3d(${t.x}px, ${t.inferior.y}px, 0)`;
+    });
+
+    // Eliminamos los troncos que ya no están en el modelo
+    const troncosActuales = new Set(modelo.troncos);
+
+    for (const [tronco, elementos] of this.elementosTroncos) {
+        if (!troncosActuales.has(tronco)) {
+            elementos.superior.remove();
+            elementos.inferior.remove();
+
+            this.elementosTroncos.delete(tronco);
+        }
+    }
+}
+dibujarItems(modelo) {
+    modelo.items.forEach(item => {
+
+        // Si el item todavía no tiene elemento, lo creamos
+        if (!this.elementosItems.has(item)) {
+
+            const div = document.createElement('div');
+
+            div.className = item.tipo;
+            div.style.width = `${item.ancho}px`;
+            div.style.height = `${item.alto}px`;
+
+            if (item.tipo === 'moneda') {
+                div.style.animationDelay = `${-item.x * 0.005}s`;
+            }
+
+            if (item.tipo === 'mosca') {
+                div.style.animationDelay = `${-item.x * 0.01}s`;
+            }
+
+            this.contenedorTroncos.appendChild(div);
+
+            this.elementosItems.set(item, div);
+        }
+
+        // Recuperamos el elemento existente
+        const div = this.elementosItems.get(item);
+
+        // Actualizamos su posición
+        div.style.transform =
+            `translate3d(${item.x}px, ${item.y}px, 0)`;
+    });
+
+    // Eliminamos los items que ya no están en el modelo
+    const itemsActuales = new Set(modelo.items);
+
+    for (const [item, div] of this.elementosItems) {
+        if (!itemsActuales.has(item)) {
+            div.remove();
+
+            this.elementosItems.delete(item);
+        }
+    }
+}
+
  mostrarFlotante(texto, x, y) {
         const juego = document.getElementById('juego');
         if (!juego) return;

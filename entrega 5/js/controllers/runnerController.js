@@ -9,20 +9,17 @@ class runnerController {
     }
     
     configurarControles() {
-        window.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' || e.code === 'ArrowUp') {
-                e.preventDefault();
-                this.modelo.saltar();
-            }
-        });
+	    document.addEventListener('keydown', e => {
+		if ((e.code === 'Space' || e.code === 'ArrowUp') && !e.repeat) {
+		    e.preventDefault();
+		    this.modelo.entrada.impulso = true;
+		}
+	    });
 
-        const juego = document.getElementById('juego');
-        if (juego) {
-            juego.addEventListener('mousedown', () => {
-                this.modelo.saltar();
-            });
-        }
-    }
+	    document.getElementById('juego').addEventListener('mousedown', () => {
+		this.modelo.entrada.impulso = true;
+	    });
+	}
 
     configurarChoque() {
         this.vista.pato.addEventListener('animationend', (e) => {

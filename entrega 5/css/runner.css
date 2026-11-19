@@ -7,11 +7,11 @@
 
 #pato {
   position: absolute;
-  left: 100px;
+  left: 0;
   top: 0;
   width: 200px;
   height: 200px;
-  background-image: url("../img/flappy/pato-volando.png");
+  background-image: url("../img/runner/pato-volando.png");
   background-repeat: no-repeat;
   background-size: 2000px 200px;
   animation: volar 0.75s steps(10) infinite;
@@ -19,12 +19,12 @@
 }
 
 #pato.impulso {
-  background-image: url("../img/flappy/pato-impulso.png");
+  background-image: url("../img/runner/pato-impulso.png");
   animation: impulso 0.5s steps(10) infinite;
 }
 
 #pato.choque {
-  background-image: url("../img/flappy/pato-choque.png");
+  background-image: url("../img/runner/pato-choque.png");
   background-size: 4000px 200px; 
   animation: choque 1.2s steps(20) forwards;
 }
@@ -87,7 +87,7 @@
 .tronco {
   position: absolute;
   width: 80px;
-  background-image: url("../img/flappy/tronco.png");
+  background-image: url("../img/runner/tronco.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -105,7 +105,7 @@
   position: absolute;
   width: 50px;
   height: 50px;
-  background-image: url("../img/flappy/coin-sprite.png");
+  background-image: url("../img/runner/coin-sprite.png");
   background-size: 400px 50px;
   animation: girarMoneda 0.8s steps(8) infinite;
   z-index: 12;
@@ -122,7 +122,7 @@
   top: 0;
   width: 80px;
   height: 80px;
-  background-image: url("../img/flappy/mosca-sprite.png");
+  background-image: url("../img/runner/mosca-sprite.png");
   background-size: 800px 80px; /* 10 frames x 80px = 800px */
   animation: volarMosca 0.5s steps(10) infinite;
   z-index: 25; /* Por encima de los troncos y del pato para asegurarnos de verla */
@@ -172,31 +172,31 @@ background-size: 900px auto;
 }
 
 .capa-fondo {
-  background-image: url("../img/flappy/fondo.png");
+  background-image: url("../img/runner/fondo.png");
   background-position-y: top;
   z-index: 1;
 }
 
 .capa-nubes {
-  background-image: url("../img/flappy/nubes.png");
+  background-image: url("../img/runner/nubes.png");
   background-position-y: top;
   z-index: 2;
 }
 
 .capa-cerca {
-  background-image: url("../img/flappy/cerca.png");
+  background-image: url("../img/runner/cerca.png");
   background-position-y: bottom;
   z-index: 3;
 }
 
 .capa-arbustos {
-  background-image: url("../img/flappy/arbustos.png");
+  background-image: url("../img/runner/arbustos.png");
   background-position-y: bottom;
   z-index: 4;
 }
 
 .capa-piso {
-  background-image: url("../img/flappy/piso.png");
+  background-image: url("../img/runner/piso.png");
     background-position-y: bottom;
   z-index: 10;
 }
