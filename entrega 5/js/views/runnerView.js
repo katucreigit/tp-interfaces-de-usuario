@@ -20,6 +20,13 @@ class runnerView {
     
         // Posición y rotación del pato
         this.pato.style.transform = `translate(${modelo.pato.x}px, ${modelo.pato.y}px) rotate(${modelo.pato.rotacion}deg)`;
+        
+        const pantallaInicio = document.getElementById('pantalla-inicio');
+
+	if (pantallaInicio) {
+	    pantallaInicio.style.display =
+		modelo.estado === 'menu' ? 'flex' : 'none';
+	}
         // 3. Estados visuales del pato
         if (modelo.gameOver || modelo.pato.tiempoChoqueVisual > 0) {
 			this.ponerEstado('choque');
@@ -32,11 +39,8 @@ class runnerView {
 		this.dibujarTroncos(modelo);
         this.dibujarItems(modelo);
 
-        if (modelo.estado === 'menu') {
-            return;
-        }
-
         const contenedorVidas = document.getElementById('vidas-hud');
+        
         if (contenedorVidas) {
             const totalVidas = 5;
 
@@ -76,6 +80,10 @@ class runnerView {
             if (spanVidas) {
                 spanVidas.textContent = modelo.vidas;
             }
+            
+            if (modelo.estado === 'menu') {
+		    return;
+		}
     }
     
     ponerEstado(estado) {

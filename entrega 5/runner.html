@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird - Game World</title>
+    <title>Quack Runner - Game World</title>
     <link rel="stylesheet" href="css/juego.css">
     <link rel="stylesheet" href="css/runner.css">
     
@@ -374,6 +374,10 @@
             <section class="principal">
                 <div id="contenedorJuegoCompleto">
 		            <div id="juego">
+		            	<div id="pantalla-inicio">
+							<h1>DUCK RUNNER</h1>
+							<p>Hacé clic para empezar a jugar</p>
+						</div>
 					    <!-- Las 5 capas de Parallax (de atrás hacia adelante) -->
                         <div class="capa capa-fondo"></div>
                         <div class="capa capa-nubes"></div>
@@ -408,7 +412,7 @@
                         </a>
                     </div>
 
-                    <h3>Peg Solitarie: Spiderman</h3>
+                    <h3>Quack Runner</h3>
 
                     <div class="btn-derechos">
                         <button class="btn-barra favorito tooltip-acento" onclick="cambiarFavorito(this)" data-tooltip="Añadir a favoritos">
@@ -474,7 +478,7 @@
                             <div>
                                 <h3>Objetivo</h3>
                                 <p>
-                                    Eliminar todas las fichas del tablero y dejar solo una.
+                                    Conseguí la mayor cantidad de puntos posibles mientras esquivás los troncos y recogés objetos.
                                 </p>
                             </div>
                         </div>
@@ -486,11 +490,13 @@
                                 <h3>Reglas</h3>
 
                                 <ul>
-                                    <li>Selecciona una ficha para moverla.</li>
-                                    <li>Una ficha puede saltar sobre otra ficha hacia un espacio vacío.</li>
-                                    <li>La ficha sobre la que saltas desaparece.</li>
-                                    <li>Solo podés mover en linea recta: arriba, abajo, izquierda o derecha.</li>
-                                    <li>No se permiten movimientos en diagonal.</li>
+                                    <li>Presioná ESPACIO, FLECHA ARRIBA o hacé CLICK para impulsar al pato hacia arriba.</li>
+                                    <li>Evitá chocar contra los troncos y el piso.</li>
+                                    <li>Recogé monedas para sumar 50 puntos.</li>
+                                    <li>Evitá las moscas, porque te hacen perder una vida.</li>
+                                    <li>Cada tronco que superás suma 10 puntos.</li>
+                                    <li>Tenés 5 vidas para jugar.</li>
+                                    <li> La dificultad aumenta a medida que avanzás.</li>
                                 </ul>
                             </div>
                         </div>
@@ -499,9 +505,9 @@
                             <i class="fa-solid fa-trophy"></i>
 
                             <div>
-                                <h3>¡Ganás!</h3>
+                                <h3>¡A jugar!</h3>
                                 <p>
-                                    Ganás cuando queda una sola ficha en el tablero.
+                                    El juego termina cuando perdés las 5 vidas. Intentá conseguir la mayor puntuación posible.
                                 </p>
                             </div>
                         </div>
@@ -519,7 +525,7 @@
 
                     <p>
                         En este juego estilo runner, tendrás que controlar el salto con precisión para atravesar los huecos entre troncos, sumar puntos con las monedas y evitar las moscas.
-                        A medida que pasa el tiempo, la dificultad sube de forma gradual y los huecos se achican hasta volverse un verdadero desafío, mientras contás con 5 corazones.
+                        A medida que pasa el tiempo, la dificultad sube de forma gradual y los huecos se achican hasta volverse un verdadero desafío. Tenes solo 5 vidas. 
                     </p>
 
                     <p>
