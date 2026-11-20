@@ -365,27 +365,13 @@
         <div class="breadcrumb">
             <a href="index.html">Juegos</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <span></span>
+            <span>Accion</span>
             <i class="fa-solid fa-chevron-right"></i>
-            <span class="breadcrumb-active"></span>
+            <span class="breadcrumb-active">Quack Runner</span>
         </div>
 
         <div class="contenido">
             <section class="principal">
-                <div class="pantalla-carga" id="pantallaCargaJuego">
-                    <img src="img/peg-solitarie.png" alt="Imagen del juego">
-
-                    <div class="loading">
-                        <div class="contenedor-carga">
-                            <span id="gamePorcentaje">0%</span>
-
-                            <div class="barra">
-                                <div class="game-progreso"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div id="contenedorJuegoCompleto">
 		            <div id="juego">
 					    <!-- Las 5 capas de Parallax (de atrás hacia adelante) -->
@@ -399,8 +385,11 @@
                         <div id="pato" class="volando"></div>
                         <div id="troncos"></div>
                         
-                        <div id="puntaje">
-                            Puntos: <span id="puntos">0</span> | Vidas: <span id="vidas">5</span>
+                        <div id="hud-superior">
+                            <div id="puntaje">
+                                Puntos: <span id="puntos">0</span>
+                            </div>
+                            <div id="vidas-hud" class="vidas-hud"></div>
                         </div>
 					</div>
 
@@ -525,22 +514,21 @@
                     <h2 class="titulo-seccion">Descripción</h2>
 
                     <p>
-                        ¡Poné a prueba tu estrategia y ayudá a Spider-Man a superar este desafío!
+                        ¡Poné a prueba tus reflejos y ayudá a este pato a esquivar troncos y moscas hasta donde aguante!
                     </p>
 
                     <p>
-                        En Spider-Man Peg Solitaire, tendrás que mover las piezas por el tablero siguiendo las reglas del clásico
-                        Peg Solitaire, intentando eliminar todas las piezas hasta dejar solamente una.
-                        Cada movimiento requiere pensar con anticipación y encontrar la mejor combinación para superar el nivel.
+                        En este juego estilo runner, tendrás que controlar el salto con precisión para atravesar los huecos entre troncos, sumar puntos con las monedas y evitar las moscas.
+                        A medida que pasa el tiempo, la dificultad sube de forma gradual y los huecos se achican hasta volverse un verdadero desafío, mientras contás con 5 corazones.
                     </p>
 
                     <p>
-                        ¿Podrás resolver el tablero sin quedar atrapado? ¡Demostrá tus habilidades y completá el desafío!
+                        ¿Hasta qué puntaje llegás antes de quedarte sin corazones? ¡Demostrá tu ritmo y superá tu récord!
                     </p>
 
                     <div class="video">
                         <div class="video-imagen">
-                            <img src="img/juegoInstrucciones.jpg" alt="Spider-Man Peg Solitaire">
+                            <img src="img/runner/instruccionesRunner.jpg" alt="Spider-Man Peg Solitaire">
 
                             <div class="video-overlay">
                                 <i class="fa-solid fa-play"></i>
@@ -558,7 +546,7 @@
                                 &times;
                             </button>
 
-                            <img src="img/juegoInstrucciones.jpg" alt="Instrucciones completas">
+                            <img src="img/runner/instruccionesRunner.jpg" alt="Instrucciones completas">
                         </div>
                     </div>
 
@@ -566,69 +554,66 @@
 
                 <section class="comentarios" id="comentarios">
                     <h2 class="titulo-seccion">Comentarios</h2>
-
+                
                     <div class="caja-comentario">
                         <textarea placeholder="Deja tu comentario en la comunidad..."></textarea>
-
+                
                         <div class="comentar">
                             <button>Comentar</button>
                         </div>
                     </div>
-
+                
                     <div class="comentario">
                         <div class="usuario">
                             <div class="avatar">M</div>
-
+                
                             <div class="usuario-info">
                                 <p>Martina</p>
                             </div>
                         </div>
-
+                
                         <p class="comentario-texto">
-                            "Está buenísimo el juego, me costó bastante
-                            encontrar la solución al principio."
+                            "Está re vicio, cuando los troncos se empiezan a achicar se pone picantísimo."
                         </p>
-
+                
                         <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>
                         </div>
                     </div>
-
+                
                     <div class="comentario">
                         <div class="usuario">
                             <div class="avatar">J</div>
-
+                
                             <div class="usuario-info">
                                 <p>Juan</p>
                             </div>
                         </div>
-
+                
                         <p class="comentario-texto">
-                            "Muy entretenido. La temática de Spider-Man
-                            queda genial."
+                            "Muy entretenido. Que te dé un salto y 3 segundos parpadeando cuando tocás el piso salva un montón."
                         </p>
-
+                
                         <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>
                         </div>
                     </div>
-
+                
                     <div class="comentario">
                         <div class="usuario">
                             <div class="avatar">L</div>
-
+                
                             <div class="usuario-info">
                                 <p>Lucas</p>
                             </div>
                         </div>
-
+                
                         <p class="comentario-texto">
-                            "Me gustó, aunque algunos niveles son bastante
-                            difíciles."
+                            "Me gustó mucho, cazar monedas sin comerte una mosca te obliga a calcular bien cada salto."
                         </p>
-
+                
                         <div class="likes">
                             <i class="fa-regular fa-thumbs-up"></i>
                             <i class="fa-regular fa-thumbs-down"></i>

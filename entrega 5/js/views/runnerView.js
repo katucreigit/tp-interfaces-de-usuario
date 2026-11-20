@@ -30,30 +30,52 @@ class runnerView {
 		}
 		
 		this.dibujarTroncos(modelo);
-this.dibujarItems(modelo);
+        this.dibujarItems(modelo);
 
-if (modelo.estado === 'menu') {
-    return;
-}
-	if (modelo.puntos > this.puntajeAnterior) {
-            const diferencia = modelo.puntos - this.puntajeAnterior;
-            this.mostrarFlotante(`+${diferencia}`, modelo.pato.x + 50, modelo.pato.y);
-            this.puntajeAnterior = modelo.puntos;
-        }
-        
-        if (modelo.puntos === 0) {
-            this.puntajeAnterior = 0;
+        if (modelo.estado === 'menu') {
+            return;
         }
 
-        const spanPuntos = document.getElementById('puntos');
-        if (spanPuntos) {
-            spanPuntos.textContent = modelo.puntos;
+        const contenedorVidas = document.getElementById('vidas-hud');
+        if (contenedorVidas) {
+            const totalVidas = 5;
+
+            if (contenedorVidas.children.length !== totalVidas) {
+                contenedorVidas.innerHTML = '';
+                for (let i = 0; i < totalVidas; i++) {
+                    const corazon = document.createElement('span');
+                    corazon.className = 'corazon';
+                    corazon.textContent = '❤️';
+                    contenedorVidas.appendChild(corazon);
+                }
+            }
+
+            const vidasActuales = Math.max(0, modelo.vidas);
+            const corazones = contenedorVidas.children;
+            for (let i = 0; i < corazones.length; i++) {
+                corazones[i].classList.toggle('vacio', i >= vidasActuales);
+            }
         }
 
-        const spanVidas = document.getElementById('vidas');
-        if (spanVidas) {
-            spanVidas.textContent = modelo.vidas;
-        }
+        if (modelo.puntos > this.puntajeAnterior) {
+                const diferencia = modelo.puntos - this.puntajeAnterior;
+                this.mostrarFlotante(`+${diferencia}`, modelo.pato.x + 50, modelo.pato.y);
+                this.puntajeAnterior = modelo.puntos;
+            }
+            
+            if (modelo.puntos === 0) {
+                this.puntajeAnterior = 0;
+            }
+
+            const spanPuntos = document.getElementById('puntos');
+            if (spanPuntos) {
+                spanPuntos.textContent = modelo.puntos;
+            }
+
+            const spanVidas = document.getElementById('vidas');
+            if (spanVidas) {
+                spanVidas.textContent = modelo.vidas;
+            }
     }
     
     ponerEstado(estado) {
