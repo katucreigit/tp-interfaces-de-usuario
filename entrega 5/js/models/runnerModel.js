@@ -57,10 +57,9 @@ class runnerModel {
     saltar() {
 		if (this.estado === 'fin') {
 		    this.reiniciar();
-		    return;
-		}
-
-		if (this.estado === 'menu') {
+		    this.estado = 'jugando';
+		    this.enJuego = true;
+		} else if (this.estado === 'menu') {
 		    this.estado = 'jugando';
 		    this.enJuego = true;
 		}
@@ -79,12 +78,12 @@ class runnerModel {
 
     actualizar(dt) {
         
-		if (this.gameOver) return;
-
 		if (this.entrada.impulso) {
 				this.saltar();
 				this.entrada.impulso = false;
 			}
+
+		if (this.gameOver) return;
 
         const ANCHO_TILE = 900;
         
@@ -195,6 +194,12 @@ class runnerModel {
 		}
 		
 		if (this.gameOver) {
+			this.estado = 'fin';
+			this.enJuego = false;
+
+			document.getElementById('puntaje-final').textContent = this.puntos;
+
+			this.reiniciar();
 			this.estado = 'fin';
 		}
     }

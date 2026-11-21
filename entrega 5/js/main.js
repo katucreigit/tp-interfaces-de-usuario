@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
     // Juego Peg Solitaire
@@ -10,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cargarImagen("img/peg/ficha2.jpg")
         ])
         .then(([spriteImg1, spriteImg2]) => {
-            const juego = new GameController("canvasJuego", [spriteImg1, spriteImg2]);
+            new GameController("canvasJuego", [spriteImg1, spriteImg2]);
         })
         .catch(error => {
             console.error("No se pudo cargar la imagen de la ficha:", error);
@@ -31,11 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
             cargarImagen("img/runner/pato-choque.png"),
             cargarImagen("img/runner/coin-sprite.png"),
             cargarImagen("img/runner/mosca-sprite.png")
-        ])
-        .then(() => {
+        ]).then(() => {
             controlador.iniciar();
-        })
-        .catch(error => {
+        }).catch(error => {
             console.error("No se pudieron cargar las imágenes del Runner:", error);
         });
     }

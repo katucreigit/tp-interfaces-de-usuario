@@ -8,7 +8,7 @@ class runnerView {
 		this.elementosItems = new Map();
     }
 
-    render(modelo) {
+    render(modelo, record) {
         // Mover las capas del fondo
         modelo.capas.forEach((capa, index) => {
             const el = this.elementosCapas[index];
@@ -23,12 +23,22 @@ class runnerView {
         
         const pantallaInicio = document.getElementById('pantalla-inicio');
 
-	if (pantallaInicio) {
-	    pantallaInicio.style.display =
-		modelo.estado === 'menu' ? 'flex' : 'none';
-	}
-        // 3. Estados visuales del pato
-        if (modelo.gameOver || modelo.pato.tiempoChoqueVisual > 0) {
+		if (pantallaInicio) {
+			pantallaInicio.style.display =
+			modelo.estado === 'menu' ? 'flex' : 'none';
+		}
+		const pantallaReinicio = document.getElementById('pantalla-reinicio');
+
+		if (pantallaReinicio) {
+			pantallaReinicio.style.display =
+				modelo.estado === 'fin' ? 'flex' : 'none';
+		}
+		
+		if (modelo.estado === 'fin') {
+			document.getElementById('mejor-record').textContent = record;
+		}
+        //Estados visuales del pato
+        if (modelo.pato.tiempoChoqueVisual > 0) {
 			this.ponerEstado('choque');
 		} else if (modelo.enJuego && modelo.pato.velocidadY < 0) {
 			this.ponerEstado('impulso');
@@ -39,17 +49,18 @@ class runnerView {
 		this.dibujarTroncos(modelo);
         this.dibujarItems(modelo);
 
-        const contenedorVidas = document.getElementById('vidas-hud');
+        const contenedorVidas = document.getElementById('vidas');
         
         if (contenedorVidas) {
             const totalVidas = 5;
 
             if (contenedorVidas.children.length !== totalVidas) {
                 contenedorVidas.innerHTML = '';
+                
                 for (let i = 0; i < totalVidas; i++) {
                     const corazon = document.createElement('span');
                     corazon.className = 'corazon';
-                    corazon.textContent = '❤️';
+                    corazon.textContent = '♥';
                     contenedorVidas.appendChild(corazon);
                 }
             }
@@ -76,14 +87,6 @@ class runnerView {
                 spanPuntos.textContent = modelo.puntos;
             }
 
-            const spanVidas = document.getElementById('vidas');
-            if (spanVidas) {
-                spanVidas.textContent = modelo.vidas;
-            }
-            
-            if (modelo.estado === 'menu') {
-		    return;
-		}
     }
     
     ponerEstado(estado) {
@@ -97,53 +100,48 @@ class runnerView {
 	}
 	
 	dibujarTroncos(modelo) {
-    modelo.troncos.forEach(t => {
+		modelo.troncos.forEach(t => {
 
-        // Si el tronco todavía no tiene elementos, los creamos
-        if (!this.elementosTroncos.has(t)) {
+		    if (!this.elementosTroncos.has(t)) {
 
-            const divSup = document.createElement('div');
-            divSup.className = 'tronco tronco-arriba';
+		        const divSup = document.createElement('div');
+		        divSup.className = 'tronco tronco-arriba';
 
-            const divInf = document.createElement('div');
-            divInf.className = 'tronco tronco-abajo';
+		        const divInf = document.createElement('div');
+		        divInf.className = 'tronco';
 
-            this.contenedorTroncos.appendChild(divSup);
-            this.contenedorTroncos.appendChild(divInf);
+		        this.contenedorTroncos.appendChild(divSup);
+		        this.contenedorTroncos.appendChild(divInf);
 
-            this.elementosTroncos.set(t, {
-                superior: divSup,
-                inferior: divInf
-            });
-        }
+		        this.elementosTroncos.set(t, {
+		            superior: divSup,
+		            inferior: divInf
+		        });
+		    }
 
-        // Recuperamos los elementos que ya existen
-        const elementos = this.elementosTroncos.get(t);
+		    const elementos = this.elementosTroncos.get(t);
 
-        // Actualizamos sus tamaños y posiciones
-        elementos.superior.style.width = `${t.ancho}px`;
-        elementos.superior.style.height = `${t.superior.alto}px`;
-        elementos.superior.style.transform =
-            `translate3d(${t.x}px, ${t.superior.y}px, 0)`;
+		    elementos.superior.style.width = `${t.ancho}px`;
+		    elementos.superior.style.height = `${t.superior.alto}px`;
+		    elementos.superior.style.transform =`translate3d(${t.x}px, ${t.superior.y}px, 0)`;
 
-        elementos.inferior.style.width = `${t.ancho}px`;
-        elementos.inferior.style.height = `${t.inferior.alto}px`;
-        elementos.inferior.style.transform =
-            `translate3d(${t.x}px, ${t.inferior.y}px, 0)`;
-    });
+		    elementos.inferior.style.width = `${t.ancho}px`;
+		    elementos.inferior.style.height = `${t.inferior.alto}px`;
+		    elementos.inferior.style.transform =
+		        `translate3d(${t.x}px, ${t.inferior.y}px, 0)`;
+		});
 
-    // Eliminamos los troncos que ya no están en el modelo
-    const troncosActuales = new Set(modelo.troncos);
+		const troncosActuales = new Set(modelo.troncos);
 
-    for (const [tronco, elementos] of this.elementosTroncos) {
-        if (!troncosActuales.has(tronco)) {
-            elementos.superior.remove();
-            elementos.inferior.remove();
+		for (const [tronco, elementos] of this.elementosTroncos) {
+		    if (!troncosActuales.has(tronco)) {
+		        elementos.superior.remove();
+		        elementos.inferior.remove();
 
-            this.elementosTroncos.delete(tronco);
-        }
-    }
-}
+		        this.elementosTroncos.delete(tronco);
+		    }
+		}
+	}
 dibujarItems(modelo) {
     modelo.items.forEach(item => {
 
@@ -153,8 +151,6 @@ dibujarItems(modelo) {
             const div = document.createElement('div');
 
             div.className = item.tipo;
-            div.style.width = `${item.ancho}px`;
-            div.style.height = `${item.alto}px`;
 
             if (item.tipo === 'moneda') {
                 div.style.animationDelay = `${-item.x * 0.005}s`;

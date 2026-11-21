@@ -17,12 +17,10 @@
   animation: volar 0.75s steps(10) infinite;
   z-index: 20;
 }
-
 #pato.impulso {
   background-image: url("../img/runner/pato-impulso.png");
   animation: impulso 0.5s steps(10) infinite;
 }
-
 #pato.choque {
   background-image: url("../img/runner/pato-choque.png");
   background-size: 4000px 200px; 
@@ -30,13 +28,13 @@
 }
 
 @keyframes volar {
-  from { background-position-x: 0px; }
-  to { background-position-x: -2000px; }
+  0% { background-position-x: 0px; }
+  100% { background-position-x: -2000px; }
 }
 
 @keyframes impulso {
-  from { background-position-x: 0px; }
-  to { background-position-x: -2000px; }
+  0% { background-position-x: 0px; }
+  100% { background-position-x: -2000px; }
 }
 
 @keyframes choque {
@@ -44,31 +42,24 @@
         background-position-x: 0px;
         opacity: 1;
     }
-
     15% {
         opacity: 0.2;
     }
-
     30% {
         opacity: 1;
     }
-
     45% {
         opacity: 0.2;
     }
-
     60% {
         opacity: 1;
     }
-
     75% {
         opacity: 0.2;
     }
-
     90% {
         opacity: 1;
     }
-
     100% {
         background-position-x: -4000px;
         opacity: 1;
@@ -91,15 +82,11 @@
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-
 .tronco-arriba {
   background-position: bottom center;
   transform: scaleY(-1); 
 }
 
-.tronco-abajo {
-  background-position: top center;
-}
 
 .moneda {
   position: absolute;
@@ -113,9 +100,10 @@
 }
 
 @keyframes girarMoneda {
-  from { background-position-x: 0px; }
-  to   { background-position-x: -400px; }
+  0% { background-position-x: 0px; }
+  100%   { background-position-x: -400px; }
 }
+
 .mosca {
   position: absolute;
   left: 0;
@@ -123,14 +111,14 @@
   width: 80px;
   height: 80px;
   background-image: url("../img/runner/mosca-sprite.png");
-  background-size: 800px 80px; /* 10 frames x 80px = 800px */
+  background-size: 800px 80px;
   animation: volarMosca 0.5s steps(10) infinite;
-  z-index: 25; /* Por encima de los troncos y del pato para asegurarnos de verla */
+  z-index: 25;
 }
 
 @keyframes volarMosca {
-  from { background-position-x: 0px; }
-  to { background-position-x: -800px; }
+  0% { background-position-x: 0px; }
+  100%{ background-position-x: -800px; }
 }
 
 #hud-superior {
@@ -139,11 +127,9 @@
     left: 16px;
     z-index: 999;
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 16px;
 }
-
 #puntaje {
   margin: 0;
   white-space: nowrap;
@@ -152,20 +138,16 @@
   color: #ffffff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4);
 }
-
-.vidas-hud {
+.vidas {
     display: flex;
-    flex-direction: row;
     gap: 8px;
     align-items: center;
 }
-
 .corazon {
     font-size: 28px;
     line-height: 1;
     transition: transform 0.2s ease, filter 0.25s ease, opacity 0.25s ease;
 }
-
 .corazon.vacio {
     filter: grayscale(100%);
     opacity: 0.35;
@@ -195,40 +177,34 @@
   width: 100%;
   height: 100%;
   background-repeat: repeat-x;
-background-size: 900px auto;
+  background-size: 900px auto;
 }
 
 .capa-fondo {
   background-image: url("../img/runner/fondo.png");
-  background-position-y: top;
   z-index: 1;
 }
-
 .capa-nubes {
   background-image: url("../img/runner/nubes.png");
-  background-position-y: top;
   z-index: 2;
 }
-
 .capa-cerca {
   background-image: url("../img/runner/cerca.png");
   background-position-y: bottom;
   z-index: 3;
 }
-
 .capa-arbustos {
   background-image: url("../img/runner/arbustos.png");
   background-position-y: bottom;
   z-index: 4;
 }
-
 .capa-piso {
   background-image: url("../img/runner/piso.png");
     background-position-y: bottom;
   z-index: 10;
 }
 
-#pantalla-inicio {
+#pantalla-inicio, #pantalla-reinicio {
     position: absolute;
     top: 0;
     left: 0;
@@ -243,12 +219,25 @@ background-size: 900px auto;
     text-align: center;
     cursor: pointer;
 }
-
-#pantalla-inicio h1 {
+#pantalla-inicio h1{
+     font-family: "Luckiest Guy";
+     font-size: 80px;
+     margin-bottom: 15px;
+}
+#pantalla-reinicio h1 {
     font-size: 55px;
     margin-bottom: 15px;
 }
-
-#pantalla-inicio p {
+#pantalla-inicio p, #pantalla-reinicio p {
     font-size: 24px;
+    font-weight: bold;
+}
+#pantalla-reinicio #puntaje-final {
+    display: block;
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1;
+    color: #ffd447;
+    text-shadow: 3px 4px 0 #a65b16;
+    margin: 12px 0 20px;
 }

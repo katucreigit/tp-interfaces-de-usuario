@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="css/runner.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bangers&family=Orbitron:wght@400..900&family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bangers&family=Luckiest+Guy&family=Orbitron:wght@400..900&family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
     
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -375,8 +375,14 @@
                 <div id="contenedorJuegoCompleto">
 		            <div id="juego">
 		            	<div id="pantalla-inicio">
-							<h1>DUCK RUNNER</h1>
+							<h1>QUACK RUNNER</h1>
 							<p>Hacé clic para empezar a jugar</p>
+						</div>
+						<div id="pantalla-reinicio">
+							<h1>GAME OVER</h1>
+							 <p>Puntaje: <span id="puntaje-final">0</span></p>
+							 <p>Mejor récord: <span id="mejor-record">0</span></p>
+							<p>Hacé clic para volver a jugar</p>
 						</div>
 					    <!-- Las 5 capas de Parallax (de atrás hacia adelante) -->
                         <div class="capa capa-fondo"></div>
@@ -393,7 +399,7 @@
                             <div id="puntaje">
                                 Puntos: <span id="puntos">0</span>
                             </div>
-                            <div id="vidas-hud" class="vidas-hud"></div>
+                            <div id="vidas" class="vidas"></div>
                         </div>
 					</div>
 
@@ -478,7 +484,7 @@
                             <div>
                                 <h3>Objetivo</h3>
                                 <p>
-                                    Conseguí la mayor cantidad de puntos posibles mientras esquivás los troncos y recogés objetos.
+                                    Conseguí la mayor cantidad de puntos posibles mientras esquivás los troncos y recogés monedas.
                                 </p>
                             </div>
                         </div>
