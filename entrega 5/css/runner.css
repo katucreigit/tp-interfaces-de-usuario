@@ -83,7 +83,6 @@
   background-repeat: no-repeat;
 }
 .tronco-arriba {
-  background-position: bottom center;
   transform: scaleY(-1); 
 }
 
@@ -190,17 +189,14 @@
 }
 .capa-cerca {
   background-image: url("../img/runner/cerca.png");
-  background-position-y: bottom;
   z-index: 3;
 }
 .capa-arbustos {
   background-image: url("../img/runner/arbustos.png");
-  background-position-y: bottom;
   z-index: 4;
 }
 .capa-piso {
   background-image: url("../img/runner/piso.png");
-    background-position-y: bottom;
   z-index: 10;
 }
 

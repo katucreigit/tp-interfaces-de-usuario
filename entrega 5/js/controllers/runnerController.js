@@ -11,27 +11,40 @@ class runnerController {
         this.configurarControles();
     }
     
+    registrarImpulso() {
+        this.modelo.entrada.impulso = true;
+    }
+
     configurarControles() {
-		document.addEventListener('keydown', e => {
-		    if ((e.code === 'Space' || e.code === 'ArrowUp') && !e.repeat) {
-		        e.preventDefault();
-		        this.modelo.entrada.impulso = true;
-		    }
-		});
+        document.addEventListener('keydown', (e) => {
+            if ((e.code === 'Space' || e.code === 'ArrowUp') && !e.repeat) {
+                e.preventDefault();
+                this.registrarImpulso();
+            }
+        });
 
-		document.getElementById('juego').addEventListener('mousedown', () => {
-		    this.modelo.entrada.impulso = true;
-		});
-	}
+        const juegoEl = document.getElementById('juego');
+        if (juegoEl) {
+            juegoEl.addEventListener('mousedown', () => this.registrarImpulso());
+        }
+    }
 
-	configurarChoque() {
-		this.vista.pato.addEventListener('animationend', (e) => {
-		    if (e.animationName === 'choque') {
-		        this.modelo.pato.tiempoChoqueVisual = 0;
-		        this.vista.ponerEstado('volando');
-		    }
-		});
-}
+    configurarChoque() {
+        this.vista.pato.addEventListener('animationend', (e) => {
+            if (e.animationName === 'choque') {
+                this.modelo.pato.tiempoChoqueVisual = 0;
+                this.vista.ponerEstado('volando');
+            }
+        });
+    }
+
+    actualizarRecord() {
+        const puntajeReferencia = Math.max(this.modelo.puntos, this.modelo.puntajeFinal);
+        if (puntajeReferencia > this.record) {
+            this.record = puntajeReferencia;
+            localStorage.setItem('recordDuckRunner', this.record);
+        }
+    }
 
     iniciar() {
         requestAnimationFrame((tiempoActual) => this.bucle(tiempoActual));
@@ -39,24 +52,13 @@ class runnerController {
 
     bucle(tiempoActual) {
         if (!this.ultimoTiempo) this.ultimoTiempo = tiempoActual;
-        let dt = (tiempoActual - this.ultimoTiempo) / 1000;
+        const dt = Math.min((tiempoActual - this.ultimoTiempo) / 1000, this.maxDt);
         this.ultimoTiempo = tiempoActual;
 
-        // Limitar dt máximo
-        if (dt > this.maxDt) dt = this.maxDt;
-
         this.modelo.actualizar(dt);
+        this.actualizarRecord();
+        this.vista.render(this.modelo, this.record);
 
-		// Comprobar si se consiguió un nuevo récord
-		if (this.modelo.puntos > this.record) {
-			this.record = this.modelo.puntos;
-			localStorage.setItem('recordDuckRunner', this.record);
-		}
-
-		// Actualizar la vista
-		this.vista.render(this.modelo, this.record);
-
-        // Siguiente frame
         requestAnimationFrame((t) => this.bucle(t));
     }
 }
