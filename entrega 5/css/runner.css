@@ -241,3 +241,40 @@
     text-shadow: 3px 4px 0 #a65b16;
     margin: 12px 0 20px;
 }
+
+/* tooltips sobre #juego*/
+.barra-juego {
+  position: relative;
+  z-index: 50;
+  overflow: visible;
+}
+
+.barra-juego .tooltip-acento::after,
+.barra-juego .tooltip-acento::before {
+  z-index: 9999;
+  pointer-events: none;
+}
+
+#contenedorJuegoCompleto .pantalla-carga {
+  width: 900px;
+  height: 500px;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+#contenedorJuegoCompleto .pantalla-carga img {
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  object-fit: cover;
+  filter: blur(3px) brightness(0.45);
+}
+
+#contenedorJuegoCompleto .pantallaJuego {
+  display: none;
+}
+
+#contenedorJuegoCompleto .pantallaJuego #juego {
+  margin-top: 20px;
+}

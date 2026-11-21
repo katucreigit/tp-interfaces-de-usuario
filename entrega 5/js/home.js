@@ -195,6 +195,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
             }
 
+            const esQuackRunner =
+                indice === 2 || card.classList.contains("quack-runner");
+
+            if (esQuackRunner) {
+                juego = {
+                    name: "Quack Runner",
+                    background_image: "img/runner/portada.jpg",
+                    background_image_low_res: "img/runner/portada.jpg",
+                    description: "Esquivá troncos y moscas, juntá monedas y superá tu récord."
+                };
+            }
+
             const imagen = card.querySelector("img");
 
             if (imagen) {
@@ -259,6 +271,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (botonJugar) {
                     botonJugar.addEventListener("click", function() {
                         window.location.href = "blocka.html";
+                    });
+                }
+            }
+
+            /* QUACK RUNNER */
+            if (esQuackRunner) {
+                const botonJugar = overlay.querySelector(".btn-jugar");
+
+                if (botonJugar) {
+                    botonJugar.addEventListener("click", function() {
+                        window.location.href = "runner.html";
                     });
                 }
             }

@@ -107,6 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (contenedorJuegos) {
         const juegosHardcodeados = [
+            
+            {
+                name: "Quack Runner",
+                background_image: "img/runner/portada.jpg"
+            },
             {
                 name: "PacMan",
                 background_image: "img/pacman.jpeg"

@@ -373,35 +373,51 @@
         <div class="contenido">
             <section class="principal">
                 <div id="contenedorJuegoCompleto">
-		            <div id="juego">
-		            	<div id="pantalla-inicio">
-							<h1>QUACK RUNNER</h1>
-							<p>Hacé clic para empezar a jugar</p>
-						</div>
-						<div id="pantalla-reinicio">
-							<h1>GAME OVER</h1>
-							 <p>Puntaje: <span id="puntaje-final">0</span></p>
-							 <p>Mejor récord: <span id="mejor-record">0</span></p>
-							<p>Hacé clic para volver a jugar</p>
-						</div>
-					    <!-- Las 5 capas de Parallax (de atrás hacia adelante) -->
-                        <div class="capa capa-fondo"></div>
-                        <div class="capa capa-nubes"></div>
-                        <div class="capa capa-cerca"></div>
-                        <div class="capa capa-arbustos"></div>
-                        <div class="capa capa-piso"></div>
-
-                        <!-- Avatar y Entidades -->
-                        <div id="pato" class="volando"></div>
-                        <div id="troncos"></div>
-                        
-                        <div id="hud-superior">
-                            <div id="puntaje">
-                                Puntos: <span id="puntos">0</span>
+                    <div class="pantalla-carga" id="pantallaCargaJuego">
+                        <img src="img/runner/fondo.png" alt="Cargando Quack Runner">
+                
+                        <div class="loading">
+                            <div class="contenedor-carga">
+                                <span id="gamePorcentaje">0%</span>
+                
+                                <div class="barra">
+                                    <div class="game-progreso"></div>
+                                </div>
                             </div>
-                            <div id="vidas" class="vidas"></div>
                         </div>
-					</div>
+                    </div>
+                
+                    <div class="pantallaJuego" id="pantallaJuego">
+                        <div id="juego">
+                            <div id="pantalla-inicio">
+                                <h1>QUACK RUNNER</h1>
+                                <p>Hacé clic para empezar a jugar</p>
+                            </div>
+                            <div id="pantalla-reinicio">
+                                <h1>GAME OVER</h1>
+                                <p>Puntaje: <span id="puntaje-final">0</span></p>
+                                <p>Mejor récord: <span id="mejor-record">0</span></p>
+                                <p>Hacé clic para volver a jugar</p>
+                            </div>
+                            <!-- Las 5 capas de Parallax (de atrás hacia adelante) -->
+                            <div class="capa capa-fondo"></div>
+                            <div class="capa capa-nubes"></div>
+                            <div class="capa capa-cerca"></div>
+                            <div class="capa capa-arbustos"></div>
+                            <div class="capa capa-piso"></div>
+                
+                            <!-- Avatar y Entidades -->
+                            <div id="pato" class="volando"></div>
+                            <div id="troncos"></div>
+                
+                            <div id="hud-superior">
+                                <div id="puntaje">
+                                    Puntos: <span id="puntos">0</span>
+                                </div>
+                                <div id="vidas" class="vidas"></div>
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="barra-juego">
                     <div class="btn-izquierdos">
