@@ -34,7 +34,7 @@ class runnerModel {
 		this.items = [];
 		this.puntos = 0;
 		this.vidas = 5;
-        this.distanciaSpawnTronco = 50;
+        this.distanciaSpawnTronco = 0;
         this.distanciaSpawnItem = 400;
         this.tiempoTranscurrido = 0;
         this.puntajeFinal = 0;
@@ -92,41 +92,43 @@ class runnerModel {
             this.perderPartida();
         }
     }
+    
     aplicarEfectoItem(item) {
-        const cfg = CONFIG_ITEMS[item.tipo];
-        if (!cfg) return;
+        const datos = CONFIG_ITEMS[item.tipo];
+        if (!datos) return;
 
-        if (cfg.puntos > 0) {
-            this.puntos += cfg.puntos;
+        if (datos.puntos > 0) {
+            this.puntos += datos.puntos;
         } else if (item.tipo === 'mosca') {
             this.recibirDanio(false);
         }
     }
+    
     actualizar(dt) {
         if (this.entrada.impulso) {
             this.saltar();
             this.entrada.impulso = false;
         }
 
-        // MOVIMIENTO DE CAPAS Y PISO (PARALLAX) en menú, jugando y fin
+        // parallax
         for (const capa of this.capas) {
             capa.x = (capa.x - this.velocidad * capa.factor * dt) % ANCHO_TILE;
         }
 
         if (this.estado !== 'jugando') return;
 
-        // FÍSICAS DEL PATO
-        this.pato.velocidadY += GRAVEDAD * dt;
-        this.pato.y += this.pato.velocidadY * dt;
+        // fisica del pato
+        this.pato.velocidadY += GRAVEDAD * dt; //calcula cómo cambia la velocidad
+        this.pato.y += this.pato.velocidadY * dt; //mueve al pato según esa velocidad
 
-        // TIEMPOS
+        // descontar y actualizar tiempos
         if (this.pato.tiempoChoqueVisual > 0) this.pato.tiempoChoqueVisual -= dt;
         if (this.pato.tiempoInvulnerable > 0) this.pato.tiempoInvulnerable -= dt;
         this.tiempoTranscurrido += dt;
 
-        // MOVIMIENTO DE TRONCOS
+        // movimiento de troncos
         for (const t of this.troncos) {
-            t.x -= this.velocidad * dt;
+            t.x -= this.velocidad * dt; //mueve el tronco a la izq
             if (!t.puntosSumados && t.x + t.ancho < this.pato.x + 200) {
                 this.puntos += 10;
                 t.puntosSumados = true;
@@ -136,12 +138,12 @@ class runnerModel {
             this.troncos.shift();
         }
 
-        // ÍTEMS
+        // items
         const hitboxPato = this.obtenerHitboxPato();
         for (const item of this.items) {
             item.x -= this.velocidad * dt;
-            const cajaItem = { x: item.x, y: item.y, w: item.ancho, h: item.alto };
-            if (!item.tomado && this.choca(hitboxPato, cajaItem)) {
+            const hitBoxItem = { x: item.x, y: item.y, w: item.ancho, h: item.alto };
+            if (!item.tomado && this.choca(hitboxPato, hitBoxItem)) {
                 item.tomado = true;
                 this.aplicarEfectoItem(item);
                 if (this.estado === 'fin') return;
@@ -149,13 +151,13 @@ class runnerModel {
         }
         this.items = this.items.filter(item => !item.tomado && item.x > -100);
 
-        // SPAWNS
+        // aparicion de troncos
         this.distanciaSpawnTronco -= this.velocidad * dt;
         if (this.distanciaSpawnTronco <= 0) {
             this.crearTronco();
             this.distanciaSpawnTronco = Math.random() * 100 + 250;
         }
-
+        // aparicion de items
         this.distanciaSpawnItem -= this.velocidad * dt;
         if (this.distanciaSpawnItem <= 0) {
             this.crearItemAleatorio();
@@ -165,7 +167,7 @@ class runnerModel {
         this.verificarColisionesTroncos(hitboxPato);
         if (this.estado === 'fin') return;
 
-        // ROTACIÓN Y TECHO
+        // rotacion y techo
         if (this.pato.velocidadY < 0) {
             this.pato.rotacion = -25;
         } else {
@@ -177,7 +179,7 @@ class runnerModel {
             this.pato.velocidadY = 0;
         }
 
-        // COLISIÓN CON EL PISO
+        // choque con el piso
         const limitePisoVisual = this.pisoY - 40;
         const hitboxActual = this.obtenerHitboxPato();
         if (hitboxActual.y + hitboxActual.h >= limitePisoVisual) {
@@ -214,16 +216,16 @@ class runnerModel {
 
     crearItemAleatorio() {
 		const tipo = Math.random() < 0.8 ? 'moneda' : 'mosca';
-        const cfg = CONFIG_ITEMS[tipo];
+        const datos = CONFIG_ITEMS[tipo];
 
         const espaciosLibres = [];
         for (let i = 0; i < this.troncos.length - 1; i++) {
             const actual = this.troncos[i];
             const siguiente = this.troncos[i + 1];
-            const inicio = actual.x + actual.ancho + 10;
-            const espacio = (siguiente.x - 10) - inicio;
+            const inicio = actual.x + actual.ancho + 20;
+            const espacio = (siguiente.x - 20) - inicio;
 
-            if (inicio >= this.pato.x + this.pato.ancho && espacio >= cfg.ancho) {
+            if (inicio >= this.pato.x + this.pato.ancho && espacio >= datos.ancho) {
                 espaciosLibres.push({ inicio, espacio });
             }
         }
@@ -231,16 +233,16 @@ class runnerModel {
         if (espaciosLibres.length === 0) return;
 
         const elegido = espaciosLibres[Math.floor(Math.random() * espaciosLibres.length)];
-        const x = elegido.inicio + Math.random() * (elegido.espacio - cfg.ancho);
-        const rangoY = Math.max(1, this.pisoY - cfg.maxY - cfg.minY);
-        const y = Math.floor(Math.random() * rangoY) + cfg.minY;
+        const x = elegido.inicio + Math.random() * (elegido.espacio - datos.ancho);
+        const rangoY = Math.max(1, this.pisoY - datos.maxY - datos.minY);
+        const y = Math.floor(Math.random() * rangoY) + datos.minY;
 
         this.items.push({
             tipo,
             x,
             y,
-            ancho: cfg.ancho,
-            alto: cfg.alto,
+            ancho: datos.ancho,
+            alto: datos.alto,
             tomado: false
         });
 	}
@@ -261,6 +263,9 @@ class runnerModel {
     }
 
     choca(a, b) {
-        return (a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
+        return (a.x < b.x + b.w && 
+        		a.x + a.w > b.x && 
+        		a.y < b.y + b.h && 
+        		a.y + a.h > b.y);
     }
 }

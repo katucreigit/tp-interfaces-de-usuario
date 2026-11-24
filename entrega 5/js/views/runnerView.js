@@ -17,6 +17,7 @@ class runnerView {
 
         this.inicializarVidas();
     }
+    
 	inicializarVidas(totalVidas = 5) {
 		    if (!this.contenedorVidas) return;
 		    this.contenedorVidas.innerHTML = '';
@@ -30,6 +31,7 @@ class runnerView {
 		        this.corazones.push(corazon);
 		    }
     }
+    
     render(modelo, record) {
         this.actualizarFondoYPato(modelo);
         this.actualizarPantallas(modelo, record);
