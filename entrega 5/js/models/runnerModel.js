@@ -249,19 +249,20 @@ class runnerModel {
 	}
     
     verificarColisionesTroncos(hitboxPato = this.obtenerHitboxPato()) {
-        for (const t of this.troncos) {
-            if (t.colisionado) continue;
-
+    for (const t of this.troncos) {
+        if (!t.colisionado) {
             const cajaSup = { x: t.x, y: t.superior.y, w: t.ancho, h: t.superior.alto };
             const cajaInf = { x: t.x, y: t.inferior.y, w: t.ancho, h: t.inferior.alto };
 
             if (this.choca(hitboxPato, cajaSup) || this.choca(hitboxPato, cajaInf)) {
                 t.colisionado = true;
                 this.recibirDanio(false);
+
                 if (this.estado === 'fin') return;
             }
         }
     }
+}
 
     choca(a, b) {
         return (a.x < b.x + b.w && 
