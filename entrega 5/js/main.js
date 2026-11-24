@@ -25,17 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const controlador = new runnerController(modelo, vista);
 
         Promise.all([
+	    	cargarImagen("img/runner/fondo.png"),
+			cargarImagen("img/runner/nubes.png"),
+			cargarImagen("img/runner/piso.png"),
+			cargarImagen("img/runner/cerca.png"),
+			cargarImagen("img/runner/arbustos.png"),
             cargarImagen("img/runner/pato-volando.png"),
             cargarImagen("img/runner/pato-impulso.png"),
             cargarImagen("img/runner/pato-choque.png"),
             cargarImagen("img/runner/coin-sprite.png"),
-            cargarImagen("img/runner/mosca-sprite.png")
-            cargarImagen("img/runner/tronco.png"),
-            cargarImagen("img/runner/arbustos.png"),
-            cargarImagen("img/runner/cerca.png"),
-            cargarImagen("img/runner/piso.png"),
-            cargarImagen("img/runner/nubes.png"),
-            cargarImagen("img/runner/fondo.png")
+            cargarImagen("img/runner/mosca-sprite.png"),
+            cargarImagen("img/runner/tronco.png")
         ]).then(() => {
             controlador.iniciar();
         }).catch(error => {
