@@ -1,3 +1,4 @@
+
 name: Deploy GitHub Pages
 
 on:
@@ -11,12 +12,8 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Descargar repositorio
@@ -43,44 +40,31 @@ jobs:
           cp -r "entrega 2/img" _site/2/
 
           # ENTREGA 3
-          if [ ! -d "entrega 3" ]; then
-            echo "ERROR: No existe entrega 3"
-            exit 1
-          fi
-
           cp -r "entrega 3/." _site/3/
 
           # ENTREGA 4
-          if [ ! -d "entrega 4" ]; then
-            echo "ERROR: No existe entrega 4"
-            exit 1
-          fi
-
           cp -r "entrega 4/." _site/4/
 
           # ENTREGA 5
-          if [ ! -d "entrega 5" ]; then
-            echo "ERROR: No existe entrega 5"
-            exit 1
-          fi
-
           cp -r "entrega 5/." _site/5/
 
-          # Verificar archivos publicados
-          echo "Archivos de la entrega 3:"
-          find _site/3 -type f
-
-          echo "Archivos de la entrega 4:"
-          find _site/4 -type f
-
-          echo "Archivos de la entrega 5:"
-          find _site/5 -type f
+          # Verificar archivos
+          find _site -type f
 
       - name: Subir archivos
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
