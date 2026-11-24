@@ -23,9 +23,9 @@ class runnerController {
             }
         });
 
-        const juegoEl = document.getElementById('juego');
-        if (juegoEl) {
-            juegoEl.addEventListener('mousedown', () => this.registrarImpulso());
+        const juego = document.getElementById('juego');
+        if (juego) {
+            juego.addEventListener('mousedown', () => this.registrarImpulso());
         }
     }
 

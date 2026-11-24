@@ -129,7 +129,7 @@ class runnerModel {
         // movimiento de troncos
         for (const t of this.troncos) {
             t.x -= this.velocidad * dt; //mueve el tronco a la izq
-            if (!t.puntosSumados && t.x + t.ancho < this.pato.x + 200) {
+            if (!t.puntosSumados && this.pato.x > t.x + t.ancho - 50) {
                 this.puntos += 10;
                 t.puntosSumados = true;
             }
@@ -196,6 +196,7 @@ class runnerModel {
         const progreso = Math.min(1, this.tiempoTranscurrido / tiempoMaxDificultad);
 
         const hueco = huecoInicial - (huecoInicial - huecoMinimo) * progreso;
+        
         const alturaMinima = 40;
         const alturaMaxima = this.pisoY - hueco - 60;
         
