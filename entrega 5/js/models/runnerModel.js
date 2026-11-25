@@ -234,8 +234,8 @@ class runnerModel {
 
         const elegido = espaciosLibres[Math.floor(Math.random() * espaciosLibres.length)];
         const x = elegido.inicio + Math.random() * (elegido.espacio - datos.ancho);
-        const rangoY = Math.max(1, this.pisoY - datos.maxY - datos.minY);
-        const y = Math.floor(Math.random() * rangoY) + datos.minY;
+        const rangoY = datos.maxY - datos.minY;
+		const y = Math.floor(Math.random() * (rangoY + 1)) + datos.minY;
 
         this.items.push({
             tipo,
