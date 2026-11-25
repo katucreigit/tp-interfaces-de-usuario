@@ -11,7 +11,7 @@ class runnerModel {
         this.ancho = ancho;
         this.alto = alto;
         this.velocidad = 140;
-        this.pisoY = this.alto - 15; 
+        this.pisoY = this.alto - 55; 
         
         this.capas = [
             { x: 0, factor: 0.1 }, // Fondo
@@ -180,10 +180,9 @@ class runnerModel {
         }
 
         // choque con el piso
-        const limitePisoVisual = this.pisoY - 40;
         const hitboxActual = this.obtenerHitboxPato();
-        if (hitboxActual.y + hitboxActual.h >= limitePisoVisual) {
-            this.pato.y = limitePisoVisual - 175;
+        if (hitboxActual.y + hitboxActual.h >= this.pisoY) {
+            this.pato.y = this.pisoY - 175;
             this.recibirDanio(true);
         }
     }
